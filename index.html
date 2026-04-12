@@ -1,74 +1,140 @@
-<h1>🔧 현장 견적 (사장용)</h1>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>바른 수유 인테리어</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-<div class="box">
-  <label>평수</label>
-  <input type="number" id="size" placeholder="예: 24">
-</div>
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: #f3f3f3;
+      color: #111;
+    }
 
-<div class="box">
-  <label>벽지 종류</label>
-  <select id="wallpaper">
-    <option value="8000">합지</option>
-    <option value="12000">실크</option>
-  </select>
-</div>
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px;
+    }
 
-<div class="box">
-  <label>철거</label>
-  <select id="remove">
-    <option value="0">없음</option>
-    <option value="50000">있음 (5만원)</option>
-  </select>
+    .top {
+      background: #000;
+      color: #fff;
+      padding: 24px 20px;
+      border-radius: 18px;
+      margin-bottom: 16px;
+    }
 
-  <label>퍼티</label>
-  <select id="putty">
-    <option value="0">없음</option>
-    <option value="70000">있음 (7만원)</option>
-  </select>
+    .top h1 {
+      margin: 0 0 10px 0;
+      font-size: 28px;
+      line-height: 1.2;
+    }
 
-  <label>곰팡이</label>
-  <select id="mold">
-    <option value="0">없음</option>
-    <option value="80000">있음 (8만원)</option>
-  </select>
-</div>
+    .top p {
+      margin: 0;
+      font-size: 16px;
+      opacity: 0.95;
+    }
 
-<div class="box">
-  <h3>추가 인테리어</h3>
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
 
-  <label><input type="checkbox" value="1500000" class="extra"> 싱크대 교체 (+150만)</label><br>
-  <label><input type="checkbox" value="3000000" class="extra"> 샷시 교체 (+300만)</label><br>
-  <label><input type="checkbox" value="2000000" class="extra"> 욕실 리모델링 (+200만)</label><br>
-  <label><input type="checkbox" value="500000" class="extra"> 몰딩 교체 (+50만)</label><br>
-  <label><input type="checkbox" value="300000" class="extra"> 필름 시공 (+30만)</label>
-</div>
+    .tab-btn {
+      border: none;
+      border-radius: 14px;
+      padding: 16px 12px;
+      font-size: 18px;
+      font-weight: 700;
+      cursor: pointer;
+    }
 
-<button onclick="calc()">견적 계산</button>
+    .tab-btn.active {
+      background: #000;
+      color: #fff;
+    }
 
-<div class="result" id="result">0원</div>
+    .tab-btn.inactive {
+      background: #dddddd;
+      color: #111;
+    }
 
-<script>
-function calc() {
-  let size = Number(document.getElementById("size").value);
-  let wallpaper = Number(document.getElementById("wallpaper").value);
-  let remove = Number(document.getElementById("remove").value);
-  let putty = Number(document.getElementById("putty").value);
-  let mold = Number(document.getElementById("mold").value);
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 16px;
+    }
 
-  // 도배 비용 (평수 × 3 = 대략 벽면)
-  let area = size * 3;
-  let cost = area * wallpaper;
+    .section-title {
+      margin: 0 0 8px 0;
+      font-size: 18px;
+      font-weight: 800;
+    }
 
-  let extra = remove + putty + mold;
+    .section-desc {
+      margin: 0 0 18px 0;
+      color: #666;
+      font-size: 14px;
+      line-height: 1.5;
+    }
 
-  // 추가 인테리어 합산
-  let extras = document.querySelectorAll(".extra:checked");
-  let extraCost = 0;
-  extras.forEach(e => extraCost += Number(e.value));
+    label {
+      display: block;
+      font-size: 16px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      margin-top: 14px;
+    }
 
-  let total = cost + extra + extraCost + 200000; // 기본 인건비
+    input,
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      font-size: 17px;
+      border: 1px solid #ddd;
+      border-radius: 12px;
+      background: #f8f8f8;
+      outline: none;
+    }
 
-  document.getElementById("result").innerText =
-    total.toLocaleString() + "원";
-}
-</script>
+    input:focus,
+    select:focus {
+      border-color: #999;
+      background: #fff;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 8px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 17px;
+    }
+
+    .check-item input[type="checkbox"] {
+      width: 20px;
+      height: 20px;
+      margin: 0;
+    }
+
+    .main-btn {
+      width: 100%;
+      border: none;
+      border-radius: 14px;
+      background: #000;
+      color: #fff
