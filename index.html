@@ -3,21 +3,73 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>사장용 견적</title>
+<title>바른 수유 인테리어</title>
 
 <style>
-body { font-family: sans-serif; padding:20px; background:#f5f5f5; }
-h1 { font-size:22px; }
-.box { background:#fff; padding:15px; margin-bottom:15px; border-radius:10px; }
+body { font-family:sans-serif; margin:0; background:#f5f5f5; }
+.wrap { padding:20px; }
+
+.top { background:#000; color:#fff; padding:20px; border-radius:15px; }
+.tabs { display:flex; margin-top:15px; }
+.tab { flex:1; padding:15px; text-align:center; border-radius:10px; }
+.active { background:#000; color:#fff; }
+.inactive { background:#ddd; }
+
+.box { background:#fff; padding:15px; margin-top:15px; border-radius:10px; }
 input, select { width:100%; padding:10px; margin-top:5px; margin-bottom:10px; }
-button { width:100%; padding:15px; font-size:16px; background:#000; color:#fff; border:none; border-radius:10px; }
+button { width:100%; padding:15px; background:#000; color:#fff; border:none; border-radius:10px; }
 .result { font-size:24px; font-weight:bold; margin-top:10px; }
 </style>
 
 </head>
 <body>
 
-<h1>🔧 현장 견적 (사장용)</h1>
+<div class="wrap">
+
+<div class="top">
+<h2>바른 수유 인테리어</h2>
+<div>고객용 간편 견적 + 사장용 현장 견적</div>
+</div>
+
+<div class="tabs">
+<div class="tab active" onclick="showTab('customer')" id="tab1">고객용</div>
+<div class="tab inactive" onclick="showTab('boss')" id="tab2">사장용</div>
+</div>
+
+<!-- 고객용 -->
+<div id="customer">
+
+<div class="box">
+<label>공간</label>
+<select id="space">
+<option value="450000">원룸</option>
+<option value="950000">24평</option>
+<option value="1350000">32평</option>
+<option value="1650000">37평</option>
+</select>
+
+<label>벽지</label>
+<select id="wall">
+<option value="0">합지</option>
+<option value="150000">실크</option>
+</select>
+
+<label>추가</label>
+<select id="extra">
+<option value="0">없음</option>
+<option value="100000">짐 있음</option>
+<option value="180000">밑작업 필요</option>
+</select>
+
+<button onclick="calcCustomer()">견적 보기</button>
+
+<div class="result" id="result1">0원</div>
+
+</div>
+</div>
+
+<!-- 사장용 -->
+<div id="boss" style="display:none;">
 
 <div class="box">
 <label>벽 길이 (m)</label>
@@ -29,10 +81,10 @@ button { width:100%; padding:15px; font-size:16px; background:#000; color:#fff; 
 <label>방 개수</label>
 <input type="number" id="room">
 
-<label>벽지 종류</label>
+<label>벽지</label>
 <select id="wallpaper">
-<option value="8000">합지 (8,000원/㎡)</option>
-<option value="12000">실크 (12,000원/㎡)</option>
+<option value="8000">합지</option>
+<option value="12000">실크</option>
 </select>
 </div>
 
@@ -40,31 +92,53 @@ button { width:100%; padding:15px; font-size:16px; background:#000; color:#fff; 
 <label>철거</label>
 <select id="remove">
 <option value="0">없음</option>
-<option value="50000">있음 (5만원)</option>
+<option value="50000">있음</option>
 </select>
 
 <label>퍼티</label>
 <select id="putty">
 <option value="0">없음</option>
-<option value="70000">있음 (7만원)</option>
+<option value="70000">있음</option>
 </select>
 
 <label>곰팡이</label>
 <select id="mold">
 <option value="0">없음</option>
-<option value="80000">있음 (8만원)</option>
+<option value="80000">있음</option>
 </select>
 </div>
 
-<button onclick="calc()">견적 계산</button>
+<button onclick="calcBoss()">견적 계산</button>
 
-<div class="box">
-<div>총 견적</div>
-<div class="result" id="result">0원</div>
+<div class="result" id="result2">0원</div>
+
+</div>
+
 </div>
 
 <script>
-function calc() {
+
+function showTab(type){
+document.getElementById("customer").style.display = type==="customer"?"block":"none";
+document.getElementById("boss").style.display = type==="boss"?"block":"none";
+
+document.getElementById("tab1").className = type==="customer"?"tab active":"tab inactive";
+document.getElementById("tab2").className = type==="boss"?"tab active":"tab inactive";
+}
+
+// 고객용
+function calcCustomer(){
+let space = Number(document.getElementById("space").value);
+let wall = Number(document.getElementById("wall").value);
+let extra = Number(document.getElementById("extra").value);
+
+let total = space + wall + extra;
+
+document.getElementById("result1").innerText = total.toLocaleString()+"원";
+}
+
+// 사장용
+function calcBoss(){
 let w = document.getElementById("width").value;
 let h = document.getElementById("height").value;
 let r = document.getElementById("room").value;
@@ -77,13 +151,13 @@ let mold = document.getElementById("mold").value;
 let area = w * h * r;
 let cost = area * wallpaper;
 
-let extra = Number(remove) + Number(putty) + Number(mold);
+let extra = Number(remove)+Number(putty)+Number(mold);
 
-let total = cost + extra + 200000; // 기본 인건비
+let total = cost + extra + 200000;
 
-document.getElementById("result").innerText =
-total.toLocaleString() + "원";
+document.getElementById("result2").innerText = total.toLocaleString()+"원";
 }
+
 </script>
 
 </body>
