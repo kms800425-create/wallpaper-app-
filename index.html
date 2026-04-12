@@ -1,164 +1,74 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>바른 수유 인테리어</title>
-
-<style>
-body { font-family:sans-serif; margin:0; background:#f5f5f5; }
-.wrap { padding:20px; }
-
-.top { background:#000; color:#fff; padding:20px; border-radius:15px; }
-.tabs { display:flex; margin-top:15px; }
-.tab { flex:1; padding:15px; text-align:center; border-radius:10px; }
-.active { background:#000; color:#fff; }
-.inactive { background:#ddd; }
-
-.box { background:#fff; padding:15px; margin-top:15px; border-radius:10px; }
-input, select { width:100%; padding:10px; margin-top:5px; margin-bottom:10px; }
-button { width:100%; padding:15px; background:#000; color:#fff; border:none; border-radius:10px; }
-.result { font-size:24px; font-weight:bold; margin-top:10px; }
-</style>
-
-</head>
-<body>
-
-<div class="wrap">
-
-<div class="top">
-<h2>바른 수유 인테리어</h2>
-<div>고객용 간편 견적 + 사장용 현장 견적</div>
-</div>
-
-<div class="tabs">
-<div class="tab active" onclick="showTab('customer')" id="tab1">고객용</div>
-<div class="tab inactive" onclick="showTab('boss')" id="tab2">사장용</div>
-</div>
-
-<!-- 고객용 -->
-<div id="customer">
+<h1>🔧 현장 견적 (사장용)</h1>
 
 <div class="box">
-<label>공간</label>
-<select id="space">
-<option value="450000">원룸</option>
-<option value="950000">24평</option>
-<option value="1350000">32평</option>
-<option value="1650000">37평</option>
-</select>
-
-<label>벽지</label>
-<select id="wall">
-<option value="0">합지</option>
-<option value="150000">실크</option>
-</select>
-
-<label>추가</label>
-<select id="extra">
-<option value="0">없음</option>
-<option value="100000">짐 있음</option>
-<option value="180000">밑작업 필요</option>
-</select>
-
-<button onclick="calcCustomer()">견적 보기</button>
-
-<div class="result" id="result1">0원</div>
-
-</div>
-</div>
-
-<!-- 사장용 -->
-<div id="boss" style="display:none;">
-
-<div class="box">
-<label>벽 길이 (m)</label>
-<input type="number" id="width">
-
-<label>천장 높이 (m)</label>
-<input type="number" id="height">
-
-<label>방 개수</label>
-<input type="number" id="room">
-
-<label>벽지</label>
-<select id="wallpaper">
-<option value="8000">합지</option>
-<option value="12000">실크</option>
-</select>
+  <label>평수</label>
+  <input type="number" id="size" placeholder="예: 24">
 </div>
 
 <div class="box">
-<label>철거</label>
-<select id="remove">
-<option value="0">없음</option>
-<option value="50000">있음</option>
-</select>
-
-<label>퍼티</label>
-<select id="putty">
-<option value="0">없음</option>
-<option value="70000">있음</option>
-</select>
-
-<label>곰팡이</label>
-<select id="mold">
-<option value="0">없음</option>
-<option value="80000">있음</option>
-</select>
+  <label>벽지 종류</label>
+  <select id="wallpaper">
+    <option value="8000">합지</option>
+    <option value="12000">실크</option>
+  </select>
 </div>
 
-<button onclick="calcBoss()">견적 계산</button>
+<div class="box">
+  <label>철거</label>
+  <select id="remove">
+    <option value="0">없음</option>
+    <option value="50000">있음 (5만원)</option>
+  </select>
 
-<div class="result" id="result2">0원</div>
+  <label>퍼티</label>
+  <select id="putty">
+    <option value="0">없음</option>
+    <option value="70000">있음 (7만원)</option>
+  </select>
 
+  <label>곰팡이</label>
+  <select id="mold">
+    <option value="0">없음</option>
+    <option value="80000">있음 (8만원)</option>
+  </select>
 </div>
 
+<div class="box">
+  <h3>추가 인테리어</h3>
+
+  <label><input type="checkbox" value="1500000" class="extra"> 싱크대 교체 (+150만)</label><br>
+  <label><input type="checkbox" value="3000000" class="extra"> 샷시 교체 (+300만)</label><br>
+  <label><input type="checkbox" value="2000000" class="extra"> 욕실 리모델링 (+200만)</label><br>
+  <label><input type="checkbox" value="500000" class="extra"> 몰딩 교체 (+50만)</label><br>
+  <label><input type="checkbox" value="300000" class="extra"> 필름 시공 (+30만)</label>
 </div>
+
+<button onclick="calc()">견적 계산</button>
+
+<div class="result" id="result">0원</div>
 
 <script>
+function calc() {
+  let size = Number(document.getElementById("size").value);
+  let wallpaper = Number(document.getElementById("wallpaper").value);
+  let remove = Number(document.getElementById("remove").value);
+  let putty = Number(document.getElementById("putty").value);
+  let mold = Number(document.getElementById("mold").value);
 
-function showTab(type){
-document.getElementById("customer").style.display = type==="customer"?"block":"none";
-document.getElementById("boss").style.display = type==="boss"?"block":"none";
+  // 도배 비용 (평수 × 3 = 대략 벽면)
+  let area = size * 3;
+  let cost = area * wallpaper;
 
-document.getElementById("tab1").className = type==="customer"?"tab active":"tab inactive";
-document.getElementById("tab2").className = type==="boss"?"tab active":"tab inactive";
+  let extra = remove + putty + mold;
+
+  // 추가 인테리어 합산
+  let extras = document.querySelectorAll(".extra:checked");
+  let extraCost = 0;
+  extras.forEach(e => extraCost += Number(e.value));
+
+  let total = cost + extra + extraCost + 200000; // 기본 인건비
+
+  document.getElementById("result").innerText =
+    total.toLocaleString() + "원";
 }
-
-// 고객용
-function calcCustomer(){
-let space = Number(document.getElementById("space").value);
-let wall = Number(document.getElementById("wall").value);
-let extra = Number(document.getElementById("extra").value);
-
-let total = space + wall + extra;
-
-document.getElementById("result1").innerText = total.toLocaleString()+"원";
-}
-
-// 사장용
-function calcBoss(){
-let w = document.getElementById("width").value;
-let h = document.getElementById("height").value;
-let r = document.getElementById("room").value;
-
-let wallpaper = document.getElementById("wallpaper").value;
-let remove = document.getElementById("remove").value;
-let putty = document.getElementById("putty").value;
-let mold = document.getElementById("mold").value;
-
-let area = w * h * r;
-let cost = area * wallpaper;
-
-let extra = Number(remove)+Number(putty)+Number(mold);
-
-let total = cost + extra + 200000;
-
-document.getElementById("result2").innerText = total.toLocaleString()+"원";
-}
-
 </script>
-
-</body>
-</html>
