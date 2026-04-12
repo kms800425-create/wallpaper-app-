@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>바른 수유 인테리어 - 견적 앱</title>
+  <meta name="theme-color" content="#111111" />
+  <link rel="manifest" href="manifest.json" />
+  <style>
+    :root {
+      --bg: #f5f5f5;
+      --card: #ffffff;
+      --text: #111111;
+      --muted: #666666;
+      --line: #dddddd;
+      --accent: #111111;
+      --accent-2: #c62828;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+    }
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 16px;
+    }
+    .hero {
+      background: #111;
+      color: white;
+      padding: 18px;
+      border-radius: 16px;
+      margin-bottom: 16px;
+    }
+    .hero h1 { margin: 0 0 8px; font-size: 24px; }
+    .hero p { margin: 0; color: #ddd; }
+    .tabs {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .tab-btn, .btn {
+      border: none;
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    .tab-btn { background: #e8e8e8; color: #111; font-weight: 700; }
+    .tab-btn.active { background: #111; color: white; }
+    .card {
+      background: var(--card);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 14px;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    }
+    .title { font-size: 18px; font-weight: 800; margin: 0 0 12px; }
+    .sub { color: var(--muted); font-size: 14px; margin-top: -4px; margin-bottom: 12px; }
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    label {
+      display: block;
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+    input, select, textarea {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      font-size: 15px;
+      background: white;
+    }
+    textarea { min-height: 84px; resize: vertical; }
+    .btn {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      font-weight: 800;
+    }
+    .btn.secondary {
+      background: #efefef;
+      color: #111;
+    }
+    .result {
+      font-size: 28px;
+      font-weight: 900;
+      margin: 10px 0 6px;
+    }
+    .note {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .hidden { display: none; }
+    .quote-item {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px;
+      margin-bottom: 10px;
+      background: #fafafa;
+    }
+    .quote-item strong { display: block; margin-bottom: 4px; }
+    .row-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 12px;
+      padding: 5px 8px;
+      border-radius: 999px;
+      background: #eee;
+      margin-right: 6px;
+    }
+    .accent { color: var(--accent-2); font-weight: 800; }
+    @media (max-width: 640px) {
+      .grid-2 { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="hero">
+      <h1>바른 수유 인테리어</h1>
+      <p>고객용 간편 견적 + 사장용 단가관리 / 저장기능</p>
+    </div>
+
+    <div class="tabs">
+      <button class="tab-btn active" id="customerTab">고객용</button>
+      <button class="tab-btn" id="ownerTab">사장용</button>
+    </div>
+
+    <section id="customerView">
+      <div class="card">
+        <div class="title">간편 견적</div>
+        <div class="sub">대략 금액을 바로 확인할 수 있어요.</div>
+        <div class="grid-2">
+          <div>
+            <label for="serviceType">시공 종류</label>
+            <select id="serviceType">
+              <option value="wallpaper">도배</option>
+              <option value="film">필름</option>
+              <option value="combined">도배 + 필름</option>
+            </select>
+          </div>
+          <div>
+            <label for="spaceType">공간 유형</label>
+            <select id="spaceType">
+              <option value="one_room">원룸</option>
+              <option value="apt24">24평</option>
+              <option value="apt32">32평</option>
+              <option value="apt37">37평</option>
+            </select>
+          </div>
+          <div>
+            <label for="wallpaperGrade">벽지 종류</label>
+            <select id="wallpaperGrade">
+              <option value="hapji">합지</option>
+              <option value="silk">실크</option>
+            </select>
+          </div>
+          <div>
+            <label for="extraWork">추가 작업</label>
+            <select id="extraWork">
+              <option value="none">없음</option>
+              <option value="move">짐 이동 있음</option>
+              <option value="base">밑작업 많음</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn" id="calcBtn" style="margin-top:14px;">견적 계산하기</button>
+
+        <div class="result" id="estimateResult">-</div>
+        <div class="note" id="estimateNote">옵션을 선택하고 견적 계산하기를 눌러주세요.</div>
+      </div>
+
+      <div class="card">
+        <div class="title">상담 요청</div>
+        <div class="grid-2">
+          <div>
+            <label for="customerName">이름</label>
+            <input id="customerName" placeholder="예: 홍길동" />
+          </div>
+          <div>
+            <label for="customerPhone">연락처</label>
+            <input id="customerPhone" placeholder="예: 010-1234-5678" />
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <label for="customerMemo">메모</label>
+          <textarea id="customerMemo" placeholder="예: 수유동 24평, 주말 시공 희망"></textarea>
+        </div>
+        <div class="row-actions">
+          <button class="btn" id="saveQuoteBtn">상담 저장</button>
+          <button class="btn secondary" id="copyTextBtn">내용 복사</button>
+        </div>
+        <div class="note" style="margin-top:10px;">
+          저장된 상담은 이 기기 안에만 보관됩니다. 나중에 서버 붙이면 실시간 관리도 가능해요.
+        </div>
+      </div>
+    </section>
+
+    <section id="ownerView" class="hidden">
+      <div class="card">
+        <div class="title">사장용 단가 설정</div>
+        <div class="sub">여기서 바꾸면 고객 견적 계산에 바로 반영돼요.</div>
+        <div class="grid-2">
+          <div><label>원룸 도배 기본가</label><input id="price_one_room" type="number" /></div>
+          <div><label>24평 도배 기본가</label><input id="price_apt24" type="number" /></div>
+          <div><label>32평 도배 기본가</label><input id="price_apt32" type="number" /></div>
+          <div><label>37평 도배 기본가</label><input id="price_apt37" type="number" /></div>
+          <div><label>필름 추가금</label><input id="addon_film" type="number" /></div>
+          <div><label>실크 추가금</label><input id="addon_silk" type="number" /></div>
+          <div><label>짐 이동 추가금</label><input id="addon_move" type="number" /></div>
+          <div><label>밑작업 추가금</label><input id="addon_base" type="number" /></div>
+        </div>
+        <div class="row-actions">
+          <button class="btn" id="saveSettingsBtn">단가 저장</button>
+          <button class="btn secondary" id="resetSettingsBtn">초기값 복원</button>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="title">저장된 상담 내역</div>
+        <div class="sub">현장 상담 메모처럼 간단히 모아보는 용도예요.</div>
+        <div class="row-actions" style="margin-top:0; margin-bottom:12px;">
+          <button class="btn" id="exportCsvBtn">CSV 내보내기</button>
+          <button class="btn secondary" id="clearQuotesBtn">상담 전체 삭제</button>
+        </div>
+        <div id="quoteList"></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const defaultSettings = {
+      price_one_room: 450000,
+      price_apt24: 950000,
+      price_apt32: 1350000,
+      price_apt37: 1650000,
+      addon_film: 250000,
+      addon_silk: 150000,
+      addon_move: 100000,
+      addon_base: 180000,
+    };
+
+    function getSettings() {
+      const saved = JSON.parse(localStorage.getItem('app_settings') || 'null');
+      return saved ? { ...defaultSettings, ...saved } : defaultSettings;
+    }
+
+    function setSettings(settings) {
+      localStorage.setItem('app_settings', JSON.stringify(settings));
+    }
+
+    function getQuotes() {
+      return JSON.parse(localStorage.getItem('saved_quotes') || '[]');
+    }
+
+    function setQuotes(quotes) {
+      localStorage.setItem('saved_quotes', JSON.stringify(quotes));
+    }
+
+    function formatWon(value) {
+      return Number(value).toLocaleString('ko-KR') + '원';
+    }
+
+    function calcEstimate() {
+      const s = getSettings();
+      const serviceType = document.getElementById('serviceType').value;
+      const spaceType = document.getElementById('spaceType').value;
+      const wallpaperGrade = document.getElementById('wallpaperGrade').value;
+      const extraWork = document.getElementById('extraWork').value;
+
+      let price = 0;
+      if (spaceType === 'one_room') price += Number(s.price_one_room);
+      if (spaceType === 'apt24') price += Number(s.price_apt24);
+      if (spaceType === 'apt32') price += Number(s.price_apt32);
+      if (spaceType === 'apt37') price += Number(s.price_apt37);
+
+      if (serviceType === 'film' || serviceType === 'combined') price += Number(s.addon_film);
+      if (wallpaperGrade === 'silk') price += Number(s.addon_silk);
+      if (extraWork === 'move') price += Number(s.addon_move);
+      if (extraWork === 'base') price += Number(s.addon_base);
+
+      const low = Math.round(price * 0.95 / 10000) * 10000;
+      const high = Math.round(price * 1.05 / 10000) * 10000;
+
+      document.getElementById('estimateResult').textContent = `${formatWon(low)} ~ ${formatWon(high)}`;
+      document.getElementById('estimateNote').innerHTML = `예상 기준가 <span class="accent">${formatWon(price)}</span> 기준입니다. 실제 현장 상태, 짐 유무, 밑작업 범위에 따라 달라질 수 있어요.`;
+      return { price, low, high, serviceType, spaceType, wallpaperGrade, extraWork };
+    }
+
+    function loadSettingsToInputs() {
+      const s = getSettings();
+      Object.keys(defaultSettings).forEach(key => {
+        const el = document.getElementById(key);
+        if (el) el.value = s[key];
+      });
+    }
+
+    function saveSettingsFromInputs() {
+      const settings = {};
+      Object.keys(defaultSettings).forEach(key => {
+        const el = document.getElementById(key);
+        settings[key] = Number(el.value || 0);
+      });
+      setSettings(settings);
+      alert('단가가 저장됐어요.');
+    }
+
+    function resetSettings() {
+      setSettings(defaultSettings);
+      loadSettingsToInputs();
+      alert('초기값으로 복원했어요.');
+    }
+
+    function serviceLabel(v) {
+      return ({ wallpaper: '도배', film: '필름', combined: '도배+필름' })[v] || v;
+    }
+    function spaceLabel(v) {
+      return ({ one_room: '원룸', apt24: '24평', apt32: '32평', apt37: '37평' })[v] || v;
+    }
+    function gradeLabel(v) {
+      return ({ hapji: '합지', silk: '실크' })[v] || v;
+    }
+    function extraLabel(v) {
+      return ({ none: '없음', move: '짐 이동 있음', base: '밑작업 많음' })[v] || v;
+    }
+
+    function buildConsultText(result) {
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      const memo = document.getElementById('customerMemo').value.trim();
+      return [
+        `[상담요청]`,
+        `이름: ${name || '-'}`,
+        `연락처: ${phone || '-'}`,
+        `시공: ${serviceLabel(result.serviceType)}`,
+        `공간: ${spaceLabel(result.spaceType)}`,
+        `벽지: ${gradeLabel(result.wallpaperGrade)}`,
+        `추가작업: ${extraLabel(result.extraWork)}`,
+        `예상견적: ${formatWon(result.low)} ~ ${formatWon(result.high)}`,
+        `메모: ${memo || '-'}`,
+      ].join('\n');
+    }
+
+    function saveQuote() {
+      const result = calcEstimate();
+      const name = document.getElementById('customerName').value.trim();
+      const phone = document.getElementById('customerPhone').value.trim();
+      const memo = document.getElementById('customerMemo').value.trim();
+
+      const quotes = getQuotes();
+      quotes.unshift({
+        id: Date.now(),
+        createdAt: new Date().toLocaleString('ko-KR'),
+        name,
+        phone,
+        memo,
+        serviceType: result.serviceType,
+        spaceType: result.spaceType,
+        wallpaperGrade: result.wallpaperGrade,
+        extraWork: result.extraWork,
+        low: result.low,
+        high: result.high,
+      });
+      setQuotes(quotes);
+      renderQuotes();
+      alert('상담이 저장됐어요.');
+    }
+
+    function renderQuotes() {
+      const quoteList = document.getElementById('quoteList');
+      const quotes = getQuotes();
+      if (!quotes.length) {
+        quoteList.innerHTML = '<div class="note">저장된 상담이 아직 없어요.</div>';
+        return;
+      }
+      quoteList.innerHTML = quotes.map(q => `
+        <div class="quote-item">
+          <strong>${q.name || '이름 미입력'} / ${q.phone || '연락처 미입력'}</strong>
+          <div><span class="badge">${serviceLabel(q.serviceType)}</span><span class="badge">${spaceLabel(q.spaceType)}</span><span class="badge">${gradeLabel(q.wallpaperGrade)}</span></div>
+          <div style="margin-top:8px;">예상견적: <span class="accent">${formatWon(q.low)} ~ ${formatWon(q.high)}</span></div>
+          <div class="note" style="margin-top:6px;">추가작업: ${extraLabel(q.extraWork)}<br>메모: ${q.memo || '-'}<br>저장일시: ${q.createdAt}</div>
+        </div>
+      `).join('');
+    }
+
+    function exportCsv() {
+      const quotes = getQuotes();
+      if (!quotes.length) {
+        alert('내보낼 상담이 없어요.');
+        return;
+      }
+      const rows = [
+        ['저장일시','이름','연락처','시공','공간','벽지','추가작업','예상최저','예상최고','메모'],
+        ...quotes.map(q => [
+          q.createdAt,
+          q.name,
+          q.phone,
+          serviceLabel(q.serviceType),
+          spaceLabel(q.spaceType),
+          gradeLabel(q.wallpaperGrade),
+          extraLabel(q.extraWork),
+          q.low,
+          q.high,
+          (q.memo || '').replace(/\n/g, ' ')
+        ])
+      ];
+      const csv = rows.map(r => r.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(',')).join('\n');
+      const blob = new Blob(['\ufeff' + csv], { type: 'text/csv;charset=utf-8;' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'saved_quotes.csv';
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function clearQuotes() {
+      if (!confirm('저장된 상담을 전부 삭제할까요?')) return;
+      setQuotes([]);
+      renderQuotes();
+    }
+
+    function copyConsultText() {
+      const result = calcEstimate();
+      const text = buildConsultText(result);
+      navigator.clipboard.writeText(text)
+        .then(() => alert('상담 내용이 복사됐어요.'))
+        .catch(() => alert('복사에 실패했어요. 직접 선택해서 복사해주세요.'));
+    }
+
+    function activateTab(type) {
+      const customerView = document.getElementById('customerView');
+      const ownerView = document.getElementById('ownerView');
+      const customerTab = document.getElementById('customerTab');
+      const ownerTab = document.getElementById('ownerTab');
+
+      if (type === 'customer') {
+        customerView.classList.remove('hidden');
+        ownerView.classList.add('hidden');
+        customerTab.classList.add('active');
+        ownerTab.classList.remove('active');
+      } else {
+        ownerView.classList.remove('hidden');
+        customerView.classList.add('hidden');
+        ownerTab.classList.add('active');
+        customerTab.classList.remove('active');
+      }
+    }
+
+    document.getElementById('calcBtn').addEventListener('click', calcEstimate);
+    document.getElementById('saveQuoteBtn').addEventListener('click', saveQuote);
+    document.getElementById('copyTextBtn').addEventListener('click', copyConsultText);
+    document.getElementById('saveSettingsBtn').addEventListener('click', saveSettingsFromInputs);
+    document.getElementById('resetSettingsBtn').addEventListener('click', resetSettings);
+    document.getElementById('exportCsvBtn').addEventListener('click', exportCsv);
+    document.getElementById('clearQuotesBtn').addEventListener('click', clearQuotes);
+    document.getElementById('customerTab').addEventListener('click', () => activateTab('customer'));
+    document.getElementById('ownerTab').addEventListener('click', () => activateTab('owner'));
+
+    loadSettingsToInputs();
+    renderQuotes();
+    calcEstimate();
+
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./service-worker.js').catch(console.error);
+      });
+    }
+  </script>
+</body>
+</html>
