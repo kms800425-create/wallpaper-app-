@@ -2,12 +2,12 @@
 <html lang="ko">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>사장용 견적 계산기</title>
   <style>
     body {
       font-family: sans-serif;
-      max-width: 600px;
+      max-width: 780px;
       margin: 0 auto;
       padding: 20px;
       background: #f7f7f7;
@@ -43,17 +43,28 @@
       box-sizing: border-box;
       font-size: 15px;
     }
-    .check-group {
+    .grid-2 {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
+      gap: 10px;
     }
-    .check-item {
-      background: #fafafa;
+    .option-box {
       border: 1px solid #ddd;
-      border-radius: 8px;
-      padding: 10px;
+      border-radius: 10px;
+      padding: 12px;
+      background: #fafafa;
+    }
+    .option-box input[type="checkbox"] {
+      width: auto;
+      margin-right: 6px;
+    }
+    .option-box label.inline {
+      display: inline;
+      font-weight: bold;
+      margin: 0;
+    }
+    .option-price {
+      margin-top: 10px;
     }
     button {
       width: 100%;
@@ -135,12 +146,164 @@
   </div>
 
   <div class="section">
-    <h2>추가 인테리어</h2>
-    <div class="check-group">
-      <label class="check-item"><input type="checkbox" id="film"> 필름</label>
-      <label class="check-item"><input type="checkbox" id="paint"> 도색</label>
-      <label class="check-item"><input type="checkbox" id="floor"> 장판</label>
-      <label class="check-item"><input type="checkbox" id="molding"> 문/몰딩</label>
+    <h2>기존 추가 인테리어</h2>
+    <div class="grid-2">
+      <div class="option-box">
+        <input type="checkbox" id="filmCheck">
+        <label class="inline" for="filmCheck">필름 시공</label>
+        <input class="option-price" type="number" id="filmPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="paintCheck">
+        <label class="inline" for="paintCheck">도색</label>
+        <input class="option-price" type="number" id="paintPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="floorCheck">
+        <label class="inline" for="floorCheck">장판</label>
+        <input class="option-price" type="number" id="floorPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="moldingCheck">
+        <label class="inline" for="moldingCheck">문/몰딩</label>
+        <input class="option-price" type="number" id="moldingPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="sinkTileCheck">
+        <label class="inline" for="sinkTileCheck">싱크대 교체 (타일 포함)</label>
+        <input class="option-price" type="number" id="sinkTilePrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="sinkNoTileCheck">
+        <label class="inline" for="sinkNoTileCheck">싱크대 교체 (타일 비포함)</label>
+        <input class="option-price" type="number" id="sinkNoTilePrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="windowCheck">
+        <label class="inline" for="windowCheck">샷시 교체</label>
+        <input class="option-price" type="number" id="windowPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="doorCheck">
+        <label class="inline" for="doorCheck">문 교체</label>
+        <input class="option-price" type="number" id="doorPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="tileCheck">
+        <label class="inline" for="tileCheck">타일 시공</label>
+        <input class="option-price" type="number" id="tilePrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="lightCheck">
+        <label class="inline" for="lightCheck">조명 교체</label>
+        <input class="option-price" type="number" id="lightPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="bathCabinetCheck">
+        <label class="inline" for="bathCabinetCheck">욕실장/거울 교체</label>
+        <input class="option-price" type="number" id="bathCabinetPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="demolitionCheck">
+        <label class="inline" for="demolitionCheck">철거</label>
+        <input class="option-price" type="number" id="demolitionPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="wasteProcessCheck">
+        <label class="inline" for="wasteProcessCheck">폐기물 처리</label>
+        <input class="option-price" type="number" id="wasteProcessPrice" placeholder="금액(만원)">
+      </div>
+    </div>
+  </div>
+
+  <div class="section">
+    <h2>욕실 옵션</h2>
+    <div class="grid-2">
+      <div class="option-box">
+        <input type="checkbox" id="bathOverlayCheck">
+        <label class="inline" for="bathOverlayCheck">욕실 덧방시공</label>
+        <input class="option-price" type="number" id="bathOverlayPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="bathDemolitionCheck">
+        <label class="inline" for="bathDemolitionCheck">욕실 철거</label>
+        <input class="option-price" type="number" id="bathDemolitionPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="sinkBasinCheck">
+        <label class="inline" for="sinkBasinCheck">세면대 교체</label>
+        <input class="option-price" type="number" id="sinkBasinPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="toiletCheck">
+        <label class="inline" for="toiletCheck">변기 교체</label>
+        <input class="option-price" type="number" id="toiletPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="showerCheck">
+        <label class="inline" for="showerCheck">샤워기 교체</label>
+        <input class="option-price" type="number" id="showerPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="bathStorageCheck">
+        <label class="inline" for="bathStorageCheck">욕실장 교체</label>
+        <input class="option-price" type="number" id="bathStoragePrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="mirrorCheck">
+        <label class="inline" for="mirrorCheck">거울 교체</label>
+        <input class="option-price" type="number" id="mirrorPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="bathLightCheck">
+        <label class="inline" for="bathLightCheck">욕실 조명 교체</label>
+        <input class="option-price" type="number" id="bathLightPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="bathCeilingCheck">
+        <label class="inline" for="bathCeilingCheck">욕실 천장 교체</label>
+        <input class="option-price" type="number" id="bathCeilingPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="dryerVentCheck">
+        <label class="inline" for="dryerVentCheck">환풍/건조기 설치</label>
+        <input class="option-price" type="number" id="dryerVentPrice" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="customBath1Check">
+        <label class="inline" for="customBath1Check">직접입력 항목 1</label>
+        <input type="text" id="customBath1Name" placeholder="예: 욕조 철거">
+        <input class="option-price" type="number" id="customBath1Price" placeholder="금액(만원)">
+      </div>
+
+      <div class="option-box">
+        <input type="checkbox" id="customBath2Check">
+        <label class="inline" for="customBath2Check">직접입력 항목 2</label>
+        <input type="text" id="customBath2Name" placeholder="예: 수건장 설치">
+        <input class="option-price" type="number" id="customBath2Price" placeholder="금액(만원)">
+      </div>
     </div>
   </div>
 
@@ -176,16 +339,36 @@
       return Number(document.getElementById(id).value) || 0;
     }
 
+    function getText(id) {
+      return document.getElementById(id).value.trim();
+    }
+
+    function getChecked(id) {
+      return document.getElementById(id).checked;
+    }
+
+    function addOption(checkId, priceId, label, result) {
+      if (getChecked(checkId)) {
+        const price = getNumber(priceId);
+        result.basePrice += price;
+        result.detailText += `${label}: ${price}만원\n`;
+      }
+    }
+
+    function addCustomOption(checkId, nameId, priceId, defaultLabel, result) {
+      if (getChecked(checkId)) {
+        const customName = getText(nameId) || defaultLabel;
+        const price = getNumber(priceId);
+        result.basePrice += price;
+        result.detailText += `${customName}: ${price}만원\n`;
+      }
+    }
+
     function calculateEstimate() {
       const type = document.getElementById('type').value;
       const size = Number(document.getElementById('size').value);
       const paper = document.getElementById('paper').value;
       const work = document.getElementById('work').value;
-
-      const film = document.getElementById('film').checked;
-      const paint = document.getElementById('paint').checked;
-      const floor = document.getElementById('floor').checked;
-      const molding = document.getElementById('molding').checked;
 
       const material = getNumber('material');
       const labor = getNumber('labor');
@@ -193,84 +376,97 @@
       const etc = getNumber('etc');
       const margin = getNumber('margin');
 
-      let basePrice = 0;
-      let detailText = '';
+      let result = {
+        basePrice: 0,
+        detailText: ''
+      };
 
       if (type === '원룸') {
-        basePrice += 45;
-        detailText += '원룸 기본: 45만원\n';
+        result.basePrice += 45;
+        result.detailText += '원룸 기본: 45만원\n';
       } else if (type === '빌라') {
-        basePrice += 80;
-        detailText += '빌라 기본: 80만원\n';
+        result.basePrice += 80;
+        result.detailText += '빌라 기본: 80만원\n';
       } else if (type === '아파트') {
-        basePrice += 100;
-        detailText += '아파트 기본: 100만원\n';
+        result.basePrice += 100;
+        result.detailText += '아파트 기본: 100만원\n';
       } else if (type === '상가') {
-        basePrice += 120;
-        detailText += '상가 기본: 120만원\n';
+        result.basePrice += 120;
+        result.detailText += '상가 기본: 120만원\n';
       }
 
       if (size === 20) {
-        basePrice += 30;
-        detailText += '20평대 추가: 30만원\n';
+        result.basePrice += 30;
+        result.detailText += '20평대 추가: 30만원\n';
       } else if (size === 30) {
-        basePrice += 60;
-        detailText += '30평대 추가: 60만원\n';
+        result.basePrice += 60;
+        result.detailText += '30평대 추가: 60만원\n';
       } else if (size === 40) {
-        basePrice += 90;
-        detailText += '40평 이상 추가: 90만원\n';
+        result.basePrice += 90;
+        result.detailText += '40평 이상 추가: 90만원\n';
       }
 
       if (paper === '실크') {
-        basePrice += 30;
-        detailText += '실크 벽지 추가: 30만원\n';
+        result.basePrice += 30;
+        result.detailText += '실크 벽지: 30만원\n';
       } else if (paper === '합지') {
-        detailText += '합지 벽지\n';
+        result.detailText += '합지 벽지\n';
       }
 
       if (work === '부분') {
-        basePrice -= 20;
-        detailText += '부분 시공: -20만원\n';
+        result.basePrice -= 20;
+        result.detailText += '부분 시공: -20만원\n';
       } else if (work === '천장포함') {
-        basePrice += 20;
-        detailText += '천장 포함: 20만원\n';
+        result.basePrice += 20;
+        result.detailText += '천장 포함: 20만원\n';
       } else if (work === '기존벽지제거') {
-        basePrice += 15;
-        detailText += '기존 벽지 제거: 15만원\n';
+        result.basePrice += 15;
+        result.detailText += '기존 벽지 제거: 15만원\n';
       } else if (work === '전체') {
-        detailText += '전체 시공\n';
+        result.detailText += '전체 시공\n';
       }
 
-      if (film) {
-        basePrice += 50;
-        detailText += '필름: 50만원\n';
-      }
-      if (paint) {
-        basePrice += 40;
-        detailText += '도색: 40만원\n';
-      }
-      if (floor) {
-        basePrice += 60;
-        detailText += '장판: 60만원\n';
-      }
-      if (molding) {
-        basePrice += 30;
-        detailText += '문/몰딩: 30만원\n';
-      }
+      addOption('filmCheck', 'filmPrice', '필름 시공', result);
+      addOption('paintCheck', 'paintPrice', '도색', result);
+      addOption('floorCheck', 'floorPrice', '장판', result);
+      addOption('moldingCheck', 'moldingPrice', '문/몰딩', result);
+      addOption('sinkTileCheck', 'sinkTilePrice', '싱크대 교체(타일 포함)', result);
+      addOption('sinkNoTileCheck', 'sinkNoTilePrice', '싱크대 교체(타일 비포함)', result);
+      addOption('windowCheck', 'windowPrice', '샷시 교체', result);
+      addOption('doorCheck', 'doorPrice', '문 교체', result);
+      addOption('tileCheck', 'tilePrice', '타일 시공', result);
+      addOption('lightCheck', 'lightPrice', '조명 교체', result);
+      addOption('bathCabinetCheck', 'bathCabinetPrice', '욕실장/거울 교체', result);
+      addOption('demolitionCheck', 'demolitionPrice', '철거', result);
+      addOption('wasteProcessCheck', 'wasteProcessPrice', '폐기물 처리', result);
+
+      addOption('bathOverlayCheck', 'bathOverlayPrice', '욕실 덧방시공', result);
+      addOption('bathDemolitionCheck', 'bathDemolitionPrice', '욕실 철거', result);
+      addOption('sinkBasinCheck', 'sinkBasinPrice', '세면대 교체', result);
+      addOption('toiletCheck', 'toiletPrice', '변기 교체', result);
+      addOption('showerCheck', 'showerPrice', '샤워기 교체', result);
+      addOption('bathStorageCheck', 'bathStoragePrice', '욕실장 교체', result);
+      addOption('mirrorCheck', 'mirrorPrice', '거울 교체', result);
+      addOption('bathLightCheck', 'bathLightPrice', '욕실 조명 교체', result);
+      addOption('bathCeilingCheck', 'bathCeilingPrice', '욕실 천장 교체', result);
+      addOption('dryerVentCheck', 'dryerVentPrice', '환풍/건조기 설치', result);
+
+      addCustomOption('customBath1Check', 'customBath1Name', 'customBath1Price', '직접입력 항목 1', result);
+      addCustomOption('customBath2Check', 'customBath2Name', 'customBath2Price', '직접입력 항목 2', result);
 
       const totalCost = material + labor + waste + etc;
-      const customerPrice = basePrice + margin;
+      const customerPrice = result.basePrice + margin;
       const profit = customerPrice - totalCost;
 
       document.getElementById('customerPrice').innerText = `고객 견적가: ${customerPrice}만원`;
       document.getElementById('profit').innerText = `예상 순이익: ${profit}만원`;
 
-      detailText += `\n원가 합계: ${totalCost}만원`;
-      detailText += `\n추가 마진: ${margin}만원`;
-      detailText += `\n최종 고객 견적가: ${customerPrice}만원`;
-      detailText += `\n예상 순이익: ${profit}만원`;
+      result.detailText += `\n원가 합계: ${totalCost}만원`;
+      result.detailText += `\n추가 마진: ${margin}만원`;
+      result.detailText += `\n최종 고객 견적가: ${customerPrice}만원`;
+      result.detailText += `\n예상 순이익: ${profit}만원`;
 
-      document.getElementById('detail').innerText = detailText;
+      document.getElementById('detail').innerText = result.detailText;
     }
   </script>
 
