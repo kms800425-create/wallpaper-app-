@@ -1,266 +1,79 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>간편 도배 견적</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사장용 견적 확인</title>
 
-  <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      max-width: 520px;
-      margin: 0 auto;
-      background: #f8f8f8;
-      color: #222;
-    }
-
-    h1 {
-      text-align: center;
-      margin-bottom: 10px;
-    }
-
-    .sub-text {
-      text-align: center;
-      font-size: 14px;
-      color: #666;
-      margin-bottom: 24px;
-      line-height: 1.5;
-    }
-
-    .section {
-      background: #fff;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 16px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-    }
-
-    h2 {
-      font-size: 18px;
-      margin: 0 0 12px 0;
-    }
-
-    .button-group {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    button {
-      flex: 1 1 calc(50% - 8px);
-      min-width: 120px;
-      padding: 14px 10px;
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 10px;
-      font-size: 15px;
-      cursor: pointer;
-    }
-
-    button.selected {
-      background: #222;
-      color: #fff;
-      border-color: #222;
-    }
-
-    input[type="file"] {
-      width: 100%;
-      padding: 10px 0;
-      font-size: 14px;
-    }
-
-    .calculate-btn {
-      background: #222;
-      color: #fff;
-      border: none;
-      cursor: pointer;
-      width: 100%;
-      margin-top: 10px;
-      padding: 16px;
-      border-radius: 10px;
-      font-size: 16px;
-    }
-
-    .result-box {
-      background: #fff;
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-      margin-top: 20px;
-    }
-
-    #result {
-      font-size: 28px;
-      font-weight: bold;
-      margin-bottom: 10px;
-    }
-
-    .notice {
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-      margin-top: 10px;
-    }
-
-    .footer-text {
-      margin-top: 12px;
-      text-align: center;
-      font-size: 13px;
-      color: #666;
-      line-height: 1.6;
-    }
-  </style>
+<style>
+body { font-family: sans-serif; padding: 20px; }
+h1 { text-align: center; }
+.box {
+  border: 1px solid #ddd;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 10px;
+}
+.total {
+  font-size: 28px;
+  font-weight: bold;
+  color: red;
+}
+</style>
 </head>
 
 <body>
 
-  <h1>📌 간편 도배 견적</h1>
+<h1>📊 사장용 견적 확인</h1>
 
-  <div class="sub-text">
-    항목을 선택하면 예상 견적이 바로 계산됩니다.<br>
-    사진을 캡처해서 보내주시면 더 정확한 상담이 가능합니다.
-  </div>
+<div class="box" id="summary">
+선택값 없음
+</div>
 
-  <div class="section">
-    <h2>1. 집 유형</h2>
-    <div class="button-group" id="type-group">
-      <button onclick="selectOption('type', '원룸', this)">원룸</button>
-      <button onclick="selectOption('type', '아파트', this)">아파트</button>
-      <button onclick="selectOption('type', '빌라', this)">빌라</button>
-      <button onclick="selectOption('type', '상가', this)">상가</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>2. 평수</h2>
-    <div class="button-group" id="size-group">
-      <button onclick="selectOption('size', 10, this)">10평 이하</button>
-      <button onclick="selectOption('size', 20, this)">20평대</button>
-      <button onclick="selectOption('size', 30, this)">30평대</button>
-      <button onclick="selectOption('size', 40, this)">40평 이상</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>3. 시공 범위</h2>
-    <div class="button-group" id="work-group">
-      <button onclick="selectOption('work', '전체', this)">전체 시공</button>
-      <button onclick="selectOption('work', '부분', this)">부분 시공</button>
-      <button onclick="selectOption('work', '천장포함', this)">천장 포함</button>
-      <button onclick="selectOption('work', '기존벽지제거', this)">기존 벽지 제거</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>4. 벽지 종류</h2>
-    <div class="button-group" id="paper-group">
-      <button onclick="selectOption('paper', '합지', this)">합지</button>
-      <button onclick="selectOption('paper', '실크', this)">실크</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>5. 추가 시공</h2>
-    <div class="button-group">
-      <button id="film-btn" onclick="toggleExtra('film', this)">필름</button>
-      <button id="paint-btn" onclick="toggleExtra('paint', this)">도색</button>
-      <button id="floor-btn" onclick="toggleExtra('floor', this)">장판</button>
-      <button id="molding-btn" onclick="toggleExtra('molding', this)">문/몰딩</button>
-    </div>
-  </div>
-
-  <div class="section">
-    <h2>6. 사진 첨부</h2>
-    <input type="file" multiple>
-    <div class="notice">
-      사진은 캡처 후 상담 시 보내주시면 정확한 견적이 가능합니다.
-    </div>
-  </div>
-
-  <button class="calculate-btn" onclick="calculateEstimate()">견적 확인하기</button>
-
-  <div class="result-box">
-    <div id="result">예상 견적: 선택 후 확인</div>
-    <div id="detail" class="notice">
-      필수 항목을 선택해주세요.
-    </div>
-
-    <div class="footer-text">
-      ✔ 현장 확인 후 최종 금액은 변동될 수 있습니다.<br>
-      ✔ 부분 시공 / 상태에 따라 추가 비용 발생 가능
-    </div>
-  </div>
+<div class="box total" id="total">
+총 금액: 0만원
+</div>
 
 <script>
-const formData = {
-  type: null,
-  size: null,
-  work: null,
-  paper: null,
+// 고객용과 동일 구조
+const data = {
+  type: "아파트",
+  size: 30,
+  work: "전체",
+  paper: "실크",
   extras: {
-    film: false,
+    film: true,
     paint: false,
     floor: false,
-    molding: false
+    molding: true
   }
 };
 
-function clearSelected(groupId) {
-  const buttons = document.querySelectorAll(`#${groupId} button`);
-  buttons.forEach(btn => btn.classList.remove('selected'));
-}
-
-function selectOption(key, value, element) {
-  formData[key] = value;
-
-  if (key === 'type') clearSelected('type-group');
-  if (key === 'size') clearSelected('size-group');
-  if (key === 'work') clearSelected('work-group');
-  if (key === 'paper') clearSelected('paper-group');
-
-  element.classList.add('selected');
-}
-
-function toggleExtra(key, element) {
-  formData.extras[key] = !formData.extras[key];
-  element.classList.toggle('selected');
-}
-
-function calculateEstimate() {
+function calculate(){
   let price = 0;
-  let details = [];
+  let text = "";
 
-  if (formData.type === '원룸') { price += 45; details.push('원룸 기본 45만원'); }
-  if (formData.type === '빌라') { price += 80; details.push('빌라 기본 80만원'); }
-  if (formData.type === '아파트') { price += 100; details.push('아파트 기본 100만원'); }
-  if (formData.type === '상가') { price += 120; details.push('상가 기본 120만원'); }
+  // 집유형
+  if(data.type === "원룸"){ price += 45; text += "원룸 45\n"; }
+  if(data.type === "아파트"){ price += 100; text += "아파트 100\n"; }
+  if(data.type === "빌라"){ price += 80; text += "빌라 80\n"; }
 
-  if (formData.size === 20) { price += 30; details.push('20평대 +30만원'); }
-  if (formData.size === 30) { price += 60; details.push('30평대 +60만원'); }
-  if (formData.size === 40) { price += 90; details.push('40평 이상 +90만원'); }
+  // 평수
+  if(data.size == 20){ price += 30; text += "20평 +30\n"; }
+  if(data.size == 30){ price += 60; text += "30평 +60\n"; }
 
-  if (formData.work === '부분') { price -= 20; details.push('부분 시공 -20만원'); }
-  if (formData.work === '천장포함') { price += 20; details.push('천장 포함 +20만원'); }
-  if (formData.work === '기존벽지제거') { price += 15; details.push('기존 벽지 제거 +15만원'); }
+  // 벽지
+  if(data.paper === "실크"){ price += 30; text += "실크 +30\n"; }
 
-  if (formData.paper === '실크') { price += 30; details.push('실크 +30만원'); }
+  // 옵션
+  if(data.extras.film){ price += 50; text += "필름 +50\n"; }
+  if(data.extras.molding){ price += 30; text += "몰딩 +30\n"; }
 
-  if (formData.extras.film) { price += 50; details.push('필름 +50만원'); }
-  if (formData.extras.paint) { price += 40; details.push('도색 +40만원'); }
-  if (formData.extras.floor) { price += 60; details.push('장판 +60만원'); }
-  if (formData.extras.molding) { price += 30; details.push('문/몰딩 +30만원'); }
-
-  if (!formData.type || !formData.size || !formData.paper) {
-    document.getElementById('result').innerText = '필수 항목 선택 필요';
-    document.getElementById('detail').innerText = '집 유형 / 평수 / 벽지 선택';
-    return;
-  }
-
-  document.getElementById('result').innerText = `예상 견적: ${price}만원`;
-  document.getElementById('detail').innerHTML = details.join('<br>');
+  document.getElementById("summary").innerText = text;
+  document.getElementById("total").innerText = "총 금액: " + price + "만원";
 }
+
+calculate();
 </script>
 
 </body>
