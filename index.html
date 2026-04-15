@@ -1,253 +1,229 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>간편 도배 견적</title>
-<style>
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-    background: #f4f5f7;
-    color: #222;
-  }
-  .wrap {
-    max-width: 560px;
-    margin: 0 auto;
-    padding: 18px 14px 40px;
-  }
-  .hero {
-    background: linear-gradient(135deg, #111, #2b2b2b);
-    color: #fff;
-    border-radius: 20px;
-    padding: 22px 18px;
-    margin-bottom: 14px;
-  }
-  .hero h1 {
-    margin: 0 0 8px;
-    font-size: 24px;
-  }
-  .hero p {
-    margin: 0;
-    font-size: 14px;
-    line-height: 1.6;
-    color: rgba(255,255,255,0.88);
-  }
-  .stepbar {
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    gap: 8px;
-    margin-top: 16px;
-  }
-  .step {
-    background: rgba(255,255,255,0.12);
-    border-radius: 12px;
-    text-align: center;
-    padding: 10px 6px;
-    font-size: 12px;
-  }
-  .card {
-    background: #fff;
-    border-radius: 18px;
-    padding: 18px;
-    margin-bottom: 14px;
-    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
-  }
-  .card h2 {
-    margin: 0 0 12px;
-    font-size: 18px;
-  }
-  .muted {
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-  }
-  .btn-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-  }
-  .select-btn {
-    border: 1px solid #ddd;
-    background: #fff;
-    border-radius: 14px;
-    padding: 14px 10px;
-    font-size: 15px;
-    cursor: pointer;
-    transition: 0.2s;
-  }
-  .select-btn.selected {
-    background: #111;
-    color: #fff;
-    border-color: #111;
-  }
-  .select-btn small {
-    display: block;
-    margin-top: 4px;
-    font-size: 12px;
-    opacity: 0.8;
-  }
-  input[type="number"],
-  input[type="text"],
-  input[type="tel"],
-  input[type="file"],
-  textarea {
-    width: 100%;
-    margin-top: 10px;
-    padding: 14px;
-    border: 1px solid #ddd;
-    border-radius: 14px;
-    font-size: 15px;
-    background: #fff;
-  }
-  textarea {
-    min-height: 110px;
-    resize: vertical;
-  }
-  .option-list {
-    display: grid;
-    gap: 10px;
-  }
-  .option-item {
-    border: 1px solid #e5e5e5;
-    border-radius: 14px;
-    padding: 12px 14px;
-    background: #fafafa;
-  }
-  .option-item label {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-    width: 100%;
-    cursor: pointer;
-    font-size: 15px;
-  }
-  .option-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .price-tag {
-    font-size: 14px;
-    color: #444;
-    white-space: nowrap;
-  }
-  .main-btn {
-    width: 100%;
-    border: none;
-    background: #111;
-    color: #fff;
-    padding: 16px;
-    border-radius: 15px;
-    font-size: 17px;
-    font-weight: 700;
-    cursor: pointer;
-  }
-  .result-box {
-    border: 1px solid #ececec;
-    background: #f9fafb;
-    border-radius: 16px;
-    padding: 16px;
-  }
-  .result-summary {
-    font-size: 14px;
-    line-height: 1.7;
-    color: #333;
-  }
-  .result-price {
-    font-size: 30px;
-    font-weight: 800;
-    margin: 12px 0 10px;
-  }
-  .included {
-    margin-top: 10px;
-    font-size: 14px;
-    color: #555;
-    line-height: 1.6;
-  }
-  .option-summary {
-    margin-top: 10px;
-    padding: 12px;
-    border-radius: 12px;
-    background: #fff;
-    border: 1px dashed #d8d8d8;
-    font-size: 14px;
-    line-height: 1.6;
-  }
-  .action-group {
-    display: grid;
-    gap: 10px;
-    margin-top: 14px;
-  }
-  .action-btn {
-    display: block;
-    text-align: center;
-    text-decoration: none;
-    border-radius: 14px;
-    padding: 15px;
-    font-weight: 700;
-    font-size: 15px;
-    border: none;
-    cursor: pointer;
-  }
-  .call-btn {
-    background: #111;
-    color: #fff;
-  }
-  .kakao-btn {
-    background: #fee500;
-    color: #222;
-  }
-  .mail-btn {
-    background: #e8f0fe;
-    color: #174ea6;
-  }
-  .copy-btn {
-    background: #eef1f4;
-    color: #222;
-  }
-  .notice {
-    margin-top: 12px;
-    font-size: 13px;
-    color: #777;
-    line-height: 1.6;
-  }
-  .preview-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 8px;
-    margin-top: 12px;
-  }
-  .preview-grid img {
-    width: 100%;
-    height: 96px;
-    object-fit: cover;
-    border-radius: 12px;
-    border: 1px solid #ddd;
-    background: #fafafa;
-  }
-  .upload-guide {
-    margin-top: 8px;
-    font-size: 13px;
-    color: #666;
-    line-height: 1.5;
-  }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>간편 도배 견적</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: #f4f5f7;
+      color: #222;
+    }
+    .wrap {
+      max-width: 560px;
+      margin: 0 auto;
+      padding: 18px 14px 40px;
+    }
+    .hero {
+      background: linear-gradient(135deg, #111, #2b2b2b);
+      color: #fff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      margin-bottom: 14px;
+    }
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
+    }
+    .hero p {
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
+    }
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+    .muted {
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+    }
+    .select-btn {
+      border: 1px solid #ddd;
+      background: #fff;
+      border-radius: 14px;
+      padding: 14px 10px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .select-btn.selected {
+      background: #111;
+      color: #fff;
+      border-color: #111;
+    }
+    .select-btn small {
+      display: block;
+      margin-top: 4px;
+      font-size: 12px;
+      opacity: 0.8;
+    }
+    input[type="number"],
+    input[type="text"],
+    input[type="tel"],
+    input[type="file"],
+    textarea {
+      width: 100%;
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      font-size: 15px;
+      background: #fff;
+    }
+    textarea {
+      min-height: 110px;
+      resize: vertical;
+    }
+    .option-list {
+      display: grid;
+      gap: 10px;
+    }
+    .option-item {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+    .option-item label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      cursor: pointer;
+      font-size: 15px;
+    }
+    .option-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .price-tag {
+      font-size: 14px;
+      color: #444;
+      white-space: nowrap;
+    }
+    .main-btn {
+      width: 100%;
+      border: none;
+      background: #111;
+      color: #fff;
+      padding: 16px;
+      border-radius: 15px;
+      font-size: 17px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .result-box {
+      border: 1px solid #ececec;
+      background: #f9fafb;
+      border-radius: 16px;
+      padding: 16px;
+    }
+    .result-summary {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333;
+    }
+    .result-price {
+      font-size: 30px;
+      font-weight: 800;
+      margin: 12px 0 10px;
+    }
+    .included {
+      margin-top: 10px;
+      font-size: 14px;
+      color: #555;
+      line-height: 1.6;
+    }
+    .option-summary {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px dashed #d8d8d8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+    .action-group {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .action-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+    }
+    .call-btn {
+      background: #111;
+      color: #fff;
+    }
+    .kakao-btn {
+      background: #FEE500;
+      color: #222;
+    }
+    .copy-btn {
+      background: #eef1f4;
+      color: #222;
+    }
+    .notice {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+    }
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+    .preview-grid img {
+      width: 100%;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+    }
+    .upload-guide {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
+    }
+  </style>
 </head>
 <body>
   <div class="wrap">
     <div class="hero">
       <h1>간편 도배 견적</h1>
-      <p>평수, 벽지 종류, 옵션, 사진만 올리면 예상 견적을 빠르게 확인할 수 있습니다.</p>
-      <div class="stepbar">
-        <div class="step">1. 평수</div>
-        <div class="step">2. 벽지</div>
-        <div class="step">3. 옵션</div>
-        <div class="step">4. 사진</div>
-        <div class="step">5. 상담</div>
-      </div>
+      <p>평수, 벽지 종류, 옵션을 선택하면 예상 견적을 확인할 수 있습니다.</p>
     </div>
 
     <div class="card">
@@ -299,12 +275,6 @@
             <span class="price-tag">+10만원</span>
           </label>
         </div>
-        <div class="option-item">
-          <label>
-            <span class="option-left"><input type="checkbox" class="option" value="8" data-name="부분 도배"> 부분 도배</span>
-            <span class="price-tag">+8만원</span>
-          </label>
-        </div>
       </div>
     </div>
 
@@ -349,143 +319,137 @@
       </div>
 
       <div class="action-group">
-        <a class="action-btn call-btn" id="callBtn" href="tel:010-0000-0000">📞 전화 상담</a>
-        <a class="action-btn kakao-btn" id="kakaoBtn" href="https://open.kakao.com/o/너링크" target="_blank">💬 카톡 상담</a>
-        <button class="action-btn mail-btn" type="button" onclick="sendEmailEstimate()">📩 이메일로 문의 보내기</button>
+        <a class="action-btn call-btn" id="callBtn" href="tel:01040084197">📞 전화 상담</a>
+        <a class="action-btn kakao-btn" id="kakaoBtn" href="https://open.kakao.com/o/s9MsLsqi" target="_blank">💬 카톡 상담</a>
         <button class="action-btn copy-btn" type="button" onclick="copyConsultMessage()">상담용 내용 복사</button>
       </div>
 
       <div class="notice">
-        사진은 자동 첨부되지 않습니다. 카톡이나 이메일로 사진을 따로 보내주시면 더 정확한 상담이 가능합니다.
+        사진은 자동 첨부되지 않습니다. 카톡으로 사진을 따로 보내주시면 더 정확한 상담이 가능합니다.
       </div>
     </div>
   </div>
 
-<script>
-  let selectedSize = 0;
-  let selectedType = "";
-  let uploadedPhotoCount = 0;
-  let consultMessage = "";
+  <script>
+    let selectedSize = 0;
+    let selectedType = "";
+    let uploadedPhotoCount = 0;
+    let consultMessage = "";
 
-const SCRIPT_URL =https://script.google.com/macros/s/AKfycbzedSerjK8S8mNPxdO7du4y7jAdcBGSMQl5E5CcyutU-JxkUzwN70JFgqfkdJzrzgvw/exec";
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzedSerjK8S8mNPxdO7du4y7jAdcBGSMQl5E5CcyutU-JxkUzwN70JFgqfkdJzrzgvw/exec";
 
-function sendToSheet(data) {
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify(data)
-  });
-}
-  const BUSINESS_PHONE = "010-0000-0000";
-  const BUSINESS_KAKAO_URL = "https://open.kakao.com/o/너링크";
-  const BUSINESS_EMAIL = "your@email.com";
-
-  document.getElementById("callBtn").href = `tel:${BUSINESS_PHONE}`;
-  document.getElementById("kakaoBtn").href = BUSINESS_KAKAO_URL;
-
-  function clearSelected(groupId) {
-    const buttons = document.querySelectorAll(`#${groupId} .select-btn`);
-    buttons.forEach(btn => btn.classList.remove("selected"));
-  }
-
-  function setSize(size, el) {
-    selectedSize = size;
-    document.getElementById("sizeInput").value = size;
-    clearSelected("sizeButtons");
-    el.classList.add("selected");
-  }
-
-  function setType(type, el) {
-    selectedType = type;
-    clearSelected("typeButtons");
-    el.classList.add("selected");
-  }
-
-  function previewPhotos(event) {
-    const files = event.target.files;
-    const previewGrid = document.getElementById("previewGrid");
-    previewGrid.innerHTML = "";
-    uploadedPhotoCount = files.length;
-
-    for (let i = 0; i < files.length && i < 6; i++) {
-      const file = files[i];
-      const reader = new FileReader();
-
-      reader.onload = function(e) {
-        const img = document.createElement("img");
-        img.src = e.target.result;
-        img.alt = "업로드 미리보기";
-        previewGrid.appendChild(img);
-      };
-
-      reader.readAsDataURL(file);
-    }
-  }
-
-  function calculateEstimate() {
-    const sizeInput = document.getElementById("sizeInput").value;
-    const customerName = document.getElementById("customerName").value.trim();
-    const customerArea = document.getElementById("customerArea").value.trim();
-    const customerPhone = document.getElementById("customerPhone").value.trim();
-    const customerMemo = document.getElementById("customerMemo").value.trim();
-
-    if (sizeInput) {
-      selectedSize = parseFloat(sizeInput);
+    function sendToSheet(data) {
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        body: JSON.stringify(data)
+      }).catch(error => {
+        console.error("시트 전송 실패:", error);
+      });
     }
 
-    if (!selectedSize || !selectedType) {
-      alert("평수와 벽지 종류를 선택해주세요.");
-      return;
+    function clearSelected(groupId) {
+      const buttons = document.querySelectorAll(`#${groupId} .select-btn`);
+      buttons.forEach(btn => btn.classList.remove("selected"));
     }
 
-    let base = 0;
-
-    if (selectedType === "합지") {
-      base = selectedSize * 3;
-    } else if (selectedType === "실크") {
-      base = selectedSize * 5;
+    function setSize(size, el) {
+      selectedSize = size;
+      document.getElementById("sizeInput").value = size;
+      clearSelected("sizeButtons");
+      el.classList.add("selected");
     }
 
-    const checkedOptions = document.querySelectorAll(".option:checked");
-    let optionTotal = 0;
-    let optionNames = [];
-
-    checkedOptions.forEach(option => {
-      optionTotal += parseInt(option.value, 10);
-      optionNames.push(option.dataset.name);
-    });
-
-    const total = base + optionTotal;
-    const min = total;
-    const max = total + 15;
-
-    let summaryHtml = "";
-    if (customerName) {
-      summaryHtml += `<strong>${escapeHtml(customerName)}</strong>님 기준<br>`;
-    }
-    summaryHtml += `평수: <strong>${selectedSize}평</strong><br>`;
-    summaryHtml += `벽지 종류: <strong>${selectedType}</strong>`;
-
-    if (customerArea) {
-      summaryHtml += `<br>시공 지역: <strong>${escapeHtml(customerArea)}</strong>`;
-    }
-    if (customerPhone) {
-      summaryHtml += `<br>연락처: <strong>${escapeHtml(customerPhone)}</strong>`;
-    }
-    summaryHtml += `<br>사진 업로드: <strong>${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장" : "없음"}</strong>`;
-
-    let optionText = optionNames.length > 0
-      ? `선택 옵션: <strong>${optionNames.map(escapeHtml).join(", ")}</strong>`
-      : `선택 옵션: <strong>없음</strong>`;
-
-    if (customerMemo) {
-      optionText += `<br>추가 요청: <strong>${escapeHtml(customerMemo)}</strong>`;
+    function setType(type, el) {
+      selectedType = type;
+      clearSelected("typeButtons");
+      el.classList.add("selected");
     }
 
-    document.getElementById("resultSummary").innerHTML = summaryHtml;
-    document.getElementById("resultPrice").textContent = `${min}만원 ~ ${max}만원`;
-    document.getElementById("optionSummary").innerHTML = optionText;
+    function previewPhotos(event) {
+      const files = event.target.files;
+      const previewGrid = document.getElementById("previewGrid");
+      previewGrid.innerHTML = "";
+      uploadedPhotoCount = files.length;
 
-    consultMessage =
+      for (let i = 0; i < files.length && i < 6; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.alt = "업로드 미리보기";
+          previewGrid.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function calculateEstimate() {
+      const sizeInput = document.getElementById("sizeInput").value;
+      const customerName = document.getElementById("customerName").value.trim();
+      const customerArea = document.getElementById("customerArea").value.trim();
+      const customerPhone = document.getElementById("customerPhone").value.trim();
+      const customerMemo = document.getElementById("customerMemo").value.trim();
+
+      if (sizeInput) {
+        selectedSize = parseFloat(sizeInput);
+      }
+
+      if (!selectedSize || !selectedType) {
+        alert("평수와 벽지 종류를 선택해주세요.");
+        return;
+      }
+
+      let base = 0;
+      if (selectedType === "합지") {
+        base = selectedSize * 3;
+      } else if (selectedType === "실크") {
+        base = selectedSize * 5;
+      }
+
+      const checkedOptions = document.querySelectorAll(".option:checked");
+      let optionTotal = 0;
+      let optionNames = [];
+
+      checkedOptions.forEach(option => {
+        optionTotal += parseInt(option.value, 10);
+        optionNames.push(option.dataset.name);
+      });
+
+      const total = base + optionTotal;
+      const min = total;
+      const max = total + 15;
+
+      let summaryHtml = "";
+      if (customerName) {
+        summaryHtml += `<strong>${escapeHtml(customerName)}</strong>님 기준<br>`;
+      }
+      summaryHtml += `평수: <strong>${selectedSize}평</strong><br>`;
+      summaryHtml += `벽지 종류: <strong>${selectedType}</strong>`;
+
+      if (customerArea) {
+        summaryHtml += `<br>시공 지역: <strong>${escapeHtml(customerArea)}</strong>`;
+      }
+      if (customerPhone) {
+        summaryHtml += `<br>연락처: <strong>${escapeHtml(customerPhone)}</strong>`;
+      }
+      summaryHtml += `<br>사진 업로드: <strong>${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장" : "없음"}</strong>`;
+
+      let optionText = optionNames.length > 0
+        ? `선택 옵션: <strong>${optionNames.map(escapeHtml).join(", ")}</strong>`
+        : `선택 옵션: <strong>없음</strong>`;
+
+      if (customerMemo) {
+        optionText += `<br>추가 요청: <strong>${escapeHtml(customerMemo)}</strong>`;
+      }
+
+      document.getElementById("resultSummary").innerHTML = summaryHtml;
+      document.getElementById("resultPrice").textContent = `${min}만원 ~ ${max}만원`;
+      document.getElementById("optionSummary").innerHTML = optionText;
+
+      consultMessage =
 `도배 견적 문의드립니다.
 성함: ${customerName || "미입력"}
 연락처: ${customerPhone || "미입력"}
@@ -496,48 +460,39 @@ function sendToSheet(data) {
 사진 첨부 여부: ${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장 준비" : "없음"}
 추가 요청사항: ${customerMemo || "없음"}
 예상 견적: ${min}만원 ~ ${max}만원`;
-sendToSheet({
-  name: customerName || "미입력",
-  phone: customerPhone || "미입력",
-  size: selectedSize,
-  type: selectedType,
-  options: customerMemo || "없음",
-  price: `${min}~${max}`
-});
-    document.getElementById("resultCard").style.display = "block";
-    document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
-  }
 
-  function copyConsultMessage() {
-    if (!consultMessage) {
-      alert("먼저 견적을 확인해주세요.");
-      return;
+      document.getElementById("resultCard").style.display = "block";
+      document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
+
+      sendToSheet({
+        name: customerName || "미입력",
+        phone: customerPhone || "미입력",
+        size: selectedSize,
+        type: selectedType,
+        options: optionNames.length ? optionNames.join(", ") : (customerMemo || "없음"),
+        price: `${min}~${max}`
+      });
     }
 
-    navigator.clipboard.writeText(consultMessage)
-      .then(() => alert("상담용 내용이 복사되었습니다."))
-      .catch(() => alert("복사에 실패했습니다."));
-  }
+    function copyConsultMessage() {
+      if (!consultMessage) {
+        alert("먼저 견적을 확인해주세요.");
+        return;
+      }
 
-  function sendEmailEstimate() {
-    if (!consultMessage) {
-      alert("먼저 견적을 확인해주세요.");
-      return;
+      navigator.clipboard.writeText(consultMessage)
+        .then(() => alert("상담용 내용이 복사되었습니다."))
+        .catch(() => alert("복사에 실패했습니다."));
     }
 
-    const subject = encodeURIComponent("도배 견적 문의");
-    const body = encodeURIComponent(consultMessage + "\n\n사진이 있다면 함께 첨부 부탁드립니다.");
-    window.location.href = `mailto:${BUSINESS_EMAIL}?subject=${subject}&body=${body}`;
-  }
-
-  function escapeHtml(text) {
-    return String(text)
-      .replaceAll("&", "&amp;")
-      .replaceAll("<", "&lt;")
-      .replaceAll(">", "&gt;")
-      .replaceAll('"', "&quot;")
-      .replaceAll("'", "&#039;");
-  }
-</script>
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+  </script>
 </body>
 </html>
