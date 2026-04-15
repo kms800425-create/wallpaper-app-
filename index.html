@@ -367,6 +367,14 @@
   let uploadedPhotoCount = 0;
   let consultMessage = "";
 
+const SCRIPT_URL =https://script.google.com/macros/s/AKfycbzedSerjK8S8mNPxdO7du4y7jAdcBGSMQl5E5CcyutU-JxkUzwN70JFgqfkdJzrzgvw/exec";
+
+function sendToSheet(data) {
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(data)
+  });
+}
   const BUSINESS_PHONE = "010-0000-0000";
   const BUSINESS_KAKAO_URL = "https://open.kakao.com/o/너링크";
   const BUSINESS_EMAIL = "your@email.com";
@@ -488,7 +496,14 @@
 사진 첨부 여부: ${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장 준비" : "없음"}
 추가 요청사항: ${customerMemo || "없음"}
 예상 견적: ${min}만원 ~ ${max}만원`;
-
+sendToSheet({
+  name: customerName || "미입력",
+  phone: customerPhone || "미입력",
+  size: selectedSize,
+  type: selectedType,
+  options: customerMemo || "없음",
+  price: `${min}~${max}`
+});
     document.getElementById("resultCard").style.display = "block";
     document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
   }
