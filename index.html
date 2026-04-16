@@ -3,608 +3,532 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>바른 수유 인테리어 간편 견적</title>
+  <title>바른수유 인테리어 | 간편 도배 견적</title>
   <style>
     * { box-sizing: border-box; }
+
     body {
       margin: 0;
-      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background: #f3f3f3;
-      color: #111;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+      background: #f4f5f7;
+      color: #222;
     }
 
     .wrap {
-      max-width: 540px;
+      max-width: 560px;
       margin: 0 auto;
-      min-height: 100vh;
-      background: #f3f3f3;
-    }
-
-    .top {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 28px 20px 22px;
-    }
-
-    .top h1 {
-      margin: 0;
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
-
-    .top .sub {
-      margin-top: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffd400;
+      padding: 18px 14px 40px;
     }
 
     .hero {
-      text-align: center;
-      padding: 34px 20px 18px;
+      background: linear-gradient(135deg, #111, #2b2b2b);
+      color: #fff;
+      border-radius: 20px;
+      padding: 22px 18px;
+      margin-bottom: 14px;
     }
 
-    .hero h2 {
-      margin: 0;
-      font-size: 30px;
-      line-height: 1.35;
-      font-weight: 900;
-      letter-spacing: -1px;
+    .hero h1 {
+      margin: 0 0 8px;
+      font-size: 24px;
     }
 
     .hero p {
-      margin: 16px 0 0;
-      font-size: 18px;
-      font-weight: 700;
+      margin: 0;
+      font-size: 14px;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.88);
     }
 
-    .step-bar {
-      margin: 10px 20px 18px;
-      background: #000;
-      color: #fff;
-      border-radius: 14px;
-      text-align: center;
-      padding: 14px 10px;
-      font-size: 15px;
-      font-weight: 800;
+    .card {
+      background: #fff;
+      border-radius: 18px;
+      padding: 18px;
+      margin-bottom: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    }
+
+    .card h2 {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
+
+    .muted {
+      font-size: 13px;
+      color: #666;
       line-height: 1.5;
     }
 
-    .step-bar .active {
-      color: #ffd400;
-    }
-
-    .section {
-      margin: 0 20px 16px;
-    }
-
-    .accordion-btn {
-      width: 100%;
-      border: 3px solid #111;
-      background: #fff;
-      color: #111;
-      border-radius: 14px;
-      padding: 22px 18px;
-      font-size: 22px;
-      font-weight: 900;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .accordion-btn.active {
-      background: #111;
-      color: #fff;
-    }
-
-    .panel {
-      display: none;
-      margin-top: 10px;
-      background: #fff;
-      border: 2px solid #ddd;
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .panel.show {
-      display: block;
-    }
-
-    .panel-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      color: #333;
-    }
-
-    .option-grid {
+    .btn-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, 1fr);
       gap: 10px;
     }
 
-    .option-btn {
-      border: 2px solid #111;
+    .select-btn {
+      border: 1px solid #ddd;
       background: #fff;
-      border-radius: 12px;
+      border-radius: 14px;
       padding: 14px 10px;
-      text-align: center;
       font-size: 15px;
-      font-weight: 800;
       cursor: pointer;
-      line-height: 1.4;
+      transition: 0.2s;
     }
 
-    .option-btn.active {
+    .select-btn.selected {
       background: #111;
       color: #fff;
+      border-color: #111;
     }
 
-    .option-btn small {
+    .select-btn small {
       display: block;
       margin-top: 4px;
       font-size: 12px;
-      font-weight: 700;
-      opacity: 0.85;
+      opacity: 0.8;
     }
 
-    .scroll-select-wrap {
-      position: relative;
-    }
-
-    .scroll-select {
+    input[type="number"],
+    input[type="text"],
+    input[type="tel"],
+    input[type="file"],
+    textarea {
       width: 100%;
-      padding: 16px 14px;
-      border: 2px solid #111;
-      border-radius: 12px;
-      font-size: 16px;
-      font-weight: 800;
+      margin-top: 10px;
+      padding: 14px;
+      border: 1px solid #ddd;
+      border-radius: 14px;
+      font-size: 15px;
       background: #fff;
-      appearance: none;
-      -webkit-appearance: none;
-      -moz-appearance: none;
     }
 
-    .scroll-select-wrap::after {
-      content: "▼";
-      position: absolute;
-      right: 14px;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 12px;
-      font-weight: 900;
-      color: #111;
-      pointer-events: none;
+    textarea {
+      min-height: 110px;
+      resize: vertical;
     }
 
-    .checkbox-list {
+    .option-list {
       display: grid;
-      grid-template-columns: 1fr;
       gap: 10px;
     }
 
-    .check-item {
+    .option-item {
+      border: 1px solid #e5e5e5;
+      border-radius: 14px;
+      padding: 12px 14px;
+      background: #fafafa;
+    }
+
+    .option-item label {
       display: flex;
+      justify-content: space-between;
       align-items: center;
       gap: 10px;
-      border: 2px solid #111;
-      border-radius: 12px;
-      padding: 12px 14px;
-      background: #fff;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .check-item input {
-      width: 18px;
-      height: 18px;
-    }
-
-    .check-item small {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #555;
-      margin-top: 2px;
-    }
-
-    .location-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .text-input {
       width: 100%;
-      padding: 14px 12px;
-      border: 2px solid #111;
-      border-radius: 10px;
+      cursor: pointer;
       font-size: 15px;
-      margin-top: 10px;
-      background: #fff;
     }
 
-    .summary {
-      margin: 10px 20px 0;
+    .option-left {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .price-tag {
       font-size: 14px;
-      font-weight: 700;
       color: #444;
-      line-height: 1.7;
+      white-space: nowrap;
     }
 
-    .main-action {
-      margin: 24px 20px 40px;
-    }
-
-    .estimate-btn {
+    .main-btn {
       width: 100%;
       border: none;
-      border-radius: 16px;
       background: #111;
-      color: #ffd400;
-      padding: 22px 18px;
-      font-size: 24px;
-      font-weight: 900;
+      color: #fff;
+      padding: 16px;
+      border-radius: 15px;
+      font-size: 17px;
+      font-weight: 700;
       cursor: pointer;
     }
 
     .result-box {
-      display: none;
-      margin: 22px 20px 12px;
-      background: #fff;
-      border: 3px solid #111;
+      border: 1px solid #ececec;
+      background: #f9fafb;
       border-radius: 16px;
-      padding: 22px 18px;
-      text-align: center;
+      padding: 16px;
     }
 
-    .result-box.show {
-      display: block;
-    }
-
-    .result-title {
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 12px;
+    .result-summary {
+      font-size: 14px;
+      line-height: 1.7;
+      color: #333;
     }
 
     .result-price {
-      font-size: 32px;
-      font-weight: 900;
-      color: #111;
-      line-height: 1.3;
+      font-size: 30px;
+      font-weight: 800;
+      margin: 12px 0 10px;
     }
 
-    .result-desc {
-      margin-top: 12px;
+    .included {
+      margin-top: 10px;
       font-size: 14px;
-      line-height: 1.7;
-      color: #444;
-      font-weight: 700;
-    }
-
-    .notice-box {
-      margin-top: 12px;
-      background: #faf7e8;
-      border: 1.5px solid #d7c26a;
-      color: #5c4b00;
-      border-radius: 12px;
-      padding: 12px;
-      font-size: 13px;
+      color: #555;
       line-height: 1.6;
-      font-weight: 700;
     }
 
-    @media (max-width: 480px) {
-      .top h1 { font-size: 28px; }
-      .hero h2 { font-size: 26px; }
-      .accordion-btn { font-size: 20px; padding: 18px 14px; }
-      .estimate-btn { font-size: 22px; }
+    .option-summary {
+      margin-top: 10px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #fff;
+      border: 1px dashed #d8d8d8;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    .action-group {
+      display: grid;
+      gap: 10px;
+      margin-top: 14px;
+    }
+
+    .action-btn {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      border-radius: 14px;
+      padding: 15px;
+      font-weight: 700;
+      font-size: 15px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .call-btn {
+      background: #111;
+      color: #fff;
+    }
+
+    .kakao-btn {
+      background: #FEE500;
+      color: #222;
+    }
+
+    .copy-btn {
+      background: #eef1f4;
+      color: #222;
+    }
+
+    .notice {
+      margin-top: 12px;
+      font-size: 13px;
+      color: #777;
+      line-height: 1.6;
+    }
+
+    .preview-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .preview-grid img {
+      width: 100%;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 12px;
+      border: 1px solid #ddd;
+      background: #fafafa;
+    }
+
+    .upload-guide {
+      margin-top: 8px;
+      font-size: 13px;
+      color: #666;
+      line-height: 1.5;
     }
   </style>
 </head>
 <body>
   <div class="wrap">
-    <div class="top">
-      <h1>바른 수유 인테리어</h1>
-      <div class="sub">강북구 / 도봉구 전문 시공</div>
-    </div>
-
     <div class="hero">
-      <h2>도배 / 장판 / 필름 간편 견적</h2>
-      <p>1분 입력하면 예상금액 바로 확인</p>
+      <h1>바른수유 인테리어</h1>
+      <p>평수, 벽지 종류, 옵션을 선택하면 예상 견적을 확인할 수 있습니다.</p>
     </div>
 
-    <div class="step-bar">
-      <span class="active">주거형태</span> · 평수 · 벽지 · 추가 인테리어 · 위치
+    <div class="card">
+      <h2>1. 평수 선택</h2>
+      <div class="btn-grid" id="sizeButtons">
+        <button class="select-btn" type="button" onclick="setSize(5, this)">5평 이하<small>원룸/소형</small></button>
+        <button class="select-btn" type="button" onclick="setSize(10, this)">10평<small>소형 투룸</small></button>
+        <button class="select-btn" type="button" onclick="setSize(20, this)">20평<small>중형 아파트</small></button>
+        <button class="select-btn" type="button" onclick="setSize(30, this)">30평 이상<small>대형 평형</small></button>
+      </div>
+      <input type="number" id="sizeInput" placeholder="직접 입력 (예: 24)" />
     </div>
 
-    <!-- 주거형태 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('housingPanel', this)">주거형태 선택</button>
-      <div id="housingPanel" class="panel">
-        <div class="panel-title">형태를 선택해주세요</div>
-        <div class="scroll-select-wrap">
-          <select id="housingType" class="scroll-select" onchange="updateSummary()">
-            <option value="">선택하세요</option>
-            <option value="아파트">아파트</option>
-            <option value="빌라">빌라</option>
-            <option value="오피스텔">오피스텔</option>
-            <option value="상가">상가</option>
-          </select>
+    <div class="card">
+      <h2>2. 벽지 종류</h2>
+      <div class="btn-grid" id="typeButtons">
+        <button class="select-btn" type="button" onclick="setType('합지', this)">합지<small>가성비 / 원룸 추천</small></button>
+        <button class="select-btn" type="button" onclick="setType('실크', this)">실크<small>내구성 / 아파트 추천</small></button>
+      </div>
+      <div class="muted" style="margin-top:10px;">
+        합지는 경제적이고, 실크는 내구성과 마감감이 더 좋습니다.
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3. 추가 옵션</h2>
+      <div class="option-list">
+        <div class="option-item">
+          <label>
+            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="곰팡이 제거"> 곰팡이 제거</span>
+            <span class="price-tag">+10만원</span>
+          </label>
+        </div>
+        <div class="option-item">
+          <label>
+            <span class="option-left"><input type="checkbox" class="option" value="15" data-name="기존 벽지 제거"> 기존 벽지 제거</span>
+            <span class="price-tag">+15만원</span>
+          </label>
+        </div>
+        <div class="option-item">
+          <label>
+            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="짐 이동 있음"> 짐 이동 있음</span>
+            <span class="price-tag">+10만원</span>
+          </label>
+        </div>
+        <div class="option-item">
+          <label>
+            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="천장 포함"> 천장 포함</span>
+            <span class="price-tag">+10만원</span>
+          </label>
         </div>
       </div>
     </div>
 
-    <!-- 평수 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('sizePanel', this)">평수 선택</button>
-      <div id="sizePanel" class="panel">
-        <div class="panel-title">평수를 선택해주세요</div>
-        <div class="scroll-select-wrap">
-          <select id="sizeSelect" class="scroll-select" onchange="updateSummary()">
-            <option value="">선택하세요</option>
-            <option value="5평">5평</option>
-            <option value="6평">6평</option>
-            <option value="7평">7평</option>
-            <option value="8평">8평</option>
-            <option value="10평">10평</option>
-            <option value="21평">21평</option>
-            <option value="22평">22평</option>
-            <option value="23평">23평</option>
-            <option value="24평">24평</option>
-            <option value="25평">25평</option>
-            <option value="26평">26평</option>
-            <option value="27평">27평</option>
-            <option value="28평">28평</option>
-            <option value="29평">29평</option>
-            <option value="30평">30평</option>
-            <option value="31평">31평</option>
-            <option value="32평">32평</option>
-            <option value="33평">33평</option>
-            <option value="34평">34평</option>
-            <option value="35평">35평</option>
-            <option value="36평">36평</option>
-            <option value="37평">37평</option>
-            <option value="38평">38평</option>
-            <option value="39평">39평</option>
-            <option value="40평 이상">40평 이상</option>
-          </select>
+    <div class="card">
+      <h2>4. 공간 사진 업로드</h2>
+      <input type="file" id="photoInput" accept="image/*" multiple onchange="previewPhotos(event)" />
+      <div class="upload-guide">
+        벽 상태, 곰팡이, 천장, 짐 있는 부분 사진을 올리면 더 정확한 상담이 가능합니다.
+      </div>
+      <div class="preview-grid" id="previewGrid"></div>
+    </div>
+
+    <div class="card">
+      <h2>5. 고객 정보</h2>
+      <input type="text" id="customerName" placeholder="성함 (선택)" />
+      <input type="text" id="customerArea" placeholder="시공 지역 (예: 수유동, 노원구)" />
+      <input type="tel" id="customerPhone" placeholder="연락처 (선택)" />
+      <textarea id="customerMemo" placeholder="추가 요청사항 (예: 거실만, 천장 제외, 빠른 시공 희망 등)"></textarea>
+    </div>
+
+    <div class="card">
+      <button class="main-btn" type="button" onclick="calculateEstimate()">예상 견적 확인하기</button>
+    </div>
+
+    <div class="card" id="resultCard" style="display:none;">
+      <h2>예상 견적 결과</h2>
+      <div class="result-box">
+        <div class="result-summary" id="resultSummary"></div>
+        <div class="result-price" id="resultPrice"></div>
+
+        <div class="included">
+          ✔ 기본 인건비 포함<br>
+          ✔ 기본 부자재 포함<br>
+          ✔ 현장 확인 후 최종 견적 안내
+        </div>
+
+        <div class="option-summary" id="optionSummary"></div>
+
+        <div class="notice">
+          위 금액은 간편 입력 기준 예상 범위입니다. 현장 상태, 벽면 손상, 철거 범위, 자재 선택에 따라 달라질 수 있습니다.
         </div>
       </div>
-    </div>
 
-    <!-- 벽지 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('wallpaperPanel', this)">벽지 선택</button>
-      <div id="wallpaperPanel" class="panel">
-        <div class="panel-title">벽지 종류를 선택해주세요</div>
-        <div class="option-grid">
-          <button type="button" class="option-btn" onclick="selectWallpaper('합지 (가성비)', this)">
-            합지 (가성비)
-            <small>단기 거주 / 월세, 전세집 추천</small>
-          </button>
-          <button type="button" class="option-btn" onclick="selectWallpaper('실크 (고급 / 내구성 / 오염에 강함)', this)">
-            실크 (고급 / 내구성 / 오염에 강함)
-            <small>오래 거주 시 적합</small>
-          </button>
-        </div>
+      <div class="action-group">
+        <a class="action-btn call-btn" href="tel:01040084197">📞 전화 상담</a>
+        <a class="action-btn kakao-btn" href="https://open.kakao.com/o/s9MsLsqi" target="_blank">💬 카톡 상담</a>
+        <button class="action-btn copy-btn" type="button" onclick="copyConsultMessage()">상담용 내용 복사</button>
       </div>
-    </div>
 
-    <!-- 추가 인테리어 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('extraPanel', this)">추가 인테리어 (선택)</button>
-      <div id="extraPanel" class="panel">
-        <div class="panel-title">필요한 작업을 선택해주세요 (복수 선택 가능)</div>
-        <div class="checkbox-list">
-          <label class="check-item">
-            <input type="checkbox" value="장판 시공" />
-            <span>장판 시공 <small>바닥 교체</small></span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="필름 시공" />
-            <span>필름 시공 <small>문 / 몰딩 / 가구 리폼</small></span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="타일" />
-            <span>타일</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="싱크대" />
-            <span>싱크대</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="샷시" />
-            <span>샷시</span>
-          </label>
-        </div>
-
-        <input id="extraEtc" class="text-input" type="text" placeholder="기타 요청사항 입력 (예: 도어, 몰딩, 페인트 등)" />
-
-        <div class="notice-box">
-          추가 인테리어 항목은 예상 견적에 반영되지 않습니다.<br>
-          장판 / 필름 / 타일 / 싱크대 / 샷시 및 기타 요청사항은 별도 상담 후 정확한 견적을 안내드립니다.
-        </div>
-      </div>
-    </div>
-
-    <!-- 위치 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('locationPanel', this)">시공 위치</button>
-      <div id="locationPanel" class="panel">
-        <div class="panel-title">시공 지역을 선택해주세요</div>
-
-        <div class="location-row">
-          <div class="scroll-select-wrap">
-            <select id="guSelect" class="scroll-select" onchange="updateDongOptions(); updateSummary();">
-              <option value="">구 선택</option>
-              <option value="강북구">강북구</option>
-              <option value="도봉구">도봉구</option>
-              <option value="성북구">성북구</option>
-              <option value="노원구">노원구</option>
-              <option value="기타">기타</option>
-            </select>
-          </div>
-
-          <div class="scroll-select-wrap">
-            <select id="dongSelect" class="scroll-select" onchange="toggleLocationEtc(); updateSummary();">
-              <option value="">동 선택</option>
-            </select>
-          </div>
-        </div>
-
-        <input id="locationEtc" class="text-input" type="text" placeholder="기타 지역은 직접 입력해주세요" style="display:none;" oninput="updateSummary()" />
-      </div>
-    </div>
-
-    <div class="summary" id="selectionSummary"></div>
-
-    <div class="main-action">
-      <button class="estimate-btn" onclick="showEstimate()">예상 견적 확인하기</button>
-    </div>
-
-    <div class="result-box" id="resultBox">
-      <div class="result-title">예상 견적</div>
-      <div class="result-price" id="resultPrice">상담 필요</div>
-      <div class="result-desc">
-        ※ 현장 상태에 따라 변동될 수 있습니다<br>
-        ※ 추가 인테리어 항목은 예상 견적에 반영되지 않습니다<br>
-        ※ 추가 인테리어는 별도 상담 후 정확한 견적을 안내드립니다
+      <div class="notice">
+        사진은 자동 첨부되지 않습니다. 카톡으로 사진을 따로 보내주시면 더 정확한 상담이 가능합니다.
       </div>
     </div>
   </div>
 
   <script>
-    let selectedWallpaper = "";
+    let selectedSize = 0;
+    let selectedType = "";
+    let uploadedPhotoCount = 0;
+    let consultMessage = "";
 
-    const dongData = {
-      "강북구": ["수유동", "번동", "미아동", "기타"],
-      "도봉구": ["쌍문동", "방학동", "창동", "기타"],
-      "성북구": ["길음동", "정릉동", "종암동", "기타"],
-      "노원구": ["상계동", "중계동", "월계동", "기타"]
-    };
+    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzedSerjK8S8mNPxdO7du4y7jAdcBGSMQl5E5CcyutU-JxkUzwN70JFgqfkdJzrzgvw/exec";
 
-    function togglePanel(panelId, btn) {
-      const panel = document.getElementById(panelId);
-      panel.classList.toggle("show");
-      btn.classList.toggle("active");
+    function sendToSheet(data) {
+      fetch(SCRIPT_URL, {
+        method: "POST",
+        headers: {
+          "Content-Type": "text/plain;charset=utf-8"
+        },
+        body: JSON.stringify(data)
+      }).catch(error => {
+        console.error("시트 전송 실패:", error);
+      });
     }
 
-    function selectWallpaper(value, btn) {
-      selectedWallpaper = value;
-      btn.closest(".option-grid").querySelectorAll(".option-btn").forEach(el => el.classList.remove("active"));
-      btn.classList.add("active");
-      updateSummary();
+    function clearSelected(groupId) {
+      const buttons = document.querySelectorAll(`#${groupId} .select-btn`);
+      buttons.forEach(btn => btn.classList.remove("selected"));
     }
 
-    function updateDongOptions() {
-      const gu = document.getElementById("guSelect").value;
-      const dongSelect = document.getElementById("dongSelect");
-      const locationEtc = document.getElementById("locationEtc");
+    function setSize(size, el) {
+      selectedSize = size;
+      document.getElementById("sizeInput").value = size;
+      clearSelected("sizeButtons");
+      el.classList.add("selected");
+    }
 
-      dongSelect.innerHTML = '<option value="">동 선택</option>';
-      locationEtc.style.display = "none";
+    function setType(type, el) {
+      selectedType = type;
+      clearSelected("typeButtons");
+      el.classList.add("selected");
+    }
 
-      if (gu === "기타") {
-        locationEtc.style.display = "block";
+    function previewPhotos(event) {
+      const files = event.target.files;
+      const previewGrid = document.getElementById("previewGrid");
+      previewGrid.innerHTML = "";
+      uploadedPhotoCount = files.length;
+
+      for (let i = 0; i < files.length && i < 6; i++) {
+        const file = files[i];
+        const reader = new FileReader();
+
+        reader.onload = function(e) {
+          const img = document.createElement("img");
+          img.src = e.target.result;
+          img.alt = "업로드 미리보기";
+          previewGrid.appendChild(img);
+        };
+
+        reader.readAsDataURL(file);
+      }
+    }
+
+    function calculateEstimate() {
+      const sizeInput = document.getElementById("sizeInput").value;
+      const customerName = document.getElementById("customerName").value.trim();
+      const customerArea = document.getElementById("customerArea").value.trim();
+      const customerPhone = document.getElementById("customerPhone").value.trim();
+      const customerMemo = document.getElementById("customerMemo").value.trim();
+
+      if (sizeInput) {
+        selectedSize = parseFloat(sizeInput);
+      }
+
+      if (!selectedSize || !selectedType) {
+        alert("평수와 벽지 종류를 선택해주세요.");
         return;
       }
 
-      if (dongData[gu]) {
-        dongData[gu].forEach(dong => {
-          const option = document.createElement("option");
-          option.value = dong;
-          option.textContent = dong;
-          dongSelect.appendChild(option);
-        });
-      }
-    }
-
-    function toggleLocationEtc() {
-      const gu = document.getElementById("guSelect").value;
-      const dong = document.getElementById("dongSelect").value;
-      const locationEtc = document.getElementById("locationEtc");
-
-      if (gu === "기타" || dong === "기타") {
-        locationEtc.style.display = "block";
-      } else {
-        locationEtc.style.display = "none";
-      }
-    }
-
-    function getSelectedExtras() {
-      const checks = document.querySelectorAll('.checkbox-list input[type="checkbox"]:checked');
-      return Array.from(checks).map(el => el.value);
-    }
-
-    function updateSummary() {
-      const summary = document.getElementById("selectionSummary");
-
-      const housing = document.getElementById("housingType").value;
-      const size = document.getElementById("sizeSelect").value;
-      const gu = document.getElementById("guSelect").value;
-      const dong = document.getElementById("dongSelect").value;
-      const locationEtc = document.getElementById("locationEtc").value.trim();
-
-      let text = [];
-
-      if (housing) text.push("주거형태: " + housing);
-      if (size) text.push("평수: " + size);
-      if (selectedWallpaper) text.push("벽지: " + selectedWallpaper);
-
-      if (gu && gu !== "기타" && dong && dong !== "기타") {
-        text.push("위치: " + gu + " " + dong);
-      } else if (gu === "기타" || dong === "기타" || locationEtc) {
-        text.push("위치: " + locationEtc);
+      let base = 0;
+      if (selectedType === "합지") {
+        base = selectedSize * 3;
+      } else if (selectedType === "실크") {
+        base = selectedSize * 5;
       }
 
-      summary.innerHTML = text.join("<br>");
-    }
+      const checkedOptions = document.querySelectorAll(".option:checked");
+      let optionTotal = 0;
+      let optionNames = [];
 
-    function showEstimate() {
-      const housing = document.getElementById("housingType").value;
-      const size = document.getElementById("sizeSelect").value;
-
-      let result = "상담 필요";
-
-      if (["아파트", "빌라", "오피스텔"].includes(housing)) {
-        if (selectedWallpaper.includes("합지")) {
-          if (["5평","6평","7평","8평","10평"].includes(size)) {
-            result = "40 ~ 60만원";
-          } else if (["21평","22평","23평","24평","25평","26평","27평","28평","29평"].includes(size)) {
-            result = "80 ~ 110만원";
-          } else if (["30평","31평","32평","33평","34평","35평","36평","37평","38평","39평"].includes(size)) {
-            result = "110 ~ 140만원";
-          }
-        }
-
-        if (selectedWallpaper.includes("실크")) {
-          if (["5평","6평","7평","8평","10평"].includes(size)) {
-            result = "60 ~ 80만원";
-          } else if (["21평","22평","23평","24평","25평","26평","27평","28평","29평"].includes(size)) {
-            result = "110 ~ 150만원";
-          } else if (["30평","31평","32평","33평","34평","35평","36평","37평","38평","39평"].includes(size)) {
-            result = "150 ~ 200만원";
-          }
-        }
-      }
-
-      document.getElementById("resultPrice").textContent = result;
-      document.getElementById("resultBox").classList.add("show");
-
-      console.log({
-        housing,
-        size,
-        wallpaper: selectedWallpaper,
-        extras: getSelectedExtras(),
-        extraEtc: document.getElementById("extraEtc").value.trim(),
-        gu: document.getElementById("guSelect").value,
-        dong: document.getElementById("dongSelect").value,
-        locationEtc: document.getElementById("locationEtc").value.trim(),
-        estimate: result
+      checkedOptions.forEach(option => {
+        optionTotal += parseInt(option.value, 10);
+        optionNames.push(option.dataset.name);
       });
+
+      const total = base + optionTotal;
+      const min = total;
+      const max = total + 15;
+
+      let summaryHtml = "";
+      if (customerName) {
+        summaryHtml += `<strong>${escapeHtml(customerName)}</strong>님 기준<br>`;
+      }
+      summaryHtml += `평수: <strong>${selectedSize}평</strong><br>`;
+      summaryHtml += `벽지 종류: <strong>${selectedType}</strong>`;
+
+      if (customerArea) {
+        summaryHtml += `<br>시공 지역: <strong>${escapeHtml(customerArea)}</strong>`;
+      }
+      if (customerPhone) {
+        summaryHtml += `<br>연락처: <strong>${escapeHtml(customerPhone)}</strong>`;
+      }
+      summaryHtml += `<br>사진 업로드: <strong>${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장" : "없음"}</strong>`;
+
+      let optionText = optionNames.length > 0
+        ? `선택 옵션: <strong>${optionNames.map(escapeHtml).join(", ")}</strong>`
+        : `선택 옵션: <strong>없음</strong>`;
+
+      if (customerMemo) {
+        optionText += `<br>추가 요청: <strong>${escapeHtml(customerMemo)}</strong>`;
+      }
+
+      document.getElementById("resultSummary").innerHTML = summaryHtml;
+      document.getElementById("resultPrice").textContent = `${min}만원 ~ ${max}만원`;
+      document.getElementById("optionSummary").innerHTML = optionText;
+
+      consultMessage =
+`도배 견적 문의드립니다.
+성함: ${customerName || "미입력"}
+연락처: ${customerPhone || "미입력"}
+시공 지역: ${customerArea || "미입력"}
+평수: ${selectedSize}평
+벽지 종류: ${selectedType}
+추가 옵션: ${optionNames.length ? optionNames.join(", ") : "없음"}
+사진 첨부 여부: ${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장 준비" : "없음"}
+추가 요청사항: ${customerMemo || "없음"}
+예상 견적: ${min}만원 ~ ${max}만원`;
+
+      document.getElementById("resultCard").style.display = "block";
+      document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
+
+      sendToSheet({
+        name: customerName || "미입력",
+        phone: customerPhone || "미입력",
+        size: selectedSize,
+        type: selectedType,
+        options: optionNames.length ? optionNames.join(", ") : (customerMemo || "없음"),
+        price: `${min}~${max}`
+      });
+    }
+
+    function copyConsultMessage() {
+      if (!consultMessage) {
+        alert("먼저 견적을 확인해주세요.");
+        return;
+      }
+
+      navigator.clipboard.writeText(consultMessage)
+        .then(() => alert("상담용 내용이 복사되었습니다."))
+        .catch(() => alert("복사에 실패했습니다."));
+    }
+
+    function escapeHtml(text) {
+      return String(text)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
     }
   </script>
 </body>
