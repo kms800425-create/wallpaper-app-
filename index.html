@@ -1,625 +1,198 @@
 <!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>바른 수유 인테리어 간편 견적</title>
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-      background: #f3f3f3;
-      color: #111;
-    }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>간편 견적</title>
 
-    .wrap {
-      max-width: 540px;
-      margin: 0 auto;
-      min-height: 100vh;
-      background: #f3f3f3;
-    }
+<style>
+body {
+  font-family: sans-serif;
+  background:#f5f5f5;
+  margin:0;
+  text-align:center;
+}
 
-    .top {
-      background: #000;
-      color: #fff;
-      text-align: center;
-      padding: 28px 20px 22px;
-    }
+.wrap {
+  max-width:500px;
+  margin:0 auto;
+  padding:20px;
+}
 
-    .top h1 {
-      margin: 0;
-      font-size: 34px;
-      font-weight: 800;
-      letter-spacing: -1px;
-    }
+h1 {
+  font-size:26px;
+  margin-bottom:10px;
+}
 
-    .top .sub {
-      margin-top: 14px;
-      font-size: 16px;
-      font-weight: 700;
-      color: #ffd400;
-    }
+.sub {
+  font-size:14px;
+  color:#666;
+  margin-bottom:20px;
+}
 
-    .hero {
-      text-align: center;
-      padding: 34px 20px 18px;
-    }
+.box {
+  background:#fff;
+  padding:15px;
+  margin-bottom:15px;
+  border-radius:10px;
+}
 
-    .hero h2 {
-      margin: 0;
-      font-size: 30px;
-      line-height: 1.35;
-      font-weight: 900;
-      letter-spacing: -1px;
-    }
+select, input {
+  width:100%;
+  padding:12px;
+  margin-top:10px;
+  font-size:16px;
+}
 
-    .hero p {
-      margin: 16px 0 0;
-      font-size: 18px;
-      font-weight: 700;
-    }
+button {
+  width:100%;
+  padding:15px;
+  margin-top:10px;
+  font-size:16px;
+  border:2px solid #000;
+  background:#fff;
+  cursor:pointer;
+}
 
-    .step-bar {
-      margin: 10px 20px 18px;
-      background: #000;
-      color: #fff;
-      border-radius: 14px;
-      text-align: center;
-      padding: 14px 10px;
-      font-size: 15px;
-      font-weight: 800;
-      line-height: 1.5;
-    }
+button.active {
+  background:#000;
+  color:#fff;
+}
 
-    .step-bar .active {
-      color: #ffd400;
-    }
+.result {
+  font-size:24px;
+  margin-top:20px;
+  font-weight:bold;
+}
 
-    .section {
-      margin: 0 20px 16px;
-    }
-
-    .accordion-btn {
-      width: 100%;
-      border: 3px solid #111;
-      background: #fff;
-      color: #111;
-      border-radius: 14px;
-      padding: 22px 18px;
-      font-size: 22px;
-      font-weight: 900;
-      text-align: center;
-      cursor: pointer;
-    }
-
-    .accordion-btn.active {
-      background: #111;
-      color: #fff;
-    }
-
-    .panel {
-      display: none;
-      margin-top: 10px;
-      background: #fff;
-      border: 2px solid #ddd;
-      border-radius: 14px;
-      padding: 14px;
-    }
-
-    .panel.show {
-      display: block;
-    }
-
-    .panel-title {
-      font-size: 15px;
-      font-weight: 800;
-      margin-bottom: 12px;
-      color: #333;
-    }
-
-    .option-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .option-btn {
-      border: 2px solid #111;
-      background: #fff;
-      border-radius: 12px;
-      padding: 14px 10px;
-      text-align: center;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      line-height: 1.4;
-    }
-
-    .option-btn.active {
-      background: #111;
-      color: #fff;
-    }
-
-    .option-btn small {
-      display: block;
-      margin-top: 4px;
-      font-size: 12px;
-      font-weight: 700;
-      opacity: 0.85;
-    }
-
-    .sub-options {
-      margin-top: 12px;
-      display: none;
-    }
-
-    .sub-options.show {
-      display: block;
-    }
-
-    .text-input {
-      width: 100%;
-      padding: 14px 12px;
-      border: 2px solid #111;
-      border-radius: 10px;
-      font-size: 15px;
-      margin-top: 10px;
-    }
-
-    .checkbox-list {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 10px;
-    }
-
-    .check-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      border: 2px solid #111;
-      border-radius: 12px;
-      padding: 12px 14px;
-      background: #fff;
-      font-size: 15px;
-      font-weight: 800;
-    }
-
-    .check-item input {
-      width: 18px;
-      height: 18px;
-    }
-
-    .check-item small {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      color: #555;
-      margin-top: 2px;
-    }
-
-    .location-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .result-box {
-      display: none;
-      margin: 22px 20px 12px;
-      background: #fff;
-      border: 3px solid #111;
-      border-radius: 16px;
-      padding: 22px 18px;
-      text-align: center;
-    }
-
-    .result-box.show {
-      display: block;
-    }
-
-    .result-title {
-      font-size: 20px;
-      font-weight: 900;
-      margin-bottom: 12px;
-    }
-
-    .result-price {
-      font-size: 32px;
-      font-weight: 900;
-      color: #111;
-      line-height: 1.3;
-    }
-
-    .result-desc {
-      margin-top: 12px;
-      font-size: 14px;
-      line-height: 1.6;
-      color: #444;
-      font-weight: 700;
-    }
-
-    .main-action {
-      margin: 24px 20px 40px;
-    }
-
-    .estimate-btn {
-      width: 100%;
-      border: none;
-      border-radius: 16px;
-      background: #111;
-      color: #ffd400;
-      padding: 22px 18px;
-      font-size: 24px;
-      font-weight: 900;
-      cursor: pointer;
-    }
-
-    .summary {
-      margin: 10px 20px 0;
-      font-size: 14px;
-      font-weight: 700;
-      color: #444;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 480px) {
-      .top h1 { font-size: 28px; }
-      .hero h2 { font-size: 26px; }
-      .accordion-btn { font-size: 20px; padding: 18px 14px; }
-      .estimate-btn { font-size: 22px; }
-    }
-  </style>
+.notice {
+  font-size:13px;
+  color:#555;
+  margin-top:10px;
+  line-height:1.5;
+}
+</style>
 </head>
+
 <body>
-  <div class="wrap">
-    <div class="top">
-      <h1>바른 수유 인테리어</h1>
-      <div class="sub">강북구 / 도봉구 전문 시공</div>
-    </div>
 
-    <div class="hero">
-      <h2>도배 / 장판 / 필름 간편 견적</h2>
-      <p>1분 입력하면 예상금액 바로 확인</p>
-    </div>
+<div class="wrap">
 
-    <div class="step-bar">
-      1단계 주거형태 · 2단계 평수 · <span class="active">3단계 벽지</span> · 4단계 추가 인테리어 · 5단계 위치
-    </div>
+<h1>도배 / 장판 / 필름 간편 견적</h1>
+<div class="sub">1분 입력 → 예상금액 확인</div>
 
-    <!-- 주거형태 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('housingPanel', this)">주거형태 선택</button>
-      <div id="housingPanel" class="panel">
-        <div class="panel-title">주거형태를 선택해주세요</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="selectSingle('housing', '주거 (아파트 / 빌라 / 원룸)', this)">
-            주거
-            <small>아파트 / 빌라 / 원룸</small>
-          </button>
-          <button class="option-btn" onclick="selectSingle('housing', '상가 / 사무실', this)">
-            상가 / 사무실
-            <small>매장 / 사무실 / 학원 등</small>
-          </button>
-          <button class="option-btn" style="grid-column: 1 / -1;" onclick="showEtcInput('housingEtcWrap', this)">
-            기타 (직접입력)
-          </button>
-        </div>
-        <div id="housingEtcWrap" class="sub-options">
-          <input id="housingEtc" class="text-input" type="text" placeholder="주거형태를 직접 입력해주세요" />
-        </div>
-      </div>
-    </div>
+<!-- 주거형태 -->
+<div class="box">
+  <b>주거형태</b>
+  <select id="housing">
+    <option value="">선택</option>
+    <option>주거 (아파트/빌라/원룸)</option>
+    <option>상가 / 사무실</option>
+  </select>
+</div>
 
-    <!-- 평수 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('sizePanel', this)">평수 선택</button>
-      <div id="sizePanel" class="panel">
-        <div class="panel-title">평수를 선택해주세요</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="showSubOptions('sizeSmallWrap', this)">원룸 / 소형</button>
-          <button class="option-btn" onclick="showSubOptions('size20Wrap', this)">20평대</button>
-          <button class="option-btn" onclick="showSubOptions('size30Wrap', this)">30평대</button>
-          <button class="option-btn" onclick="selectSingle('size', '40평 이상 (상담)', this)">40평 이상 (상담)</button>
-          <button class="option-btn" style="grid-column: 1 / -1;" onclick="showSubOptions('sizeEtcWrap', this)">기타 (직접입력)</button>
-        </div>
+<!-- 평수 -->
+<div class="box">
+  <b>평수</b>
+  <select id="size">
+    <option value="">선택</option>
+    <option>원룸 (5~10평)</option>
+    <option>20평대</option>
+    <option>30평대</option>
+    <option>40평 이상</option>
+  </select>
+</div>
 
-        <div id="sizeSmallWrap" class="sub-options">
-          <div class="option-grid">
-            <button class="option-btn" onclick="selectSingle('size', '5평', this)">5평</button>
-            <button class="option-btn" onclick="selectSingle('size', '6평', this)">6평</button>
-            <button class="option-btn" onclick="selectSingle('size', '7평', this)">7평</button>
-            <button class="option-btn" onclick="selectSingle('size', '8평', this)">8평</button>
-            <button class="option-btn" onclick="selectSingle('size', '10평', this)">10평</button>
-          </div>
-        </div>
+<!-- 벽지 -->
+<div class="box">
+  <b>벽지 선택</b>
 
-        <div id="size20Wrap" class="sub-options">
-          <div class="option-grid">
-            <button class="option-btn" onclick="selectSingle('size', '21평', this)">21평</button>
-            <button class="option-btn" onclick="selectSingle('size', '22평', this)">22평</button>
-            <button class="option-btn" onclick="selectSingle('size', '23평', this)">23평</button>
-            <button class="option-btn" onclick="selectSingle('size', '24평', this)">24평</button>
-            <button class="option-btn" onclick="selectSingle('size', '25평', this)">25평</button>
-            <button class="option-btn" onclick="selectSingle('size', '26평', this)">26평</button>
-            <button class="option-btn" onclick="selectSingle('size', '27평', this)">27평</button>
-            <button class="option-btn" onclick="selectSingle('size', '28평', this)">28평</button>
-            <button class="option-btn" onclick="selectSingle('size', '29평', this)">29평</button>
-          </div>
-        </div>
+  <button onclick="selectWallpaper(this, '합지')">
+    합지 (가성비)<br>
+    <small>단기 거주 / 월세, 전세 추천</small>
+  </button>
 
-        <div id="size30Wrap" class="sub-options">
-          <div class="option-grid">
-            <button class="option-btn" onclick="selectSingle('size', '30평', this)">30평</button>
-            <button class="option-btn" onclick="selectSingle('size', '31평', this)">31평</button>
-            <button class="option-btn" onclick="selectSingle('size', '32평', this)">32평</button>
-            <button class="option-btn" onclick="selectSingle('size', '33평', this)">33평</button>
-            <button class="option-btn" onclick="selectSingle('size', '34평', this)">34평</button>
-            <button class="option-btn" onclick="selectSingle('size', '35평', this)">35평</button>
-            <button class="option-btn" onclick="selectSingle('size', '36평', this)">36평</button>
-            <button class="option-btn" onclick="selectSingle('size', '37평', this)">37평</button>
-            <button class="option-btn" onclick="selectSingle('size', '38평', this)">38평</button>
-            <button class="option-btn" onclick="selectSingle('size', '39평', this)">39평</button>
-          </div>
-        </div>
+  <button onclick="selectWallpaper(this, '실크')">
+    실크 (고급 / 내구성 / 오염에 강함)<br>
+    <small>오래 거주 시 적합</small>
+  </button>
+</div>
 
-        <div id="sizeEtcWrap" class="sub-options">
-          <input id="sizeEtc" class="text-input" type="text" placeholder="정확한 평수를 입력해주세요 (예: 23평)" />
-        </div>
-      </div>
-    </div>
+<!-- 추가 인테리어 -->
+<div class="box">
+  <b>추가 인테리어 (선택)</b>
 
-    <!-- 벽지 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('wallpaperPanel', this)">벽지 선택</button>
-      <div id="wallpaperPanel" class="panel">
-        <div class="panel-title">벽지 종류를 선택해주세요</div>
-        <div class="option-grid">
-          <button class="option-btn" onclick="selectSingle('wallpaper', '합지 (가성비)', this)">
-            합지 (가성비)
-            <small>단기 거주 / 월세, 전세집 추천</small>
-          </button>
-          <button class="option-btn" onclick="selectSingle('wallpaper', '실크 (고급 / 내구성 / 오염에 강함)', this)">
-            실크 (고급 / 내구성 / 오염에 강함)
-            <small>오래 거주 시 적합</small>
-          </button>
-        </div>
-      </div>
-    </div>
-
-    <!-- 추가 인테리어 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('extraPanel', this)">추가 인테리어 (선택)</button>
-      <div id="extraPanel" class="panel">
-        <div class="panel-title">필요한 작업을 선택해주세요 (복수 선택 가능)</div>
-        <div class="checkbox-list">
-          <label class="check-item">
-            <input type="checkbox" value="장판 시공" />
-            <span>장판 시공 <small>바닥 교체</small></span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="필름 시공" />
-            <span>필름 시공 <small>문 / 몰딩 / 가구 리폼</small></span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="타일" />
-            <span>타일</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="싱크대" />
-            <span>싱크대</span>
-          </label>
-          <label class="check-item">
-            <input type="checkbox" value="샷시" />
-            <span>샷시</span>
-          </label>
-        </div>
-
-        <input id="extraEtc" class="text-input" type="text" placeholder="기타 요청사항 입력 (예: 도어, 몰딩, 페인트 등)" />
-      </div>
-    </div>
-
-    <!-- 위치 -->
-    <div class="section">
-      <button class="accordion-btn" onclick="togglePanel('locationPanel', this)">시공 위치</button>
-      <div id="locationPanel" class="panel">
-        <div class="panel-title">시공 지역을 선택해주세요</div>
-
-        <div class="location-row">
-          <select id="guSelect" class="text-input" onchange="updateDongOptions()" style="margin-top:0;">
-            <option value="">구 선택</option>
-            <option value="강북구">강북구</option>
-            <option value="도봉구">도봉구</option>
-            <option value="성북구">성북구</option>
-            <option value="노원구">노원구</option>
-            <option value="기타">기타</option>
-          </select>
-
-          <select id="dongSelect" class="text-input" style="margin-top:0;">
-            <option value="">동 선택</option>
-          </select>
-        </div>
-
-        <input id="locationEtc" class="text-input" type="text" placeholder="기타 지역은 직접 입력해주세요" style="display:none;" />
-      </div>
-    </div>
-
-    <div class="summary" id="selectionSummary"></div>
-
-    <div class="main-action">
-      <button class="estimate-btn" onclick="showEstimate()">예상 견적 확인하기</button>
-    </div>
-
-    <div class="result-box" id="resultBox">
-      <div class="result-title">예상 견적</div>
-      <div class="result-price" id="resultPrice">상담 필요</div>
-      <div class="result-desc">
-        ※ 현장 상태에 따라 변동될 수 있습니다<br />
-        ※ 추가 인테리어는 별도 상담 후 반영됩니다
-      </div>
-    </div>
+  <div style="text-align:left; margin-top:10px;">
+    <label><input type="checkbox"> 장판 시공</label><br>
+    <label><input type="checkbox"> 필름 시공</label><br>
+    <label><input type="checkbox"> 타일</label><br>
+    <label><input type="checkbox"> 싱크대</label><br>
+    <label><input type="checkbox"> 샷시</label>
   </div>
 
-  <script>
-    const formData = {
-      housing: "",
-      size: "",
-      wallpaper: ""
-    };
+  <input type="text" placeholder="기타 요청사항 입력">
 
-    const dongData = {
-      "강북구": ["수유동", "번동", "미아동", "기타"],
-      "도봉구": ["쌍문동", "방학동", "창동", "기타"],
-      "성북구": ["길음동", "정릉동", "종암동", "기타"],
-      "노원구": ["상계동", "중계동", "월계동", "기타"]
-    };
+  <div class="notice">
+    ※ 추가 인테리어는 견적에 포함되지 않습니다<br>
+    ※ 별도 상담 후 진행됩니다
+  </div>
+</div>
 
-    function togglePanel(panelId, btn) {
-      const panel = document.getElementById(panelId);
-      panel.classList.toggle("show");
-      btn.classList.toggle("active");
+<!-- 위치 -->
+<div class="box">
+  <b>시공 위치</b>
+  <input type="text" placeholder="예: 수유동 / 쌍문동">
+</div>
+
+<!-- 버튼 -->
+<button onclick="calc()">예상 견적 확인하기</button>
+
+<div class="result" id="result"></div>
+
+<div class="notice">
+  ※ 현장 상태에 따라 변동될 수 있습니다
+</div>
+
+</div>
+
+<script>
+
+let wallpaper = "";
+
+function selectWallpaper(btn, type){
+  wallpaper = type;
+
+  document.querySelectorAll("button").forEach(b=>{
+    if(b.innerText.includes("합지") || b.innerText.includes("실크")){
+      b.classList.remove("active");
     }
+  });
 
-    function selectSingle(field, value, btn) {
-      formData[field] = value;
+  btn.classList.add("active");
+}
 
-      const wrap = btn.closest(".panel");
-      wrap.querySelectorAll(".option-btn").forEach(el => {
-        el.classList.remove("active");
-      });
-      btn.classList.add("active");
+function calc(){
 
-      updateSummary();
-    }
+  let size = document.getElementById("size").value;
 
-    function showSubOptions(targetId, btn) {
-      const panel = btn.closest(".panel");
-      panel.querySelectorAll(".sub-options").forEach(el => {
-        el.classList.remove("show");
-      });
+  let price = "상담 필요";
 
-      const target = document.getElementById(targetId);
-      if (target) target.classList.add("show");
+  if(wallpaper === "합지"){
+    if(size.includes("원룸")) price = "40 ~ 60만원";
+    if(size.includes("20")) price = "80 ~ 110만원";
+    if(size.includes("30")) price = "110 ~ 140만원";
+  }
 
-      panel.querySelectorAll(".option-btn").forEach(el => {
-        if (!target.contains(el)) el.classList.remove("active");
-      });
+  if(wallpaper === "실크"){
+    if(size.includes("원룸")) price = "60 ~ 80만원";
+    if(size.includes("20")) price = "110 ~ 150만원";
+    if(size.includes("30")) price = "150 ~ 200만원";
+  }
 
-      btn.classList.add("active");
-    }
+  document.getElementById("result").innerText = price;
+}
 
-    function showEtcInput(targetId, btn) {
-      const panel = btn.closest(".panel");
-      panel.querySelectorAll(".sub-options").forEach(el => {
-        el.classList.remove("show");
-      });
+</script>
 
-      document.getElementById(targetId).classList.add("show");
-
-      panel.querySelectorAll(".option-btn").forEach(el => {
-        el.classList.remove("active");
-      });
-      btn.classList.add("active");
-    }
-
-    function updateDongOptions() {
-      const gu = document.getElementById("guSelect").value;
-      const dongSelect = document.getElementById("dongSelect");
-      const locationEtc = document.getElementById("locationEtc");
-
-      dongSelect.innerHTML = '<option value="">동 선택</option>';
-      locationEtc.style.display = "none";
-
-      if (gu === "기타") {
-        locationEtc.style.display = "block";
-        return;
-      }
-
-      if (dongData[gu]) {
-        dongData[gu].forEach(dong => {
-          const option = document.createElement("option");
-          option.value = dong;
-          option.textContent = dong;
-          dongSelect.appendChild(option);
-        });
-      }
-    }
-
-    function getSelectedExtras() {
-      const checks = document.querySelectorAll('#extraPanel input[type="checkbox"]:checked');
-      return Array.from(checks).map(el => el.value);
-    }
-
-    function updateSummary() {
-      const summary = document.getElementById("selectionSummary");
-      let text = [];
-
-      const housingEtc = document.getElementById("housingEtc").value.trim();
-      const sizeEtc = document.getElementById("sizeEtc").value.trim();
-
-      if (formData.housing) text.push("주거형태: " + formData.housing);
-      else if (housingEtc) text.push("주거형태: " + housingEtc);
-
-      if (formData.size) text.push("평수: " + formData.size);
-      else if (sizeEtc) text.push("평수: " + sizeEtc);
-
-      if (formData.wallpaper) text.push("벽지: " + formData.wallpaper);
-
-      summary.innerHTML = text.join("<br>");
-    }
-
-    document.getElementById("housingEtc").addEventListener("input", updateSummary);
-    document.getElementById("sizeEtc").addEventListener("input", updateSummary);
-
-    function showEstimate() {
-      const housing = formData.housing || document.getElementById("housingEtc").value.trim();
-      const size = formData.size || document.getElementById("sizeEtc").value.trim();
-      const wallpaper = formData.wallpaper;
-
-      let result = "상담 필요";
-
-      if (housing.includes("주거")) {
-        if (wallpaper.includes("합지")) {
-          if (size.includes("5평") || size.includes("6평") || size.includes("7평") || size.includes("8평") || size.includes("10평")) {
-            result = "40 ~ 60만원";
-          } else if (size.includes("21평") || size.includes("22평") || size.includes("23평") || size.includes("24평") || size.includes("25평") || size.includes("26평") || size.includes("27평") || size.includes("28평") || size.includes("29평")) {
-            result = "80 ~ 110만원";
-          } else if (size.includes("30평") || size.includes("31평") || size.includes("32평") || size.includes("33평") || size.includes("34평") || size.includes("35평") || size.includes("36평") || size.includes("37평") || size.includes("38평") || size.includes("39평")) {
-            result = "110 ~ 140만원";
-          }
-        }
-
-        if (wallpaper.includes("실크")) {
-          if (size.includes("5평") || size.includes("6평") || size.includes("7평") || size.includes("8평") || size.includes("10평")) {
-            result = "60 ~ 80만원";
-          } else if (size.includes("21평") || size.includes("22평") || size.includes("23평") || size.includes("24평") || size.includes("25평") || size.includes("26평") || size.includes("27평") || size.includes("28평") || size.includes("29평")) {
-            result = "110 ~ 150만원";
-          } else if (size.includes("30평") || size.includes("31평") || size.includes("32평") || size.includes("33평") || size.includes("34평") || size.includes("35평") || size.includes("36평") || size.includes("37평") || size.includes("38평") || size.includes("39평")) {
-            result = "150 ~ 200만원";
-          }
-        }
-      }
-
-      document.getElementById("resultPrice").textContent = result;
-      document.getElementById("resultBox").classList.add("show");
-
-      const extras = getSelectedExtras();
-      const gu = document.getElementById("guSelect").value;
-      const dong = document.getElementById("dongSelect").value;
-      const locationEtc = document.getElementById("locationEtc").value.trim();
-
-      console.log({
-        housing,
-        size,
-        wallpaper,
-        extras,
-        extraEtc: document.getElementById("extraEtc").value.trim(),
-        gu,
-        dong,
-        locationEtc,
-        estimate: result
-      });
-    }
-  </script>
 </body>
 </html>
