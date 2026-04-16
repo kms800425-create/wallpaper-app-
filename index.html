@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>바른수유 인테리어 | 간편 도배 견적</title>
+  <title>바른수유 인테리어 | 간편 견적</title>
   <style>
     * { box-sizing: border-box; }
 
@@ -59,38 +59,8 @@
       line-height: 1.5;
     }
 
-    .btn-grid {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 10px;
-    }
-
-    .select-btn {
-      border: 1px solid #ddd;
-      background: #fff;
-      border-radius: 14px;
-      padding: 14px 10px;
-      font-size: 15px;
-      cursor: pointer;
-      transition: 0.2s;
-    }
-
-    .select-btn.selected {
-      background: #111;
-      color: #fff;
-      border-color: #111;
-    }
-
-    .select-btn small {
-      display: block;
-      margin-top: 4px;
-      font-size: 12px;
-      opacity: 0.8;
-    }
-
-    input[type="number"],
+    select,
     input[type="text"],
-    input[type="tel"],
     input[type="file"],
     textarea {
       width: 100%;
@@ -103,7 +73,7 @@
     }
 
     textarea {
-      min-height: 110px;
+      min-height: 100px;
       resize: vertical;
     }
 
@@ -121,24 +91,10 @@
 
     .option-item label {
       display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 10px;
-      width: 100%;
-      cursor: pointer;
-      font-size: 15px;
-    }
-
-    .option-left {
-      display: flex;
       align-items: center;
       gap: 8px;
-    }
-
-    .price-tag {
-      font-size: 14px;
-      color: #444;
-      white-space: nowrap;
+      cursor: pointer;
+      font-size: 15px;
     }
 
     .main-btn {
@@ -162,7 +118,7 @@
 
     .result-summary {
       font-size: 14px;
-      line-height: 1.7;
+      line-height: 1.8;
       color: #333;
     }
 
@@ -245,11 +201,8 @@
       background: #fafafa;
     }
 
-    .upload-guide {
-      margin-top: 8px;
-      font-size: 13px;
-      color: #666;
-      line-height: 1.5;
+    .hidden {
+      display: none;
     }
   </style>
 </head>
@@ -257,83 +210,89 @@
   <div class="wrap">
     <div class="hero">
       <h1>바른수유 인테리어</h1>
-      <p>평수, 벽지 종류, 옵션을 선택하면 예상 견적을 확인할 수 있습니다.</p>
+      <p>주거형태, 평수, 벽지, 추가공사, 지역을 선택하면 예상 견적을 확인할 수 있습니다.</p>
     </div>
 
     <div class="card">
-      <h2>1. 평수 선택</h2>
-      <div class="btn-grid" id="sizeButtons">
-        <button class="select-btn" type="button" onclick="setSize(5, this)">5평 이하<small>원룸/소형</small></button>
-        <button class="select-btn" type="button" onclick="setSize(10, this)">10평<small>소형 투룸</small></button>
-        <button class="select-btn" type="button" onclick="setSize(20, this)">20평<small>중형 아파트</small></button>
-        <button class="select-btn" type="button" onclick="setSize(30, this)">30평 이상<small>대형 평형</small></button>
-      </div>
-      <input type="number" id="sizeInput" placeholder="직접 입력 (예: 24)" />
+      <h2>1. 주거형태 선택</h2>
+      <select id="houseType" onchange="updateSizeOptions()">
+        <option value="">선택하세요</option>
+        <option value="원룸">원룸</option>
+        <option value="아파트">아파트</option>
+        <option value="빌라">빌라</option>
+        <option value="상가">상가</option>
+        <option value="사무실">사무실</option>
+        <option value="기타">기타</option>
+      </select>
+      <input type="text" id="houseTypeCustom" class="hidden" placeholder="기타 주거형태 입력" />
     </div>
 
     <div class="card">
-      <h2>2. 벽지 종류</h2>
-      <div class="btn-grid" id="typeButtons">
-        <button class="select-btn" type="button" onclick="setType('합지', this)">합지<small>가성비 / 원룸 추천</small></button>
-        <button class="select-btn" type="button" onclick="setType('실크', this)">실크<small>내구성 / 아파트 추천</small></button>
-      </div>
-      <div class="muted" style="margin-top:10px;">
-        합지는 경제적이고, 실크는 내구성과 마감감이 더 좋습니다.
-      </div>
+      <h2>2. 평수 선택</h2>
+      <select id="sizeSelect">
+        <option value="">주거형태를 먼저 선택하세요</option>
+      </select>
+      <input type="text" id="sizeCustom" class="hidden" placeholder="직접 평수 입력 (예: 24평)" />
     </div>
 
     <div class="card">
-      <h2>3. 추가 옵션</h2>
+      <h2>3. 벽지 선택</h2>
+      <select id="wallType">
+        <option value="">선택하세요</option>
+        <option value="합지">합지 / 가성비 / 월세·전세 추천</option>
+        <option value="실크">실크 / 내구성 / 자가·아파트 추천</option>
+      </select>
+    </div>
+
+    <div class="card">
+      <h2>4. 추가 공사 선택</h2>
       <div class="option-list">
         <div class="option-item">
-          <label>
-            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="곰팡이 제거"> 곰팡이 제거</span>
-            <span class="price-tag">+10만원</span>
-          </label>
+          <label><input type="checkbox" class="extraOption" value="장판" /> 장판</label>
         </div>
         <div class="option-item">
-          <label>
-            <span class="option-left"><input type="checkbox" class="option" value="15" data-name="기존 벽지 제거"> 기존 벽지 제거</span>
-            <span class="price-tag">+15만원</span>
-          </label>
+          <label><input type="checkbox" class="extraOption" value="필름" /> 필름</label>
         </div>
         <div class="option-item">
-          <label>
-            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="짐 이동 있음"> 짐 이동 있음</span>
-            <span class="price-tag">+10만원</span>
-          </label>
+          <label><input type="checkbox" class="extraOption" value="타일" /> 타일</label>
         </div>
         <div class="option-item">
-          <label>
-            <span class="option-left"><input type="checkbox" class="option" value="10" data-name="천장 포함"> 천장 포함</span>
-            <span class="price-tag">+10만원</span>
-          </label>
+          <label><input type="checkbox" class="extraOption" value="싱크대" /> 싱크대</label>
+        </div>
+        <div class="option-item">
+          <label><input type="checkbox" class="extraOption" value="샷시" /> 샷시</label>
         </div>
       </div>
+      <input type="text" id="customOption" placeholder="기타 공사 직접입력" />
     </div>
 
     <div class="card">
-      <h2>4. 공간 사진 업로드</h2>
+      <h2>5. 지역 선택</h2>
+      <select id="areaSelect" onchange="toggleAreaCustom()">
+        <option value="">선택하세요</option>
+        <option value="강북구">강북구</option>
+        <option value="도봉구">도봉구</option>
+        <option value="성북구">성북구</option>
+        <option value="노원구">노원구</option>
+        <option value="기타">기타</option>
+      </select>
+      <input type="text" id="areaCustom" class="hidden" placeholder="기타 지역 입력" />
+    </div>
+
+    <div class="card">
+      <h2>6. 공간 사진 업로드</h2>
       <input type="file" id="photoInput" accept="image/*" multiple onchange="previewPhotos(event)" />
-      <div class="upload-guide">
-        벽 상태, 곰팡이, 천장, 짐 있는 부분 사진을 올리면 더 정확한 상담이 가능합니다.
+      <div class="notice">
+        벽 상태, 천장, 바닥, 추가공사 부분 사진을 올리면 더 정확한 상담이 가능합니다.
       </div>
       <div class="preview-grid" id="previewGrid"></div>
-    </div>
-
-    <div class="card">
-      <h2>5. 고객 정보</h2>
-      <input type="text" id="customerName" placeholder="성함 (선택)" />
-      <input type="text" id="customerArea" placeholder="시공 지역 (예: 수유동, 노원구)" />
-      <input type="tel" id="customerPhone" placeholder="연락처 (선택)" />
-      <textarea id="customerMemo" placeholder="추가 요청사항 (예: 거실만, 천장 제외, 빠른 시공 희망 등)"></textarea>
     </div>
 
     <div class="card">
       <button class="main-btn" type="button" onclick="calculateEstimate()">예상 견적 확인하기</button>
     </div>
 
-    <div class="card" id="resultCard" style="display:none;">
+    <div class="card hidden" id="resultCard">
       <h2>예상 견적 결과</h2>
       <div class="result-box">
         <div class="result-summary" id="resultSummary"></div>
@@ -342,31 +301,29 @@
         <div class="included">
           ✔ 기본 인건비 포함<br>
           ✔ 기본 부자재 포함<br>
-          ✔ 현장 확인 후 최종 견적 안내
+          ✔ 추가공사는 별도 상담 후 최종 반영 가능
         </div>
 
         <div class="option-summary" id="optionSummary"></div>
 
         <div class="notice">
-          위 금액은 간편 입력 기준 예상 범위입니다. 현장 상태, 벽면 손상, 철거 범위, 자재 선택에 따라 달라질 수 있습니다.
+          위 금액은 간편 입력 기준 예상 범위입니다. 현장 상태, 벽면 손상, 자재 선택, 추가공사 여부에 따라 달라질 수 있습니다.
         </div>
       </div>
 
       <div class="action-group">
         <a class="action-btn call-btn" href="tel:01040084197">📞 전화 상담</a>
         <a class="action-btn kakao-btn" href="https://open.kakao.com/o/s9MsLsqi" target="_blank">💬 카톡 상담</a>
-        <button class="action-btn copy-btn" type="button" onclick="copyConsultMessage()">상담용 내용 복사</button>
+        <button class="action-btn copy-btn" type="button" onclick="copyConsultMessage()">상담 내용 복사</button>
       </div>
 
       <div class="notice">
-        사진은 자동 첨부되지 않습니다. 카톡으로 사진을 따로 보내주시면 더 정확한 상담이 가능합니다.
+        카톡 상담 시 복사한 내용과 사진을 같이 보내주시면 더 빠르게 견적 안내가 가능합니다.
       </div>
     </div>
   </div>
 
   <script>
-    let selectedSize = 0;
-    let selectedType = "";
     let uploadedPhotoCount = 0;
     let consultMessage = "";
 
@@ -384,22 +341,59 @@
       });
     }
 
-    function clearSelected(groupId) {
-      const buttons = document.querySelectorAll(`#${groupId} .select-btn`);
-      buttons.forEach(btn => btn.classList.remove("selected"));
+    function updateSizeOptions() {
+      const houseType = document.getElementById("houseType").value;
+      const sizeSelect = document.getElementById("sizeSelect");
+      const houseTypeCustom = document.getElementById("houseTypeCustom");
+      const sizeCustom = document.getElementById("sizeCustom");
+
+      houseTypeCustom.classList.add("hidden");
+      sizeCustom.classList.add("hidden");
+      sizeSelect.innerHTML = "";
+
+      if (houseType === "기타") {
+        houseTypeCustom.classList.remove("hidden");
+      }
+
+      let options = [];
+
+      if (houseType === "원룸") {
+        options = ["3평", "4평", "5평", "6평", "7평", "8평", "9평"];
+      } else if (houseType === "아파트") {
+        options = ["10평", "15평", "20평", "24평", "28평", "30평", "34평", "40평 이상", "직접입력"];
+      } else if (houseType === "빌라") {
+        options = ["10평", "12평", "15평", "18평", "20평", "24평", "30평", "직접입력"];
+      } else if (houseType === "상가" || houseType === "사무실") {
+        options = ["10평 이하", "10~20평", "20~30평", "30~40평", "40평 이상", "직접입력"];
+      } else if (houseType === "기타") {
+        options = ["직접입력"];
+      } else {
+        sizeSelect.innerHTML = '<option value="">주거형태를 먼저 선택하세요</option>';
+        return;
+      }
+
+      sizeSelect.innerHTML = '<option value="">선택하세요</option>' + options.map(option => {
+        return `<option value="${option}">${option}</option>`;
+      }).join("");
+
+      sizeSelect.onchange = function () {
+        if (sizeSelect.value === "직접입력") {
+          sizeCustom.classList.remove("hidden");
+        } else {
+          sizeCustom.classList.add("hidden");
+        }
+      };
     }
 
-    function setSize(size, el) {
-      selectedSize = size;
-      document.getElementById("sizeInput").value = size;
-      clearSelected("sizeButtons");
-      el.classList.add("selected");
-    }
+    function toggleAreaCustom() {
+      const areaSelect = document.getElementById("areaSelect");
+      const areaCustom = document.getElementById("areaCustom");
 
-    function setType(type, el) {
-      selectedType = type;
-      clearSelected("typeButtons");
-      el.classList.add("selected");
+      if (areaSelect.value === "기타") {
+        areaCustom.classList.remove("hidden");
+      } else {
+        areaCustom.classList.add("hidden");
+      }
     }
 
     function previewPhotos(event) {
@@ -424,91 +418,106 @@
     }
 
     function calculateEstimate() {
-      const sizeInput = document.getElementById("sizeInput").value;
-      const customerName = document.getElementById("customerName").value.trim();
-      const customerArea = document.getElementById("customerArea").value.trim();
-      const customerPhone = document.getElementById("customerPhone").value.trim();
-      const customerMemo = document.getElementById("customerMemo").value.trim();
+      const houseTypeValue = document.getElementById("houseType").value;
+      const houseTypeCustom = document.getElementById("houseTypeCustom").value.trim();
+      const sizeValue = document.getElementById("sizeSelect").value;
+      const sizeCustom = document.getElementById("sizeCustom").value.trim();
+      const wallType = document.getElementById("wallType").value;
+      const customOption = document.getElementById("customOption").value.trim();
+      const areaValue = document.getElementById("areaSelect").value;
+      const areaCustom = document.getElementById("areaCustom").value.trim();
 
-      if (sizeInput) {
-        selectedSize = parseFloat(sizeInput);
-      }
+      const houseType = houseTypeValue === "기타" ? houseTypeCustom : houseTypeValue;
+      const finalSize = sizeValue === "직접입력" ? sizeCustom : sizeValue;
+      const area = areaValue === "기타" ? areaCustom : areaValue;
 
-      if (!selectedSize || !selectedType) {
-        alert("평수와 벽지 종류를 선택해주세요.");
+      if (!houseType) {
+        alert("주거형태를 선택해주세요.");
         return;
       }
 
-      let base = 0;
-      if (selectedType === "합지") {
-        base = selectedSize * 3;
-      } else if (selectedType === "실크") {
-        base = selectedSize * 5;
+      if (!finalSize) {
+        alert("평수를 선택해주세요.");
+        return;
       }
 
-      const checkedOptions = document.querySelectorAll(".option:checked");
-      let optionTotal = 0;
-      let optionNames = [];
+      if (!wallType) {
+        alert("벽지 종류를 선택해주세요.");
+        return;
+      }
+
+      if (!area) {
+        alert("지역을 선택해주세요.");
+        return;
+      }
+
+      const checkedOptions = document.querySelectorAll(".extraOption:checked");
+      const optionNames = [];
 
       checkedOptions.forEach(option => {
-        optionTotal += parseInt(option.value, 10);
-        optionNames.push(option.dataset.name);
+        optionNames.push(option.value);
       });
 
-      const total = base + optionTotal;
+      if (customOption) {
+        optionNames.push(customOption);
+      }
+
+      const sizeNumber = extractNumber(finalSize);
+
+      let base = 0;
+      if (wallType.includes("합지")) {
+        base = sizeNumber * 3;
+      } else {
+        base = sizeNumber * 5;
+      }
+
+      const extraCount = optionNames.length;
+      const total = base + (extraCount * 5);
       const min = total;
       const max = total + 15;
 
-      let summaryHtml = "";
-      if (customerName) {
-        summaryHtml += `<strong>${escapeHtml(customerName)}</strong>님 기준<br>`;
-      }
-      summaryHtml += `평수: <strong>${selectedSize}평</strong><br>`;
-      summaryHtml += `벽지 종류: <strong>${selectedType}</strong>`;
+      const summaryHtml = `
+        주거형태: <strong>${escapeHtml(houseType)}</strong><br>
+        평수: <strong>${escapeHtml(finalSize)}</strong><br>
+        벽지 종류: <strong>${escapeHtml(wallType.split(" / ")[0])}</strong><br>
+        지역: <strong>${escapeHtml(area)}</strong><br>
+        사진 업로드: <strong>${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장" : "없음"}</strong>
+      `;
 
-      if (customerArea) {
-        summaryHtml += `<br>시공 지역: <strong>${escapeHtml(customerArea)}</strong>`;
-      }
-      if (customerPhone) {
-        summaryHtml += `<br>연락처: <strong>${escapeHtml(customerPhone)}</strong>`;
-      }
-      summaryHtml += `<br>사진 업로드: <strong>${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장" : "없음"}</strong>`;
-
-      let optionText = optionNames.length > 0
-        ? `선택 옵션: <strong>${optionNames.map(escapeHtml).join(", ")}</strong>`
-        : `선택 옵션: <strong>없음</strong>`;
-
-      if (customerMemo) {
-        optionText += `<br>추가 요청: <strong>${escapeHtml(customerMemo)}</strong>`;
-      }
+      const optionText = optionNames.length > 0
+        ? `추가 공사: <strong>${optionNames.map(escapeHtml).join(", ")}</strong>`
+        : `추가 공사: <strong>없음</strong>`;
 
       document.getElementById("resultSummary").innerHTML = summaryHtml;
       document.getElementById("resultPrice").textContent = `${min}만원 ~ ${max}만원`;
       document.getElementById("optionSummary").innerHTML = optionText;
 
       consultMessage =
-`도배 견적 문의드립니다.
-성함: ${customerName || "미입력"}
-연락처: ${customerPhone || "미입력"}
-시공 지역: ${customerArea || "미입력"}
-평수: ${selectedSize}평
-벽지 종류: ${selectedType}
-추가 옵션: ${optionNames.length ? optionNames.join(", ") : "없음"}
+`간편 견적 문의드립니다.
+주거형태: ${houseType}
+평수: ${finalSize}
+벽지 종류: ${wallType.split(" / ")[0]}
+추가 공사: ${optionNames.length ? optionNames.join(", ") : "없음"}
+지역: ${area}
 사진 첨부 여부: ${uploadedPhotoCount > 0 ? uploadedPhotoCount + "장 준비" : "없음"}
-추가 요청사항: ${customerMemo || "없음"}
 예상 견적: ${min}만원 ~ ${max}만원`;
 
-      document.getElementById("resultCard").style.display = "block";
+      document.getElementById("resultCard").classList.remove("hidden");
       document.getElementById("resultCard").scrollIntoView({ behavior: "smooth" });
 
       sendToSheet({
-        name: customerName || "미입력",
-        phone: customerPhone || "미입력",
-        size: selectedSize,
-        type: selectedType,
-        options: optionNames.length ? optionNames.join(", ") : (customerMemo || "없음"),
+        name: houseType,
+        phone: area,
+        size: finalSize,
+        type: wallType.split(" / ")[0],
+        options: optionNames.length ? optionNames.join(", ") : "없음",
         price: `${min}~${max}`
       });
+    }
+
+    function extractNumber(text) {
+      const match = String(text).match(/\d+/);
+      return match ? parseInt(match[0], 10) : 10;
     }
 
     function copyConsultMessage() {
@@ -518,7 +527,7 @@
       }
 
       navigator.clipboard.writeText(consultMessage)
-        .then(() => alert("상담용 내용이 복사되었습니다."))
+        .then(() => alert("상담 내용이 복사되었습니다."))
         .catch(() => alert("복사에 실패했습니다."));
     }
 
