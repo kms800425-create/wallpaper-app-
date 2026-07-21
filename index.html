@@ -2000,4 +2000,900 @@
 
   ></div>
 
-  
+   <script>
+
+  const BUSINESS_PHONE = "01040084197";
+
+  const KAKAO_URL = "https://open.kakao.com/o/s9MsLsqi";
+
+  const sizeData = {
+
+    "원룸": [
+
+      "6평 이하",
+
+      "10평 이하",
+
+      "15평 이하"
+
+    ],
+
+    "빌라": [
+
+      "15평",
+
+      "20평",
+
+      "25평",
+
+      "30평",
+
+      "35평",
+
+      "40평",
+
+      "40평 초과"
+
+    ],
+
+    "아파트": [
+
+      "15평",
+
+      "20평",
+
+      "25평",
+
+      "30평",
+
+      "35평",
+
+      "40평",
+
+      "40평 초과"
+
+    ],
+
+    "주택": [
+
+      "20평",
+
+      "30평",
+
+      "40평",
+
+      "50평",
+
+      "60평",
+
+      "60평 초과"
+
+    ]
+
+  };
+
+  const neighborhoodData = {
+
+    "강북구": [
+
+      "미아동",
+
+      "번동",
+
+      "수유동",
+
+      "우이동"
+
+    ],
+
+    "노원구": [
+
+      "공릉동",
+
+      "상계동",
+
+      "월계동",
+
+      "중계동",
+
+      "하계동"
+
+    ],
+
+    "도봉구": [
+
+      "도봉동",
+
+      "방학동",
+
+      "쌍문동",
+
+      "창동"
+
+    ],
+
+    "성북구": [
+
+      "길음동",
+
+      "돈암동",
+
+      "동선동",
+
+      "보문동",
+
+      "삼선동",
+
+      "석관동",
+
+      "성북동",
+
+      "안암동",
+
+      "월곡동",
+
+      "장위동",
+
+      "정릉동",
+
+      "종암동"
+
+    ]
+
+  };
+
+  const homeTypeInputs =
+
+    document.querySelectorAll(
+
+      'input[name="homeType"]'
+
+    );
+
+  const sizeOptions =
+
+    document.getElementById("sizeOptions");
+
+  const sizeChoiceList =
+
+    document.getElementById("sizeChoiceList");
+
+  const sizeInputArea =
+
+    document.getElementById("sizeInputArea");
+
+  const sizeInput =
+
+    document.getElementById("sizeInput");
+
+  const extraOther =
+
+    document.getElementById("extra-other");
+
+  const extraOtherArea =
+
+    document.getElementById("extraOtherArea");
+
+  const extraOtherInput =
+
+    document.getElementById("extraOtherInput");
+
+  const districtSelect =
+
+    document.getElementById("districtSelect");
+
+  const neighborhoodSelect =
+
+    document.getElementById("neighborhoodSelect");
+
+  const reservationButton =
+
+    document.getElementById("reservationButton");
+
+  const reservationArea =
+
+    document.getElementById("reservationArea");
+
+  const consultSummary =
+
+    document.getElementById("consultSummary");
+
+  const summaryText =
+
+    document.getElementById("summaryText");
+
+  const toast =
+
+    document.getElementById("toast");
+
+  function getCheckedValue(name) {
+
+    const selected =
+
+      document.querySelector(
+
+        `input[name="${name}"]:checked`
+
+      );
+
+    return selected ? selected.value : "";
+
+  }
+
+  function getCheckedValues(name) {
+
+    return Array.from(
+
+      document.querySelectorAll(
+
+        `input[name="${name}"]:checked`
+
+      )
+
+    ).map((input) => input.value);
+
+  }
+
+  function showToast(message) {
+
+    toast.textContent = message;
+
+    toast.classList.add("show");
+
+    window.clearTimeout(showToast.timer);
+
+    showToast.timer = window.setTimeout(() => {
+
+      toast.classList.remove("show");
+
+    }, 2500);
+
+  }
+
+  function createSizeOptions(homeType) {
+
+    sizeChoiceList.innerHTML = "";
+
+    sizeInput.value = "";
+
+    if (
+
+      homeType === "상가" ||
+
+      homeType === "사무실"
+
+    ) {
+
+      sizeOptions.classList.add("hidden");
+
+      sizeInputArea.classList.remove("hidden");
+
+      return;
+
+    }
+
+    const sizes = sizeData[homeType];
+
+    if (!sizes) {
+
+      sizeOptions.classList.add("hidden");
+
+      sizeInputArea.classList.add("hidden");
+
+      return;
+
+    }
+
+    sizes.forEach((size, index) => {
+
+      const wrapper =
+
+        document.createElement("div");
+
+      wrapper.className = "choice-row";
+
+      const input =
+
+        document.createElement("input");
+
+      input.type = "radio";
+
+      input.name = "sizeChoice";
+
+      input.value = size;
+
+      input.id = `size-choice-${index}`;
+
+      const label =
+
+        document.createElement("label");
+
+      label.htmlFor = input.id;
+
+      label.textContent = size;
+
+      wrapper.appendChild(input);
+
+      wrapper.appendChild(label);
+
+      sizeChoiceList.appendChild(wrapper);
+
+    });
+
+    sizeInputArea.classList.add("hidden");
+
+    sizeOptions.classList.remove("hidden");
+
+  }
+
+  homeTypeInputs.forEach((input) => {
+
+    input.addEventListener("change", () => {
+
+      createSizeOptions(input.value);
+
+    });
+
+  });
+
+  extraOther.addEventListener("change", () => {
+
+    if (extraOther.checked) {
+
+      extraOtherArea.classList.remove("hidden");
+
+      extraOtherInput.focus();
+
+    } else {
+
+      extraOtherArea.classList.add("hidden");
+
+      extraOtherInput.value = "";
+
+    }
+
+  });
+
+  districtSelect.addEventListener("change", () => {
+
+    const district = districtSelect.value;
+
+    neighborhoodSelect.innerHTML = "";
+
+    if (!district) {
+
+      neighborhoodSelect.disabled = true;
+
+      neighborhoodSelect.innerHTML =
+
+        '<option value="">먼저 구를 선택해 주세요.</option>';
+
+      return;
+
+    }
+
+    const firstOption =
+
+      document.createElement("option");
+
+    firstOption.value = "";
+
+    firstOption.textContent =
+
+      "동을 선택해 주세요.";
+
+    neighborhoodSelect.appendChild(firstOption);
+
+    neighborhoodData[district].forEach(
+
+      (neighborhood) => {
+
+        const option =
+
+          document.createElement("option");
+
+        option.value = neighborhood;
+
+        option.textContent = neighborhood;
+
+        neighborhoodSelect.appendChild(option);
+
+      }
+
+    );
+
+    neighborhoodSelect.disabled = false;
+
+  });
+
+  reservationButton.addEventListener(
+
+    "click",
+
+    () => {
+
+      reservationArea.classList.toggle("hidden");
+
+      if (
+
+        !reservationArea.classList.contains("hidden")
+
+      ) {
+
+        reservationArea.scrollIntoView({
+
+          behavior: "smooth",
+
+          block: "start"
+
+        });
+
+      }
+
+    }
+
+  );
+
+  document
+
+    .getElementById("phoneConsultButton")
+
+    .addEventListener("click", () => {
+
+      window.location.href =
+
+        `tel:${BUSINESS_PHONE}`;
+
+    });
+
+  document
+
+    .getElementById("callAfterSummaryButton")
+
+    .addEventListener("click", () => {
+
+      window.location.href =
+
+        `tel:${BUSINESS_PHONE}`;
+
+    });
+
+  function openKakaoConsultation() {
+
+    if (!KAKAO_URL) {
+
+      showToast(
+
+        "카카오톡 채널 주소 연결이 필요합니다."
+
+      );
+
+      return;
+
+    }
+
+    window.open(
+
+      KAKAO_URL,
+
+      "_blank",
+
+      "noopener,noreferrer"
+
+    );
+
+  }
+
+  document
+
+    .getElementById("kakaoConsultButton")
+
+    .addEventListener(
+
+      "click",
+
+      openKakaoConsultation
+
+    );
+
+  document
+
+    .getElementById("sendKakaoButton")
+
+    .addEventListener(
+
+      "click",
+
+      async () => {
+
+        const text =
+
+          summaryText.textContent.trim();
+
+        if (!text) {
+
+          showToast(
+
+            "먼저 상담 내용을 확인해 주세요."
+
+          );
+
+          return;
+
+        }
+
+        try {
+
+          await navigator.clipboard.writeText(text);
+
+          showToast(
+
+            "상담 내용이 복사되었습니다."
+
+          );
+
+        } catch (error) {
+
+          showToast(
+
+            "상담 내용을 길게 눌러 복사해 주세요."
+
+          );
+
+        }
+
+        openKakaoConsultation();
+
+      }
+
+    );
+
+  document
+
+    .getElementById("createSummaryButton")
+
+    .addEventListener("click", () => {
+
+      const homeType =
+
+        getCheckedValue("homeType");
+
+      const selectedSize =
+
+        getCheckedValue("sizeChoice");
+
+      const directSize =
+
+        sizeInput.value.trim();
+
+      const wallpaper =
+
+        getCheckedValue("wallpaper");
+
+      const condensation =
+
+        getCheckedValue("condensation");
+
+      const mold =
+
+        getCheckedValue("mold");
+
+      const moving =
+
+        getCheckedValue("moving");
+
+      const extraWorks =
+
+        getCheckedValues("extraWork");
+
+      const district =
+
+        districtSelect.value;
+
+      const neighborhood =
+
+        neighborhoodSelect.value;
+
+      const address =
+
+        document
+
+          .getElementById("addressInput")
+
+          .value
+
+          .trim();
+
+      const customerName =
+
+        document
+
+          .getElementById("customerName")
+
+          .value
+
+          .trim();
+
+      const customerPhone =
+
+        document
+
+          .getElementById("customerPhone")
+
+          .value
+
+          .trim();
+
+      const reservationDate =
+
+        document
+
+          .getElementById("reservationDate")
+
+          .value;
+
+      const reservationTime =
+
+        document
+
+          .getElementById("reservationTime")
+
+          .value;
+
+      const requestMessage =
+
+        document
+
+          .getElementById("requestMessage")
+
+          .value
+
+          .trim();
+
+      if (!homeType) {
+
+        showToast(
+
+          "주거 형태를 선택해 주세요."
+
+        );
+
+        return;
+
+      }
+
+      if (
+
+        (
+
+          homeType === "상가" ||
+
+          homeType === "사무실"
+
+        ) &&
+
+        !directSize
+
+      ) {
+
+        showToast(
+
+          "평수를 입력해 주세요."
+
+        );
+
+        return;
+
+      }
+
+      if (
+
+        homeType !== "상가" &&
+
+        homeType !== "사무실" &&
+
+        !selectedSize
+
+      ) {
+
+        showToast(
+
+          "평수를 선택해 주세요."
+
+        );
+
+        return;
+
+      }
+
+      if (!customerName) {
+
+        showToast(
+
+          "성함을 입력해 주세요."
+
+        );
+
+        return;
+
+      }
+
+      if (!customerPhone) {
+
+        showToast(
+
+          "연락처를 입력해 주세요."
+
+        );
+
+        return;
+
+      }
+
+      const finalSize =
+
+        homeType === "상가" ||
+
+        homeType === "사무실"
+
+          ? `${directSize}평`
+
+          : selectedSize;
+
+      const finalExtraWorks =
+
+        extraWorks.map((work) => {
+
+          if (
+
+            work === "기타" &&
+
+            extraOtherInput.value.trim()
+
+          ) {
+
+            return `기타: ${extraOtherInput.value.trim()}`;
+
+          }
+
+          return work;
+
+        });
+
+      const locationText = [
+
+        district,
+
+        neighborhood,
+
+        address
+
+      ]
+
+        .filter(Boolean)
+
+        .join(" ");
+
+      const reservationText = [
+
+        reservationDate,
+
+        reservationTime
+
+      ]
+
+        .filter(Boolean)
+
+        .join(" ");
+
+      const summary = [
+
+        "[바른수유 인테리어 상담 신청]",
+
+        "",
+
+        `성함: ${customerName}`,
+
+        `연락처: ${customerPhone}`,
+
+        "",
+
+        `주거 형태: ${homeType}`,
+
+        `평수: ${finalSize}`,
+
+        `벽지: ${wallpaper || "미선택"}`,
+
+        "",
+
+        `결로: ${condensation || "미선택"}`,
+
+        `곰팡이: ${mold || "미선택"}`,
+
+        `짐 이동: ${moving || "미선택"}`,
+
+        "",
+
+        `추가 공사: ${
+
+          finalExtraWorks.length
+
+            ? finalExtraWorks.join(", ")
+
+            : "없음"
+
+        }`,
+
+        `시공 지역: ${
+
+          locationText || "미입력"
+
+        }`,
+
+        `희망 상담 일시: ${
+
+          reservationText || "미입력"
+
+        }`,
+
+        `요청사항: ${
+
+          requestMessage || "없음"
+
+        }`
+
+      ].join("\n");
+
+      summaryText.textContent = summary;
+
+      consultSummary.classList.add("show");
+
+      consultSummary.scrollIntoView({
+
+        behavior: "smooth",
+
+        block: "start"
+
+      });
+
+    });
+
+  const reservationDateInput =
+
+    document.getElementById("reservationDate");
+
+  const today = new Date();
+
+  const year =
+
+    today.getFullYear();
+
+  const month =
+
+    String(today.getMonth() + 1).padStart(
+
+      2,
+
+      "0"
+
+    );
+
+  const day =
+
+    String(today.getDate()).padStart(
+
+      2,
+
+      "0"
+
+    );
+
+  reservationDateInput.min =
+
+    `${year}-${month}-${day}`;
+
+</script>
+
+</body>
+
+</html>
