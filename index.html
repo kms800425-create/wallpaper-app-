@@ -1,1579 +1,241 @@
 <!DOCTYPE html>
-
 <html lang="ko">
-
 <head>
-
-  <meta charset="UTF-8" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
-  <meta name="theme-color" content="#173f73" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>바른수유인테리어 상담</title>
-
-  <style>
-
-    :root {
-
-      --navy: #173f73;
-
-      --blue: #2f69a8;
-
-      --light: #f5f8fc;
-
-      --text: #1f2937;
-
-      --muted: #6b7280;
-
-      --white: #ffffff;
-
-    }
-
-    * {
-
-      box-sizing: border-box;
-
-    }
-
-    body {
-
-      margin: 0;
-
-      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
-
-        "Noto Sans KR", "Segoe UI", sans-serif;
-
-      background: var(--white);
-
-      color: var(--text);
-
-      line-height: 1.6;
-
-    }
-
-    .wrap {
-
-      width: min(100%, 760px);
-
-      margin: 0 auto;
-
-      padding: 24px 18px 56px;
-
-    }
-
-    .brand {
-
-      padding: 8px 0 28px;
-
-      text-align: center;
-
-    }
-
-    .brand h1 {
-
-      margin: 0;
-
-      font-size: 28px;
-
-      color: var(--navy);
-
-      letter-spacing: -0.8px;
-
-    }
-
-    .brand p {
-
-      margin: 8px 0 0;
-
-      color: var(--muted);
-
-      font-size: 15px;
-
-    }
-
-    .section {
-
-      padding: 22px 0;
-
-    }
-
-    .section + .section {
-
-      border-top: 1px solid #e9eef5;
-
-    }
-
-    .section-title {
-
-      display: flex;
-
-      align-items: center;
-
-      gap: 10px;
-
-      margin: 0 0 14px;
-
-      font-size: 22px;
-
-      color: var(--navy);
-
-      letter-spacing: -0.5px;
-
-    }
-
-    .toggle {
-
-      width: 100%;
-
-      padding: 15px 16px;
-
-      border: 0;
-
-      border-radius: 12px;
-
-      background: var(--light);
-
-      color: var(--text);
-
-      font-size: 17px;
-
-      font-weight: 700;
-
-      text-align: left;
-
-      cursor: pointer;
-
-    }
-
-    .toggle::after {
-
-      content: "＋";
-
-      float: right;
-
-      color: var(--blue);
-
-      font-size: 20px;
-
-    }
-
-    .toggle.open::after {
-
-      content: "−";
-
-    }
-
-    .panel {
-
-      display: none;
-
-      padding-top: 14px;
-
-    }
-
-    .panel.open {
-
-      display: block;
-
-    }
-
-    .choice-grid {
-
-      display: grid;
-
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-
-      gap: 10px;
-
-    }
-
-    .choice {
-
-      border: 0;
-
-      border-radius: 12px;
-
-      background: var(--light);
-
-      padding: 14px 10px;
-
-      font-size: 16px;
-
-      color: var(--text);
-
-      cursor: pointer;
-
-    }
-
-    .choice.selected {
-
-      background: var(--navy);
-
-      color: var(--white);
-
-      font-weight: 700;
-
-    }
-
-    .sub-area {
-
-      margin-top: 16px;
-
-      padding: 16px;
-
-      border-radius: 12px;
-
-      background: #fafcff;
-
-    }
-
-    .sub-title {
-
-      margin: 0 0 10px;
-
-      font-size: 16px;
-
-      font-weight: 800;
-
-      color: var(--navy);
-
-    }
-
-    .description {
-
-      margin: 6px 0 0;
-
-      color: var(--muted);
-
-      font-size: 14px;
-
-    }
-
-    .field {
-
-      width: 100%;
-
-      margin-top: 10px;
-
-      padding: 14px 15px;
-
-      border: 1px solid #d7e0eb;
-
-      border-radius: 12px;
-
-      font-size: 16px;
-
-      outline: none;
-
-    }
-
-    .field:focus {
-
-      border-color: var(--blue);
-
-    }
-
-    textarea.field {
-
-      min-height: 110px;
-
-      resize: vertical;
-
-    }
-
-    .hidden {
-
-      display: none !important;
-
-    }
-
-    .summary {
-
-      margin-top: 14px;
-
-      padding: 16px;
-
-      border-radius: 12px;
-
-      background: var(--light);
-
-      white-space: pre-line;
-
-      font-size: 15px;
-
-    }
-
-    .contact-actions {
-
-      display: grid;
-
-      gap: 10px;
-
-      margin-top: 16px;
-
-    }
-
-    .action {
-
-      display: block;
-
-      width: 100%;
-
-      padding: 15px 16px;
-
-      border: 0;
-
-      border-radius: 12px;
-
-      font-size: 17px;
-
-      font-weight: 800;
-
-      text-align: center;
-
-      text-decoration: none;
-
-      cursor: pointer;
-
-    }
-
-    .primary {
-
-      background: var(--navy);
-
-      color: var(--white);
-
-    }
-
-    .secondary {
-
-      background: var(--light);
-
-      color: var(--navy);
-
-    }
-
-    .notice {
-
-      margin: 10px 0 0;
-
-      color: var(--muted);
-
-      font-size: 13px;
-
-      text-align: center;
-
-    }
-
-    @media (max-width: 420px) {
-
-      .brand h1 {
-
-        font-size: 25px;
-
-      }
-
-      .section-title {
-
-        font-size: 20px;
-
-      }
-
-    }
-
-  </style>
-
+  <meta
+    name="description"
+    content="바른수유인테리어 도배·장판·집수리·상가수리·인테리어 방문 상담"
+  >
+
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-
-  <main class="wrap">
-
-    <header class="brand">
-
-      <h1>바른수유인테리어</h1>
-
-      <p>
-
-        간단한 상담 내용을 남겨주시면 확인 후 방문견적으로 연결해드립니다.
-
+  <main class="page">
+    <header class="site-header">
+      <h1 class="site-title">바른수유인테리어</h1>
+      <p class="site-description">
+        필요한 항목을 선택하시면 상담 내용을 한눈에 확인할 수 있습니다.
       </p>
-
     </header>
 
-    <section class="section">
-
-      <h2 class="section-title">🏠 주거 형태</h2>
-
-      <button
-
-        class="toggle"
-
-        type="button"
-
-        data-panel="housingPanel"
-
-      >
-
-        주거 형태 선택
-
-      </button>
-
-      <div class="panel" id="housingPanel">
-
-        <div class="choice-grid" id="housingChoices">
-
-          <button class="choice" data-value="원룸">원룸</button>
-
-          <button class="choice" data-value="빌라">빌라</button>
-
-          <button class="choice" data-value="아파트">아파트</button>
-
-          <button class="choice" data-value="주택">주택</button>
-
-          <button class="choice" data-value="상가">상가</button>
-
-          <button class="choice" data-value="사무실">사무실</button>
-
-        </div>
-
-        <div class="sub-area hidden" id="sizeArea">
-
-          <p class="sub-title">평수 선택</p>
-
-          <div class="choice-grid" id="sizeChoices"></div>
-
-          <input
-
-            class="field hidden"
-
-            id="sizeDirect"
-
-            type="number"
-
-            min="1"
-
-            placeholder="평수를 직접 입력해 주세요"
-
-          />
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2 class="section-title">🧱 벽지 선택</h2>
-
-      <button
-
-        class="toggle"
-
-        type="button"
-
-        data-panel="wallpaperPanel"
-
-      >
-
-        벽지 선택
-
-      </button>
-
-      <div class="panel" id="wallpaperPanel">
-
-        <div class="choice-grid" id="wallpaperChoices">
-
-          <button class="choice" data-value="합지">합지</button>
-
-          <button class="choice" data-value="실크">실크</button>
-
-          <button class="choice" data-value="기타">기타</button>
-
-        </div>
-
-        <div
-
-          class="sub-area hidden"
-
-          id="wallpaperDescription"
-
-        ></div>
-
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2 class="section-title">🔍 현장 상태</h2>
-
-      <button
-
-        class="toggle"
-
-        type="button"
-
-        data-panel="sitePanel"
-
-      >
-
-        현장 상태 선택
-
-      </button>
-
-      <div class="panel" id="sitePanel">
-
-        <div class="sub-area">
-
-          <p class="sub-title">결로</p>
-
-          <div class="choice-grid site-group" data-key="결로">
-
-            <button class="choice" data-value="있음">있음</button>
-
-            <button class="choice" data-value="없음">없음</button>
-
-          </div>
-
-        </div>
-
-        <div class="sub-area">
-
-          <p class="sub-title">곰팡이</p>
-
-          <div class="choice-grid site-group" data-key="곰팡이">
-
-            <button class="choice" data-value="있음">있음</button>
-
-            <button class="choice" data-value="없음">없음</button>
-
-          </div>
-
-        </div>
-
-        <div class="sub-area">
-
-          <p class="sub-title">짐 이동</p>
-
-          <div class="choice-grid site-group" data-key="짐 이동">
-
-            <button class="choice" data-value="있음">있음</button>
-
-            <button class="choice" data-value="없음">없음</button>
-
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2 class="section-title">🛠️ 추가 시공</h2>
-
-      <button
-
-        class="toggle"
-
-        type="button"
-
-        data-panel="extraPanel"
-
-      >
-
-        추가 시공 선택
-
-      </button>
-
-      <div class="panel" id="extraPanel">
-
-        <div class="choice-grid" id="extraChoices">
-
-          <button class="choice" data-value="없음">없음</button>
-
-          <button class="choice" data-value="장판">장판</button>
-
-          <button class="choice" data-value="타일">타일</button>
-
-          <button class="choice" data-value="문 교체">문 교체</button>
-
-          <button class="choice" data-value="붙박이장">붙박이장</button>
-
-          <button class="choice" data-value="싱크대">싱크대</button>
-
-          <button class="choice" data-value="직접 입력">직접 입력</button>
-
-        </div>
-
-        <input
-
-          class="field hidden"
-
-          id="extraDirect"
-
-          type="text"
-
-          placeholder="원하는 추가 시공을 입력해 주세요"
-
-        />
-
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2 class="section-title">📍 시공 지역</h2>
-
-      <button
-
-        class="toggle"
-
-        type="button"
-
-        data-panel="locationPanel"
-
-      >
-
-        시공 지역 선택
-
-      </button>
-
-      <div class="panel" id="locationPanel">
-
-        <div class="choice-grid" id="addressTypeChoices">
-
-          <button class="choice" data-value="구주소">구주소</button>
-
-          <button class="choice" data-value="신주소">신주소</button>
-
-        </div>
-
-        <div class="sub-area hidden" id="oldAddressArea">
-
-          <p class="sub-title">구 선택</p>
-
-          <div class="choice-grid" id="districtChoices">
-
-            <button class="choice" data-value="강북구">강북구</button>
-
-            <button class="choice" data-value="노원구">노원구</button>
-
-            <button class="choice" data-value="도봉구">도봉구</button>
-
-            <button class="choice" data-value="성북구">성북구</button>
-
-          </div>
-
-          <div class="hidden" id="dongArea">
-
-            <p class="sub-title" style="margin-top: 16px;">
-
-              동 선택
-
-            </p>
-
-            <div class="choice-grid" id="dongChoices"></div>
-
-          </div>
-
-        </div>
-
-        <div class="sub-area hidden" id="newAddressArea">
-
-          <p class="sub-title">신주소 직접 입력</p>
-
-          <input
-
-            class="field"
-
-            id="newAddress"
-
-            type="text"
-
-            placeholder="도로명 주소를 입력해 주세요"
-
-          />
-
-        </div>
-
-      </div>
-
-    </section>
-
-    <section class="section">
-
-      <h2 class="section-title">📝 상담 신청</h2>
-
-      <input
-
-        class="field"
-
-        id="name"
-
-        type="text"
-
-        placeholder="이름"
-
-      />
-
-      <input
-
-        class="field"
-
-        id="phone"
-
-        type="tel"
-
-        placeholder="연락처"
-
-      />
-
-      <textarea
-
-        class="field"
-
-        id="request"
-
-        placeholder="추가 요청사항이 있으면 입력해 주세요"
-
-      ></textarea>
-
-      <button
-
-        class="action secondary"
-
-        type="button"
-
-        id="showSummary"
-
-      >
-
-        상담 내용 확인
-
-      </button>
-
-      <div
-
-        class="summary hidden"
-
-        id="summary"
-
-      ></div>
-
-      <div class="contact-actions">
-
-        <a
-
-          class="action primary"
-
-          href="tel:01040084197"
-
-        >
-
-          📞 전화 상담
-
-        </a>
-
-        <a
-
-          class="action secondary"
-
-          href="https://open.kakao.com/o/s9MsLsqi"
-
-          target="_blank"
-
-          rel="noopener"
-
-        >
-
-          💬 카카오 상담
-
-        </a>
-
-        <button
-
-          class="action primary"
-
-          type="button"
-
-          id="copyConsultation"
-
-        >
-
-          상담 내용 복사
-
+    <section class="consultation" aria-label="시공 상담">
+
+      <section class="accordion-section" id="housing-section">
+        <button class="accordion-header" type="button" id="housing-header"
+          aria-expanded="false" aria-controls="housing-content">
+          <span class="accordion-title">🏠 주거 형태</span>
+          <span class="accordion-summary" id="housing-summary"></span>
         </button>
 
-      </div>
+        <div class="accordion-content" id="housing-content"
+          aria-labelledby="housing-header" hidden>
+          <div class="choice-group" id="housing-type-group">
+            <button type="button" class="choice-button" data-housing="원룸">원룸</button>
+            <button type="button" class="choice-button" data-housing="빌라">빌라</button>
+            <button type="button" class="choice-button" data-housing="아파트">아파트</button>
+            <button type="button" class="choice-button" data-housing="주택">주택</button>
+            <button type="button" class="choice-button" data-housing="상가">상가</button>
+            <button type="button" class="choice-button" data-housing="사무실">사무실</button>
+          </div>
 
-      <p class="notice">
+          <div class="sub-choice-group" id="housing-size-group" hidden>
+            <p class="group-label">평수를 선택해 주세요.</p>
+            <div id="housing-size-options"></div>
+          </div>
 
-        상담 신청에 연락처를 남기시면 내용 확인 후 빠르게 연락드립니다.
+          <div class="direct-input-group" id="housing-area-input-group" hidden>
+            <label for="housing-area-input">평수 직접 입력</label>
+            <div class="input-with-unit">
+              <input type="number" id="housing-area-input" inputmode="decimal"
+                min="1" placeholder="평수 입력">
+              <span>평</span>
+            </div>
+            <button type="button" id="housing-area-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
 
-      </p>
+      <section class="accordion-section" id="wallpaper-section">
+        <button class="accordion-header" type="button" id="wallpaper-header"
+          aria-expanded="false" aria-controls="wallpaper-content">
+          <span class="accordion-title">🧱 벽지 선택</span>
+          <span class="accordion-summary" id="wallpaper-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="wallpaper-content"
+          aria-labelledby="wallpaper-header" hidden>
+          <button type="button" class="detail-choice-button" data-wallpaper="합지">
+            <strong>합지</strong>
+            <span>경제적인 선택으로 일반 주거공간에 많이 사용됩니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="실크">
+            <strong>실크</strong>
+            <span>내구성과 오염 저항성이 우수하며 고급스러운 마감이 가능합니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="기타">
+            <strong>기타</strong>
+            <span>상담 시 원하는 제품을 말씀해 주세요.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="condition-section">
+        <button class="accordion-header" type="button" id="condition-header"
+          aria-expanded="false" aria-controls="condition-content">
+          <span class="accordion-title">🔍 현장 상태</span>
+          <span class="accordion-summary" id="condition-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="condition-content"
+          aria-labelledby="condition-header" hidden>
+          <fieldset class="condition-group">
+            <legend>결로</legend>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>곰팡이</legend>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>짐 이동</legend>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="없음">없음</button>
+          </fieldset>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="additional-section">
+        <button class="accordion-header" type="button" id="additional-header"
+          aria-expanded="false" aria-controls="additional-content">
+          <span class="accordion-title">🛠️ 추가 시공</span>
+          <span class="accordion-summary" id="additional-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="additional-content"
+          aria-labelledby="additional-header" hidden>
+          <div class="multiple-choice-group">
+            <button type="button" class="multiple-choice-button" data-additional="없음">없음</button>
+            <button type="button" class="multiple-choice-button" data-additional="장판">장판</button>
+            <button type="button" class="multiple-choice-button" data-additional="타일">타일</button>
+            <button type="button" class="multiple-choice-button" data-additional="문 교체">문 교체</button>
+            <button type="button" class="multiple-choice-button" data-additional="붙박이장">붙박이장</button>
+            <button type="button" class="multiple-choice-button" data-additional="싱크대">싱크대</button>
+            <button type="button" class="multiple-choice-button" data-additional="직접 입력">직접 입력</button>
+          </div>
+
+          <div id="additional-direct-input-group" hidden>
+            <label for="additional-direct-input">추가 시공 직접 입력</label>
+            <input type="text" id="additional-direct-input"
+              placeholder="원하는 추가 시공을 입력해 주세요.">
+          </div>
+
+          <button type="button" id="additional-complete">선택 완료</button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="location-section">
+        <button class="accordion-header" type="button" id="location-header"
+          aria-expanded="false" aria-controls="location-content">
+          <span class="accordion-title">📍 시공 지역</span>
+          <span class="accordion-summary" id="location-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="location-content"
+          aria-labelledby="location-header" hidden>
+          <div class="choice-group" id="address-type-group">
+            <button type="button" class="choice-button" data-address-type="구주소">구주소</button>
+            <button type="button" class="choice-button" data-address-type="신주소">신주소</button>
+          </div>
+
+          <div id="old-address-group" hidden>
+            <label for="district-select">구 선택</label>
+            <select id="district-select">
+              <option value="">구를 선택해 주세요.</option>
+              <option value="강북구">강북구</option>
+              <option value="노원구">노원구</option>
+              <option value="도봉구">도봉구</option>
+              <option value="성북구">성북구</option>
+            </select>
+
+            <label for="neighborhood-select">동 선택</label>
+            <select id="neighborhood-select" disabled>
+              <option value="">동을 선택해 주세요.</option>
+            </select>
+          </div>
+
+          <div id="new-address-group" hidden>
+            <label for="new-address-input">신주소 입력</label>
+            <input type="text" id="new-address-input"
+              placeholder="도로명 주소를 입력해 주세요.">
+            <button type="button" id="new-address-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="consultation-connect" id="connect-section">
+        <h2>📝 상담 연결</h2>
+
+        <div class="connect-buttons">
+          <a class="connect-button" id="phone-consultation"
+            href="tel:01040084197">📞 전화 상담</a>
+
+          <a class="connect-button" id="kakao-consultation"
+            href="https://open.kakao.com/o/s9MsLsqi"
+            target="_blank" rel="noopener noreferrer">💬 카카오 상담</a>
+
+          <button class="connect-button" type="button" id="reservation-toggle"
+            aria-expanded="false" aria-controls="reservation-form">
+            🗓️ 상담 예약
+          </button>
+        </div>
+
+        <div id="reservation-form" hidden>
+          <label for="reservation-name">이름</label>
+          <input type="text" id="reservation-name" autocomplete="name"
+            placeholder="이름을 입력해 주세요.">
+
+          <label for="reservation-phone">연락처</label>
+          <input type="tel" id="reservation-phone" inputmode="tel"
+            autocomplete="tel" placeholder="연락처를 입력해 주세요.">
+
+          <label for="reservation-request">요청사항</label>
+          <textarea id="reservation-request" rows="5"
+            placeholder="상담 시 필요한 내용을 입력해 주세요."></textarea>
+
+          <p class="reservation-notice">
+            상담 신청에 연락처를 남기시면 내용 확인 후 빠르게 연락드립니다.
+          </p>
+
+          <button type="button" id="reservation-submit">
+            예약 내용 복사 후 카카오톡 열기
+          </button>
+        </div>
+      </section>
+
+      <section class="promise-section">
+        <h2>바른수유의 약속</h2>
+        <p>최저가·초고품질 시공을 목표로 정직하게 상담하겠습니다.</p>
+      </section>
 
     </section>
-
   </main>
 
-  <script>
-
-    const state = {
-
-      housing: "",
-
-      size: "",
-
-      wallpaper: "",
-
-      site: {
-
-        "결로": "",
-
-        "곰팡이": "",
-
-        "짐 이동": ""
-
-      },
-
-      extras: [],
-
-      addressType: "",
-
-      district: "",
-
-      dong: "",
-
-      newAddress: ""
-
-    };
-
-    const sizeMap = {
-
-      "원룸": [
-
-        "6평 이하",
-
-        "10평 이하",
-
-        "15평 이하"
-
-      ],
-
-      "빌라": [
-
-        "15평",
-
-        "20평",
-
-        "25평",
-
-        "30평",
-
-        "35평",
-
-        "40평",
-
-        "40평 초과"
-
-      ],
-
-      "아파트": [
-
-        "15평",
-
-        "20평",
-
-        "25평",
-
-        "30평",
-
-        "35평",
-
-        "40평",
-
-        "40평 초과"
-
-      ],
-
-      "주택": [
-
-        "20평",
-
-        "30평",
-
-        "40평",
-
-        "50평",
-
-        "60평",
-
-        "60평 초과"
-
-      ]
-
-    };
-
-    const dongMap = {
-
-      "강북구": [
-
-        "미아동",
-
-        "번동",
-
-        "수유동",
-
-        "우이동",
-
-        "삼양동",
-
-        "송중동",
-
-        "송천동",
-
-        "삼각산동",
-
-        "인수동"
-
-      ],
-
-      "노원구": [
-
-        "월계동",
-
-        "공릉동",
-
-        "하계동",
-
-        "중계동",
-
-        "상계동"
-
-      ],
-
-      "도봉구": [
-
-        "쌍문동",
-
-        "방학동",
-
-        "창동",
-
-        "도봉동"
-
-      ],
-
-      "성북구": [
-
-        "성북동",
-
-        "삼선동",
-
-        "동선동",
-
-        "돈암동",
-
-        "안암동",
-
-        "보문동",
-
-        "정릉동",
-
-        "길음동",
-
-        "종암동",
-
-        "월곡동",
-
-        "장위동",
-
-        "석관동"
-
-      ]
-
-    };
-
-    const wallpaperText = {
-
-      "합지": `
-
-        <p class="sub-title">합지</p>
-
-        <p class="description">
-
-          경제적인 선택으로 일반 주거공간에 많이 사용됩니다.
-
-        </p>
-
-      `,
-
-      "실크": `
-
-        <p class="sub-title">실크</p>
-
-        <p class="description">
-
-          내구성과 오염 저항성이 우수하며 고급스러운 마감이 가능합니다.
-
-        </p>
-
-      `,
-
-      "기타": `
-
-        <p class="sub-title">기타</p>
-
-        <p class="description">
-
-          상담 시 원하는 제품을 말씀해 주세요.
-
-        </p>
-
-      `
-
-    };
-
-    document.querySelectorAll(".toggle").forEach((button) => {
-
-      button.addEventListener("click", () => {
-
-        const panel = document.getElementById(
-
-          button.dataset.panel
-
-        );
-
-        panel.classList.toggle("open");
-
-        button.classList.toggle("open");
-
-      });
-
-    });
-
-    function selectSingle(container, button) {
-
-      container
-
-        .querySelectorAll(".choice")
-
-        .forEach((item) => {
-
-          item.classList.remove("selected");
-
-        });
-
-      button.classList.add("selected");
-
-    }
-
-    const housingChoices =
-
-      document.getElementById("housingChoices");
-
-    const sizeArea =
-
-      document.getElementById("sizeArea");
-
-    const sizeChoices =
-
-      document.getElementById("sizeChoices");
-
-    const sizeDirect =
-
-      document.getElementById("sizeDirect");
-
-    housingChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(housingChoices, button);
-
-      state.housing = button.dataset.value;
-
-      state.size = "";
-
-      sizeArea.classList.remove("hidden");
-
-      sizeChoices.innerHTML = "";
-
-      sizeDirect.value = "";
-
-      if (
-
-        state.housing === "상가" ||
-
-        state.housing === "사무실"
-
-      ) {
-
-        sizeDirect.classList.remove("hidden");
-
-      } else {
-
-        sizeDirect.classList.add("hidden");
-
-        sizeMap[state.housing].forEach((size) => {
-
-          const item = document.createElement("button");
-
-          item.className = "choice";
-
-          item.type = "button";
-
-          item.dataset.value = size;
-
-          item.textContent = size;
-
-          sizeChoices.appendChild(item);
-
-        });
-
-      }
-
-    });
-
-    sizeChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(sizeChoices, button);
-
-      state.size = button.dataset.value;
-
-    });
-
-    sizeDirect.addEventListener("input", () => {
-
-      state.size = sizeDirect.value
-
-        ? `${sizeDirect.value}평`
-
-        : "";
-
-    });
-
-    const wallpaperChoices =
-
-      document.getElementById("wallpaperChoices");
-
-    const wallpaperDescription =
-
-      document.getElementById("wallpaperDescription");
-
-    wallpaperChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(wallpaperChoices, button);
-
-      state.wallpaper = button.dataset.value;
-
-      wallpaperDescription.innerHTML =
-
-        wallpaperText[state.wallpaper];
-
-      wallpaperDescription.classList.remove("hidden");
-
-    });
-
-    document
-
-      .querySelectorAll(".site-group")
-
-      .forEach((group) => {
-
-        group.addEventListener("click", (event) => {
-
-          const button = event.target.closest(".choice");
-
-          if (!button) {
-
-            return;
-
-          }
-
-          selectSingle(group, button);
-
-          state.site[group.dataset.key] =
-
-            button.dataset.value;
-
-        });
-
-      });
-
-    const extraChoices =
-
-      document.getElementById("extraChoices");
-
-    const extraDirect =
-
-      document.getElementById("extraDirect");
-
-    extraChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      const value = button.dataset.value;
-
-      if (value === "없음") {
-
-        extraChoices
-
-          .querySelectorAll(".choice")
-
-          .forEach((item) => {
-
-            item.classList.remove("selected");
-
-          });
-
-        button.classList.add("selected");
-
-        state.extras = ["없음"];
-
-        extraDirect.classList.add("hidden");
-
-        extraDirect.value = "";
-
-        return;
-
-      }
-
-      const noneButton =
-
-        extraChoices.querySelector(
-
-          '[data-value="없음"]'
-
-        );
-
-      noneButton.classList.remove("selected");
-
-      state.extras =
-
-        state.extras.filter((item) => item !== "없음");
-
-      button.classList.toggle("selected");
-
-      if (button.classList.contains("selected")) {
-
-        state.extras.push(value);
-
-      } else {
-
-        state.extras =
-
-          state.extras.filter((item) => item !== value);
-
-      }
-
-      extraDirect.classList.toggle(
-
-        "hidden",
-
-        !state.extras.includes("직접 입력")
-
-      );
-
-      if (!state.extras.includes("직접 입력")) {
-
-        extraDirect.value = "";
-
-      }
-
-    });
-
-    const addressTypeChoices =
-
-      document.getElementById("addressTypeChoices");
-
-    const oldAddressArea =
-
-      document.getElementById("oldAddressArea");
-
-    const newAddressArea =
-
-      document.getElementById("newAddressArea");
-
-    const districtChoices =
-
-      document.getElementById("districtChoices");
-
-    const dongArea =
-
-      document.getElementById("dongArea");
-
-    const dongChoices =
-
-      document.getElementById("dongChoices");
-
-    const newAddress =
-
-      document.getElementById("newAddress");
-
-    addressTypeChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(addressTypeChoices, button);
-
-      state.addressType = button.dataset.value;
-
-      if (state.addressType === "구주소") {
-
-        oldAddressArea.classList.remove("hidden");
-
-        newAddressArea.classList.add("hidden");
-
-        state.newAddress = "";
-
-        newAddress.value = "";
-
-      } else {
-
-        newAddressArea.classList.remove("hidden");
-
-        oldAddressArea.classList.add("hidden");
-
-        state.district = "";
-
-        state.dong = "";
-
-      }
-
-    });
-
-    districtChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(districtChoices, button);
-
-      state.district = button.dataset.value;
-
-      state.dong = "";
-
-      dongChoices.innerHTML = "";
-
-      dongMap[state.district].forEach((dong) => {
-
-        const item = document.createElement("button");
-
-        item.className = "choice";
-
-        item.type = "button";
-
-        item.dataset.value = dong;
-
-        item.textContent = dong;
-
-        dongChoices.appendChild(item);
-
-      });
-
-      dongArea.classList.remove("hidden");
-
-    });
-
-    dongChoices.addEventListener("click", (event) => {
-
-      const button = event.target.closest(".choice");
-
-      if (!button) {
-
-        return;
-
-      }
-
-      selectSingle(dongChoices, button);
-
-      state.dong = button.dataset.value;
-
-    });
-
-    newAddress.addEventListener("input", () => {
-
-      state.newAddress = newAddress.value.trim();
-
-    });
-
-    function buildSummary() {
-
-      const name =
-
-        document.getElementById("name").value.trim();
-
-      const phone =
-
-        document.getElementById("phone").value.trim();
-
-      const request =
-
-        document.getElementById("request").value.trim();
-
-      const extraText =
-
-        extraDirect.value.trim();
-
-      const extras = [...state.extras];
-
-      if (
-
-        extras.includes("직접 입력") &&
-
-        extraText
-
-      ) {
-
-        const index = extras.indexOf("직접 입력");
-
-        extras[index] = extraText;
-
-      }
-
-      const address =
-
-        state.addressType === "구주소"
-
-          ? [state.district, state.dong]
-
-              .filter(Boolean)
-
-              .join(" ")
-
-          : state.newAddress;
-
-      return [
-
-        "[바른수유인테리어 상담]",
-
-        `이름: ${name || "미입력"}`,
-
-        `연락처: ${phone || "미입력"}`,
-
-        `주거 형태: ${state.housing || "미선택"}`,
-
-        `평수: ${state.size || "미선택"}`,
-
-        `벽지: ${state.wallpaper || "미선택"}`,
-
-        `결로: ${state.site["결로"] || "미선택"}`,
-
-        `곰팡이: ${state.site["곰팡이"] || "미선택"}`,
-
-        `짐 이동: ${state.site["짐 이동"] || "미선택"}`,
-
-        `추가 시공: ${
-
-          extras.length
-
-            ? extras.join(", ")
-
-            : "미선택"
-
-        }`,
-
-        `시공 지역: ${address || "미입력"}`,
-
-        `추가 요청사항: ${request || "없음"}`
-
-      ].join("\n");
-
-    }
-
-    const summary =
-
-      document.getElementById("summary");
-
-    document
-
-      .getElementById("showSummary")
-
-      .addEventListener("click", () => {
-
-        summary.textContent = buildSummary();
-
-        summary.classList.remove("hidden");
-
-      });
-
-    document
-
-      .getElementById("copyConsultation")
-
-      .addEventListener("click", async () => {
-
-        const text = buildSummary();
-
-        summary.textContent = text;
-
-        summary.classList.remove("hidden");
-
-        try {
-
-          await navigator.clipboard.writeText(text);
-
-          alert("상담 내용이 복사되었습니다.");
-
-        } catch {
-
-          alert(
-
-            "복사가 되지 않았습니다. 상담 내용을 길게 눌러 복사해 주세요."
-
-          );
-
-        }
-
-      });
-
-  </script>
-
+  <script src="script.js"></script>
 </body>
-
 </html>
