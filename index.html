@@ -1,215 +1,1267 @@
 <!DOCTYPE html>
+
 <html lang="ko">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>바른수유 인테리어</title>
 
-<style>
-body {
-  font-family: sans-serif;
-  margin: 0;
-  background: #f4f5f7;
-}
+  <meta charset="UTF-8">
 
-.wrap {
-  max-width: 500px;
-  margin: auto;
-  padding: 20px;
-}
+  <meta
 
-.card {
-  background: #fff;
-  padding: 16px;
-  border-radius: 16px;
-  margin-bottom: 12px;
-}
+    name="viewport"
 
-h2 { margin-bottom: 10px; }
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover"
 
-select, input {
-  width: 100%;
-  padding: 12px;
-  margin-top: 10px;
-  border-radius: 10px;
-  border: 1px solid #ddd;
-}
+  >
 
-button {
-  width: 100%;
-  padding: 15px;
-  border: none;
-  background: #111;
-  color: #fff;
-  border-radius: 12px;
-  font-size: 16px;
-}
+  <meta
 
-.hidden { display: none; }
+    name="description"
 
-.result {
-  background: #fafafa;
-  padding: 15px;
-  border-radius: 12px;
-}
+    content="바른수유 인테리어 무료 방문 상담 및 무료 방문 견적"
 
-.action a {
-  display: block;
-  margin-top: 10px;
-  padding: 14px;
-  text-align: center;
-  border-radius: 12px;
-  text-decoration: none;
-}
+  >
 
-.call { background: #111; color: #fff; }
-.kakao { background: #FEE500; }
-</style>
+  <meta name="theme-color" content="#ffffff">
+
+  <title>바른수유 AI 견적·상담 시스템</title>
+
+  <style>
+
+    * {
+
+      box-sizing: border-box;
+
+    }
+
+    html {
+
+      scroll-behavior: smooth;
+
+    }
+
+    body {
+
+      margin: 0;
+
+      background: #ffffff;
+
+      color: #222222;
+
+      font-family:
+
+        -apple-system,
+
+        BlinkMacSystemFont,
+
+        "Apple SD Gothic Neo",
+
+        "Noto Sans KR",
+
+        "Malgun Gothic",
+
+        sans-serif;
+
+      line-height: 1.65;
+
+      word-break: keep-all;
+
+    }
+
+    button,
+
+    input,
+
+    select,
+
+    textarea {
+
+      font: inherit;
+
+    }
+
+    button {
+
+      cursor: pointer;
+
+    }
+
+    .page {
+
+      width: min(100%, 720px);
+
+      margin: 0 auto;
+
+      padding: 0 20px 70px;
+
+    }
+
+    .hero {
+
+      padding: 42px 0 34px;
+
+      text-align: center;
+
+    }
+
+    .hero-image {
+
+      width: 150px;
+
+      height: 120px;
+
+      margin: 0 auto 16px;
+
+      display: block;
+
+    }
+
+    .hero h1 {
+
+      margin: 0;
+
+      font-size: 29px;
+
+      line-height: 1.35;
+
+      letter-spacing: -1px;
+
+    }
+
+    .business-name {
+
+      margin: 14px 0 0;
+
+      font-size: 19px;
+
+      font-weight: 800;
+
+    }
+
+    .hero-message {
+
+      margin: 10px 0 0;
+
+      font-size: 16px;
+
+    }
+
+    .hero-benefits {
+
+      margin-top: 18px;
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      line-height: 1.9;
+
+    }
+
+    .divider {
+
+      height: 1px;
+
+      margin: 0;
+
+      border: 0;
+
+      background: #e7e7e7;
+
+    }
+
+    .section {
+
+      padding: 34px 0;
+
+    }
+
+    .section-title {
+
+      margin: 0 0 24px;
+
+      font-size: 22px;
+
+      line-height: 1.4;
+
+      letter-spacing: -0.6px;
+
+    }
+
+    .sub-title {
+
+      margin: 27px 0 14px;
+
+      font-size: 18px;
+
+      line-height: 1.5;
+
+    }
+
+    .choice-list {
+
+      display: grid;
+
+      gap: 11px;
+
+    }
+
+    .choice-row {
+
+      display: flex;
+
+      align-items: flex-start;
+
+      gap: 10px;
+
+      padding: 3px 0;
+
+    }
+
+    .choice-row input {
+
+      width: 19px;
+
+      height: 19px;
+
+      margin: 3px 0 0;
+
+      flex: 0 0 auto;
+
+      accent-color: #111111;
+
+    }
+
+    .choice-row label {
+
+      flex: 1;
+
+      cursor: pointer;
+
+    }
+
+    .choice-name {
+
+      display: block;
+
+      font-size: 17px;
+
+      font-weight: 750;
+
+    }
+
+    .choice-description {
+
+      display: block;
+
+      margin-top: 2px;
+
+      color: #666666;
+
+      font-size: 14px;
+
+      font-weight: 400;
+
+    }
+
+    .inline-list {
+
+      display: flex;
+
+      flex-wrap: wrap;
+
+      gap: 10px 18px;
+
+    }
+
+    .inline-list .choice-row {
+
+      min-width: 112px;
+
+    }
+
+    .dynamic-area {
+
+      margin-top: 22px;
+
+    }
+
+    .field-label {
+
+      display: block;
+
+      margin-bottom: 3px;
+
+      color: #666666;
+
+      font-size: 14px;
+
+    }
+
+    .field,
+
+    .select-field {
+
+      width: 100%;
+
+      padding: 12px 2px 10px;
+
+      border: 0;
+
+      border-bottom: 1px solid #bdbdbd;
+
+      border-radius: 0;
+
+      outline: none;
+
+      background: transparent;
+
+      color: #222222;
+
+    }
+
+    .field:focus,
+
+    .select-field:focus {
+
+      border-bottom-color: #111111;
+
+    }
+
+    .hint {
+
+      margin: 13px 0 0;
+
+      color: #666666;
+
+      font-size: 14px;
+
+    }
+
+    .two-column {
+
+      display: grid;
+
+      grid-template-columns: 1fr 1fr;
+
+      gap: 18px;
+
+    }
+
+    .action-button {
+
+      width: 100%;
+
+      min-height: 54px;
+
+      margin-top: 12px;
+
+      padding: 14px 18px;
+
+      border: 0;
+
+      border-radius: 10px;
+
+      font-size: 17px;
+
+      font-weight: 800;
+
+    }
+
+    .phone-button {
+
+      background: #111111;
+
+      color: #ffffff;
+
+    }
+
+    .kakao-button {
+
+      background: #fee500;
+
+      color: #181600;
+
+    }
+
+    .reserve-button {
+
+      background: #eeeeee;
+
+      color: #111111;
+
+    }
+
+    .flow {
+
+      display: grid;
+
+      gap: 8px;
+
+      font-weight: 700;
+
+    }
+
+    .flow-arrow {
+
+      padding-left: 4px;
+
+      color: #999999;
+
+    }
+
+    .promise-list {
+
+      display: grid;
+
+      gap: 9px;
+
+      font-weight: 700;
+
+    }
+
+    .notice {
+
+      margin-top: 18px;
+
+      color: #666666;
+
+      font-size: 14px;
+
+      text-align: center;
+
+    }
+
+    .summary {
+
+      display: none;
+
+      margin-top: 24px;
+
+      padding-top: 18px;
+
+      border-top: 1px solid #e7e7e7;
+
+    }
+
+    .summary.show {
+
+      display: block;
+
+    }
+
+    .summary h3 {
+
+      margin: 0 0 10px;
+
+      font-size: 18px;
+
+    }
+
+    .summary pre {
+
+      margin: 0;
+
+      white-space: pre-wrap;
+
+      font-family: inherit;
+
+      font-size: 15px;
+
+      line-height: 1.75;
+
+    }
+
+    .hidden {
+
+      display: none !important;
+
+    }
+
+    .toast {
+
+      position: fixed;
+
+      left: 50%;
+
+      bottom: 25px;
+
+      z-index: 100;
+
+      max-width: calc(100% - 40px);
+
+      padding: 12px 18px;
+
+      border-radius: 999px;
+
+      background: rgba(20, 20, 20, 0.94);
+
+      color: #ffffff;
+
+      font-size: 14px;
+
+      text-align: center;
+
+      opacity: 0;
+
+      pointer-events: none;
+
+      transform: translateX(-50%) translateY(20px);
+
+      transition: 0.2s ease;
+
+    }
+
+    .toast.show {
+
+      opacity: 1;
+
+      transform: translateX(-50%) translateY(0);
+
+    }
+
+    @media (max-width: 520px) {
+
+      .page {
+
+        padding-right: 18px;
+
+        padding-left: 18px;
+
+      }
+
+      .hero h1 {
+
+        font-size: 26px;
+
+      }
+
+      .section-title {
+
+        font-size: 21px;
+
+      }
+
+      .two-column {
+
+        grid-template-columns: 1fr;
+
+      }
+
+      .inline-list {
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+      }
+
+      .inline-list .choice-row {
+
+        min-width: 0;
+
+      }
+
+    }
+
+  </style>
+
 </head>
 
 <body>
-<div class="wrap">
 
-<div class="card">
-<h2>1. 주거형태 + 평수</h2>
-<select id="houseSize">
-<option value="">선택하세요</option>
-<option>원룸 3평</option>
-<option>원룸 5평</option>
-<option>원룸 7평</option>
-<option>아파트 20평</option>
-<option>아파트 30평</option>
-<option>아파트 34평</option>
-<option>빌라 20평</option>
-<option>상가 30평</option>
-<option>사무실 20평</option>
-</select>
-</div>
+  <main class="page">
 
-<div class="card">
-<h2>2. 벽지 선택</h2>
-<select id="wall">
-<option value="">선택</option>
-<option>합지</option>
-<option>실크</option>
-</select>
-</div>
+    <header class="hero">
 
-<div class="card">
-<h2>3. 추가 공사</h2>
+      <svg
 
-<label>
-<input type="checkbox" onclick="toggleOption()"> 추가 공사 있음
-</label>
+        class="hero-image"
 
-<div id="optionBox" class="hidden">
+        viewBox="0 0 180 140"
 
-<label><input type="checkbox" value="장판"> 장판</label><br>
-<label><input type="checkbox" value="필름"> 필름</label><br>
-<label><input type="checkbox" value="타일"> 타일</label><br>
-<label><input type="checkbox" value="싱크대"> 싱크대</label><br>
-<label><input type="checkbox" value="샷시"> 샷시</label><br>
+        aria-hidden="true"
 
-<input type="text" id="customOption" placeholder="기타 입력">
+      >
 
-</div>
-</div>
+        <path
 
-<div class="card">
-<h2>4. 지역 선택</h2>
+          d="M28 67L90 19l62 48v53H28z"
 
-<select id="gu" onchange="updateDong()">
-<option value="">구 선택</option>
-<option value="강북구">강북구</option>
-<option value="도봉구">도봉구</option>
-<option value="성북구">성북구</option>
-<option value="노원구">노원구</option>
-</select>
+          fill="#f3f3f3"
 
-<select id="dong">
-<option>동 선택</option>
-</select>
+        />
 
-</div>
+        <path
 
-<div class="card">
-<button onclick="calculate()">견적 보기</button>
-</div>
+          d="M18 70L90 14l72 56"
 
-<div class="card hidden" id="resultBox">
-<div class="result" id="resultText"></div>
+          fill="none"
 
-<div class="action">
-<a class="call" href="tel:01040084197">전화 상담</a>
-<a class="kakao" href="https://open.kakao.com/o/s9MsLsqi">카톡 상담</a>
-</div>
+          stroke="#222222"
 
-</div>
+          stroke-width="7"
 
-</div>
+          stroke-linecap="round"
 
-<script>
+          stroke-linejoin="round"
 
-const SCRIPT_URL = "여기 너 구글시트 주소";
+        />
 
-function toggleOption() {
-  document.getElementById("optionBox").classList.toggle("hidden");
-}
+        <path
 
-function updateDong() {
-  const gu = document.getElementById("gu").value;
-  const dong = document.getElementById("dong");
+          d="M39 65v58h102V65"
 
-  let list = [];
+          fill="#ffffff"
 
-  if (gu === "강북구") list = ["수유동","번동"];
-  if (gu === "도봉구") list = ["쌍문동","창동"];
-  if (gu === "성북구") list = ["길음동","정릉동"];
-  if (gu === "노원구") list = ["상계동","중계동"];
+          stroke="#222222"
 
-  dong.innerHTML = list.map(d => `<option>${d}</option>`).join("");
-}
+          stroke-width="6"
 
-function calculate() {
+          stroke-linejoin="round"
 
-  const houseSize = document.getElementById("houseSize").value;
-  const wall = document.getElementById("wall").value;
-  const gu = document.getElementById("gu").value;
-  const dong = document.getElementById("dong").value;
+        />
 
-  if (!houseSize || !wall || !gu || !dong) {
-    alert("모든 항목 선택");
-    return;
-  }
+        <rect
 
-  let options = [];
-  document.querySelectorAll('#optionBox input[type=checkbox]:checked')
-    .forEach(el => options.push(el.value));
+          x="76"
 
-  const custom = document.getElementById("customOption").value;
-  if (custom) options.push(custom);
+          y="82"
 
-  const price = wall === "합지" ? "50~70만원" : "80~120만원";
+          width="29"
 
-  document.getElementById("resultText").innerHTML =
-    `${houseSize}<br>${wall}<br>${gu} ${dong}<br>${options.join(", ")}<br><br>예상견적: ${price}`;
+          height="41"
 
-  document.getElementById("resultBox").classList.remove("hidden");
+          rx="2"
 
-  fetch(SCRIPT_URL, {
-    method: "POST",
-    body: JSON.stringify({
-      type: houseSize,
-      wall: wall,
-      area: gu + " " + dong,
-      option: options.join(", "),
-      price: price
-    })
-  });
+          fill="#f3f3f3"
 
-}
+          stroke="#222222"
 
-</script>
+          stroke-width="5"
 
-</body>
-</html>
+        />
+
+        <rect
+
+          x="118"
+
+          y="79"
+
+          width="35"
+
+          height="12"
+
+          rx="5"
+
+          fill="#fee500"
+
+          stroke="#222222"
+
+          stroke-width="4"
+
+        />
+
+        <path
+
+          d="M135 91v25"
+
+          stroke="#222222"
+
+          stroke-width="4"
+
+          stroke-linecap="round"
+
+        />
+
+        <path
+
+          d="M135 115h15"
+
+          stroke="#222222"
+
+          stroke-width="4"
+
+          stroke-linecap="round"
+
+        />
+
+      </svg>
+
+      <h1>바른수유 AI 견적·상담 시스템</h1>
+
+      <p class="business-name">
+
+        ✨ 바른수유 인테리어
+
+      </p>
+
+      <p class="hero-message">
+
+        합리적인 가격과 최고 품질 시공을 목표로 합니다.
+
+      </p>
+
+      <div class="hero-benefits">
+
+        📞 무료 방문 상담<br>
+
+        🏠 무료 방문 견적
+
+      </div>
+
+    </header>
+
+    <hr class="divider">
+
+    <form id="consultForm">
+
+      <!-- ① 주거 형태 선택 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          🏠 ① 주거 형태 선택
+
+        </h2>
+
+        <div class="choice-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-one-room"
+
+              name="homeType"
+
+              value="원룸"
+
+            >
+
+            <label for="home-one-room">
+
+              <span class="choice-name">원룸</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-villa"
+
+              name="homeType"
+
+              value="빌라"
+
+            >
+
+            <label for="home-villa">
+
+              <span class="choice-name">빌라</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-apartment"
+
+              name="homeType"
+
+              value="아파트"
+
+            >
+
+            <label for="home-apartment">
+
+              <span class="choice-name">아파트</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-house"
+
+              name="homeType"
+
+              value="주택"
+
+            >
+
+            <label for="home-house">
+
+              <span class="choice-name">주택</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-store"
+
+              name="homeType"
+
+              value="상가"
+
+            >
+
+            <label for="home-store">
+
+              <span class="choice-name">상가</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="home-office"
+
+              name="homeType"
+
+              value="사무실"
+
+            >
+
+            <label for="home-office">
+
+              <span class="choice-name">사무실</span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <div
+
+          id="sizeOptions"
+
+          class="dynamic-area hidden"
+
+        >
+
+          <h3 class="sub-title">평수 선택</h3>
+
+          <div
+
+            id="sizeChoiceList"
+
+            class="inline-list"
+
+          ></div>
+
+        </div>
+
+        <div
+
+          id="sizeInputArea"
+
+          class="dynamic-area hidden"
+
+        >
+
+          <label
+
+            class="field-label"
+
+            for="sizeInput"
+
+          >
+
+            평수 직접 입력
+
+          </label>
+
+          <input
+
+            class="field"
+
+            id="sizeInput"
+
+            type="number"
+
+            min="1"
+
+            inputmode="numeric"
+
+            placeholder="예: 20"
+
+          >
+
+        </div>
+
+        <p class="hint">
+
+          선택한 주거 형태의 평수만 자동으로 표시됩니다.
+
+        </p>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ② 벽지 선택 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          🧱 ② 벽지 선택
+
+        </h2>
+
+        <div class="choice-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="wallpaper-paper"
+
+              name="wallpaper"
+
+              value="합지"
+
+            >
+
+            <label for="wallpaper-paper">
+
+              <span class="choice-name">
+
+                합지
+
+              </span>
+
+              <span class="choice-description">
+
+                경제적이고 가성비가 좋은 벽지
+
+              </span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="wallpaper-silk"
+
+              name="wallpaper"
+
+              value="실크"
+
+            >
+
+            <label for="wallpaper-silk">
+
+              <span class="choice-name">
+
+                실크
+
+              </span>
+
+              <span class="choice-description">
+
+                오염에 강하고 내구성이 좋은 벽지
+
+              </span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="wallpaper-unknown"
+
+              name="wallpaper"
+
+              value="잘 모르겠어요"
+
+            >
+
+            <label for="wallpaper-unknown">
+
+              <span class="choice-name">
+
+                잘 모르겠어요
+
+              </span>
+
+              <span class="choice-description">
+
+                상담 후 추천해드립니다.
+
+              </span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ③ 현장 상태 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          💧 ③ 현장 상태
+
+        </h2>
+
+        <h3 class="sub-title">
+
+          💦 결로가 있나요?
+
+        </h3>
+
+        <div class="inline-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="condensation-yes"
+
+              name="condensation"
+
+              value="있음"
+
+            >
+
+            <label for="condensation-yes">있음</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="condensation-no"
+
+              name="condensation"
+
+              value="없음"
+
+            >
+
+            <label for="condensation-no">없음</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="condensation-unknown"
+
+              name="condensation"
+
+              value="잘 모르겠어요"
+
+            >
+
+            <label for="condensation-unknown">
+
+              잘 모르겠어요
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <h3 class="sub-title">
+
+          🍄 곰팡이가 있나요?
+
+        </h3>
+
+        <div class="inline-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="mold-yes"
+
+              name="mold"
+
+              value="있음"
+
+            >
+
+            <label for="mold-yes">있음</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="mold-no"
+
+              name="mold"
+
+              value="없음"
+
+            >
+
+            <label for="mold-no">없음</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="mold-unknown"
+
+              name="mold"
+
+              value="잘 모르겠어요"
+
+            >
+
+            <label for="mold-unknown">
+
+              잘 모르겠어요
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <h3 class="sub-title">
+
+          📦 짐 이동이 필요한가요?
+
+        </h3>
+
+        <div class="inline-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="moving-yes"
+
+              name="moving"
+
+              value="예"
+
+            >
+
+            <label for="moving-yes">예</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="moving-no"
+
+              name="moving"
+
+              value="아니요"
+
+            >
+
+            <label for="moving-no">아니요</label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="radio"
+
+              id="moving-part"
+
+              name="moving"
+
+              value="일부만 이동"
+
+            >
+
+            <label for="moving-part">
+
+              일부만 이동
+
+            </label>
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- 1차 코드는 여기까지입니다.
+
+           바로 아래에 2차 코드를 이어서 붙여넣습니다. -->
