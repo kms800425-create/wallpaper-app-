@@ -30,46 +30,22 @@
   --transition: 180ms ease;
 }
 
-* {
-  box-sizing: border-box;
-}
-
-html {
-  -webkit-text-size-adjust: 100%;
-  scroll-behavior: smooth;
-}
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
 
 body {
   margin: 0;
   min-width: 320px;
   background: var(--bg);
   color: var(--text);
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    "Noto Sans KR",
-    "Apple SD Gothic Neo",
-    Arial,
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR",
+    "Apple SD Gothic Neo", Arial, sans-serif;
   line-height: 1.55;
 }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
-
-button,
-a {
-  -webkit-tap-highlight-color: transparent;
-}
-
-button {
-  cursor: pointer;
-}
+button, input, select, textarea { font: inherit; }
+button, a { -webkit-tap-highlight-color: transparent; }
+button { cursor: pointer; }
 
 button:focus-visible,
 a:focus-visible,
@@ -80,9 +56,7 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-[hidden] {
-  display: none !important;
-}
+[hidden] { display: none !important; }
 
 .page {
   width: min(100%, 760px);
@@ -90,9 +64,7 @@ textarea:focus-visible {
   padding: 28px 18px 48px;
 }
 
-.site-header {
-  padding: 18px 4px 24px;
-}
+.site-header { padding: 18px 4px 24px; }
 
 .site-title {
   margin: 0;
@@ -110,10 +82,7 @@ textarea:focus-visible {
   word-break: keep-all;
 }
 
-.consultation {
-  display: grid;
-  gap: 14px;
-}
+.consultation { display: grid; gap: 14px; }
 
 .accordion-section,
 .consultation-connect,
@@ -136,14 +105,10 @@ textarea:focus-visible {
   align-items: center;
   gap: 12px;
   text-align: left;
-  transition:
-    background-color var(--transition),
-    color var(--transition);
+  transition: background-color var(--transition), color var(--transition);
 }
 
-.accordion-header:hover {
-  background: var(--surface-soft);
-}
+.accordion-header:hover { background: var(--surface-soft); }
 
 .accordion-header::after {
   content: "›";
@@ -156,9 +121,7 @@ textarea:focus-visible {
   transition: transform var(--transition);
 }
 
-.accordion-header[aria-expanded="true"]::after {
-  transform: rotate(-90deg);
-}
+.accordion-header[aria-expanded="true"]::after { transform: rotate(-90deg); }
 
 .accordion-title {
   font-size: 18px;
@@ -176,25 +139,14 @@ textarea:focus-visible {
   word-break: keep-all;
 }
 
-.accordion-summary:not(:empty)::before {
-  content: "";
-}
-
 .accordion-content {
   padding: 0 20px 22px;
   animation: accordion-open 180ms ease;
 }
 
 @keyframes accordion-open {
-  from {
-    opacity: 0;
-    transform: translateY(-5px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .choice-group,
@@ -216,11 +168,8 @@ textarea:focus-visible {
   background: var(--surface);
   color: var(--text);
   border-radius: var(--radius-medium);
-  transition:
-    background-color var(--transition),
-    color var(--transition),
-    border-color var(--transition),
-    transform 100ms ease;
+  transition: background-color var(--transition), color var(--transition),
+    border-color var(--transition), transform 100ms ease;
 }
 
 .choice-button,
@@ -293,9 +242,7 @@ label {
   background: var(--surface);
   color: var(--text);
   font-weight: 650;
-  transition:
-    background-color var(--transition),
-    color var(--transition),
+  transition: background-color var(--transition), color var(--transition),
     border-color var(--transition);
 }
 
@@ -322,13 +269,8 @@ label {
   text-align: left;
 }
 
-.detail-choice-button:last-child {
-  margin-bottom: 0;
-}
-
-.detail-choice-button strong {
-  font-size: 16px;
-}
+.detail-choice-button:last-child { margin-bottom: 0; }
+.detail-choice-button strong { font-size: 16px; }
 
 .detail-choice-button span {
   color: var(--muted);
@@ -348,9 +290,7 @@ label {
   border: 0;
 }
 
-.condition-group:last-child {
-  margin-bottom: 0;
-}
+.condition-group:last-child { margin-bottom: 0; }
 
 .condition-group legend {
   width: 100%;
@@ -367,25 +307,18 @@ label {
   font-weight: 650;
 }
 
-.condition-button + .condition-button {
-  margin-left: 6px;
-}
+.condition-button + .condition-button { margin-left: 6px; }
 
-input,
-select,
-textarea {
+input, select, textarea {
   width: 100%;
   border: 1px solid var(--line);
   border-radius: var(--radius-medium);
   background: var(--surface);
   color: var(--text);
-  transition:
-    border-color var(--transition),
-    box-shadow var(--transition);
+  transition: border-color var(--transition), box-shadow var(--transition);
 }
 
-input,
-select {
+input, select {
   min-height: 50px;
   padding: 0 14px;
 }
@@ -397,9 +330,7 @@ textarea {
 }
 
 input::placeholder,
-textarea::placeholder {
-  color: #a0a09a;
-}
+textarea::placeholder { color: #a0a09a; }
 
 input:focus,
 select:focus,
@@ -411,12 +342,9 @@ textarea:focus {
 
 select {
   appearance: none;
-  background-image:
-    linear-gradient(45deg, transparent 50%, #666 50%),
+  background-image: linear-gradient(45deg, transparent 50%, #666 50%),
     linear-gradient(135deg, #666 50%, transparent 50%);
-  background-position:
-    calc(100% - 19px) 21px,
-    calc(100% - 14px) 21px;
+  background-position: calc(100% - 19px) 21px, calc(100% - 14px) 21px;
   background-size: 5px 5px, 5px 5px;
   background-repeat: no-repeat;
   padding-right: 40px;
@@ -428,13 +356,8 @@ select:disabled {
   cursor: not-allowed;
 }
 
-.input-with-unit {
-  position: relative;
-}
-
-.input-with-unit input {
-  padding-right: 50px;
-}
+.input-with-unit { position: relative; }
+.input-with-unit input { padding-right: 50px; }
 
 .input-with-unit span {
   position: absolute;
@@ -466,9 +389,7 @@ select:disabled {
   background: var(--dark-hover);
 }
 
-#additional-direct-input-group {
-  padding-top: 2px;
-}
+#additional-direct-input-group { padding-top: 2px; }
 
 #old-address-group label:not(:first-child),
 #new-address-group label:not(:first-child),
@@ -476,9 +397,7 @@ select:disabled {
   margin-top: 14px;
 }
 
-.consultation-connect {
-  padding: 20px;
-}
+.consultation-connect { padding: 20px; }
 
 .consultation-connect h2,
 .promise-section h2 {
@@ -507,18 +426,11 @@ select:disabled {
   text-align: center;
   text-decoration: none;
   font-weight: 750;
-  transition:
-    background-color var(--transition),
-    transform 100ms ease;
+  transition: background-color var(--transition), transform 100ms ease;
 }
 
-.connect-button:hover {
-  background: var(--dark-hover);
-}
-
-.connect-button:active {
-  transform: scale(0.985);
-}
+.connect-button:hover { background: var(--dark-hover); }
+.connect-button:active { transform: scale(0.985); }
 
 #reservation-form {
   margin-top: 18px;
@@ -535,9 +447,7 @@ select:disabled {
   word-break: keep-all;
 }
 
-.promise-section {
-  padding: 21px 20px;
-}
+.promise-section { padding: 21px 20px; }
 
 .promise-section p {
   margin: 10px 0 0;
@@ -548,13 +458,8 @@ select:disabled {
 }
 
 @media (min-width: 560px) {
-  .page {
-    padding-top: 42px;
-  }
-
-  .site-header {
-    padding-bottom: 30px;
-  }
+  .page { padding-top: 42px; }
+  .site-header { padding-bottom: 30px; }
 
   .choice-group,
   .multiple-choice-group {
@@ -569,13 +474,8 @@ select:disabled {
     grid-template-columns: repeat(3, minmax(0, 1fr));
   }
 
-  .accordion-header {
-    padding: 22px 24px;
-  }
-
-  .accordion-content {
-    padding: 0 24px 24px;
-  }
+  .accordion-header { padding: 22px 24px; }
+  .accordion-content { padding: 0 24px 24px; }
 
   .consultation-connect,
   .promise-section {
@@ -594,9 +494,7 @@ select:disabled {
     gap: 8px;
   }
 
-  .accordion-title {
-    grid-column: 1;
-  }
+  .accordion-title { grid-column: 1; }
 
   .accordion-summary {
     grid-column: 1 / -1;
@@ -615,22 +513,17 @@ select:disabled {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
-  .detail-choice-button {
-    padding: 15px;
-  }
+  .detail-choice-button { padding: 15px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
+  *, *::before, *::after {
     scroll-behavior: auto !important;
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
 }
-
 </style>
 </head>
 
@@ -844,7 +737,7 @@ select:disabled {
           </p>
 
           <button type="button" id="reservation-submit">
-            예약 내용 복사 후 카카오톡 열기
+            상담 신청
           </button>
         </div>
       </section>
@@ -857,13 +750,17 @@ select:disabled {
     </section>
   </main>
 
-  <script>
+<script>
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
+  const APPS_SCRIPT_URL =
+    "https://script.google.com/macros/s/AKfycby07n5Mf0YZCCQ1UcBc7dXLvIh2ACFq6IMm4r5UyK9UEnYAfxOaw8RcbpZQk9aXW23U/exec";
+  const PHONE_URL = "tel:01040084197";
   const KAKAO_URL = "https://open.kakao.com/o/s9MsLsqi";
 
   const state = {
+    inquiryMethod: "예약상담",
     housingType: "",
     housingSize: "",
     wallpaper: "",
@@ -910,7 +807,6 @@ document.addEventListener("DOMContentLoaded", () => {
       const header = document.getElementById(hId);
       const content = document.getElementById(cId);
       const shouldOpen = hId === headerId;
-
       header.setAttribute("aria-expanded", String(shouldOpen));
       content.hidden = !shouldOpen;
     });
@@ -923,15 +819,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
   sections.forEach(([headerId, contentId]) => {
     const header = document.getElementById(headerId);
-    const content = document.getElementById(contentId);
-
     header.addEventListener("click", () => {
       const isOpen = header.getAttribute("aria-expanded") === "true";
-      if (isOpen) {
-        closeSection(headerId, contentId);
-      } else {
-        openSection(headerId, contentId);
-      }
+      if (isOpen) closeSection(headerId, contentId);
+      else openSection(headerId, contentId);
     });
   });
 
@@ -961,7 +852,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   housingButtons.forEach((button) => {
     button.setAttribute("aria-pressed", "false");
-
     button.addEventListener("click", () => {
       selectSingle(housingButtons, button);
       state.housingType = button.dataset.housing;
@@ -988,7 +878,6 @@ document.addEventListener("DOMContentLoaded", () => {
             item.classList.toggle("is-selected", selected);
             item.setAttribute("aria-pressed", String(selected));
           });
-
           state.housingSize = size;
           finishHousing();
         });
@@ -1002,13 +891,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
   document.getElementById("housing-area-complete").addEventListener("click", () => {
     const value = document.getElementById("housing-area-input").value.trim();
-
     if (!value) {
       alert("평수를 입력해 주세요.");
       document.getElementById("housing-area-input").focus();
       return;
     }
-
     state.housingSize = `${value}평`;
     finishHousing();
   });
@@ -1017,7 +904,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   wallpaperButtons.forEach((button) => {
     button.setAttribute("aria-pressed", "false");
-
     button.addEventListener("click", () => {
       selectSingle(wallpaperButtons, button);
       state.wallpaper = button.dataset.wallpaper;
@@ -1030,7 +916,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   conditionButtons.forEach((button) => {
     button.setAttribute("aria-pressed", "false");
-
     button.addEventListener("click", () => {
       const type = button.dataset.condition;
       const value = button.dataset.value;
@@ -1044,7 +929,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
 
       state.condition[type] = value;
-
       const { condensation, mold, furniture } = state.condition;
 
       if (condensation && mold && furniture) {
@@ -1059,7 +943,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   additionalButtons.forEach((button) => {
     button.setAttribute("aria-pressed", "false");
-
     button.addEventListener("click", () => {
       const value = button.dataset.additional;
 
@@ -1119,16 +1002,12 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     if (state.additional.includes("직접 입력")) {
-      const directValue = document
-        .getElementById("additional-direct-input")
-        .value.trim();
-
+      const directValue = document.getElementById("additional-direct-input").value.trim();
       if (!directValue) {
         alert("추가 시공 내용을 입력해 주세요.");
         document.getElementById("additional-direct-input").focus();
         return;
       }
-
       state.additionalDirect = directValue;
     }
 
@@ -1146,7 +1025,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addressTypeButtons.forEach((button) => {
     button.setAttribute("aria-pressed", "false");
-
     button.addEventListener("click", () => {
       selectSingle(addressTypeButtons, button);
       state.addressType = button.dataset.addressType;
@@ -1171,9 +1049,7 @@ document.addEventListener("DOMContentLoaded", () => {
   districtSelect.addEventListener("change", () => {
     state.district = districtSelect.value;
     state.neighborhood = "";
-
-    neighborhoodSelect.innerHTML =
-      '<option value="">동을 선택해 주세요.</option>';
+    neighborhoodSelect.innerHTML = '<option value="">동을 선택해 주세요.</option>';
 
     if (!state.district) {
       neighborhoodSelect.disabled = true;
@@ -1192,7 +1068,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   neighborhoodSelect.addEventListener("change", () => {
     state.neighborhood = neighborhoodSelect.value;
-
     if (!state.district || !state.neighborhood) return;
 
     document.getElementById("location-summary").textContent =
@@ -1215,17 +1090,46 @@ document.addEventListener("DOMContentLoaded", () => {
     closeSection("location-header", "location-content");
   });
 
+  const phoneButton = document.getElementById("phone-consultation");
+  const kakaoButton = document.getElementById("kakao-consultation");
   const reservationToggle = document.getElementById("reservation-toggle");
   const reservationForm = document.getElementById("reservation-form");
+  const submitButton = document.getElementById("reservation-submit");
+
+  function openConsultationForm(method) {
+    state.inquiryMethod = method;
+    reservationForm.hidden = false;
+    reservationToggle.setAttribute("aria-expanded", "true");
+
+    if (method === "전화상담") {
+      submitButton.textContent = "저장 후 전화 연결";
+    } else if (method === "카카오상담") {
+      submitButton.textContent = "저장 후 카카오 연결";
+    } else {
+      submitButton.textContent = "상담 예약 신청";
+    }
+
+    document.getElementById("reservation-name").focus();
+    reservationForm.scrollIntoView({ behavior: "smooth", block: "start" });
+  }
+
+  phoneButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    openConsultationForm("전화상담");
+  });
+
+  kakaoButton.addEventListener("click", (event) => {
+    event.preventDefault();
+    openConsultationForm("카카오상담");
+  });
 
   reservationToggle.addEventListener("click", () => {
-    const willOpen = reservationForm.hidden;
-    reservationForm.hidden = !willOpen;
-    reservationToggle.setAttribute("aria-expanded", String(willOpen));
-
-    if (willOpen) {
-      document.getElementById("reservation-name").focus();
+    if (!reservationForm.hidden && state.inquiryMethod === "예약상담") {
+      reservationForm.hidden = true;
+      reservationToggle.setAttribute("aria-expanded", "false");
+      return;
     }
+    openConsultationForm("예약상담");
   });
 
   function summaryText(id, fallback = "미선택") {
@@ -1233,67 +1137,94 @@ document.addEventListener("DOMContentLoaded", () => {
     return value || fallback;
   }
 
-  async function copyText(text) {
-    if (navigator.clipboard && window.isSecureContext) {
-      await navigator.clipboard.writeText(text);
-      return;
-    }
+  function buildPayload(name, phone, request) {
+    const additional = summaryText("additional-summary");
+    const location = summaryText("location-summary");
 
-    const textarea = document.createElement("textarea");
-    textarea.value = text;
-    textarea.style.position = "fixed";
-    textarea.style.left = "-9999px";
-    document.body.appendChild(textarea);
-    textarea.select();
-    document.execCommand("copy");
-    textarea.remove();
+    return {
+      "접수시간": new Date().toLocaleString("ko-KR"),
+      "문의방식": state.inquiryMethod,
+      "주거형태": state.housingType || "미선택",
+      "평수": state.housingSize || "미선택",
+      "벽지": state.wallpaper || "미선택",
+      "결로": state.condition.condensation || "미선택",
+      "곰팡이": state.condition.mold || "미선택",
+      "짐이동": state.condition.furniture || "미선택",
+      "추가시공": additional,
+      "시공지역": location,
+      "이름": name,
+      "연락처": phone,
+      "요청사항": request || "없음"
+    };
   }
 
-  document.getElementById("reservation-submit").addEventListener("click", async () => {
-    const name = document.getElementById("reservation-name").value.trim();
-    const phone = document.getElementById("reservation-phone").value.trim();
-    const request = document.getElementById("reservation-request").value.trim();
+  async function saveToGoogleSheet(payload) {
+    await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload)
+    });
+  }
+
+  submitButton.addEventListener("click", async () => {
+    const nameInput = document.getElementById("reservation-name");
+    const phoneInput = document.getElementById("reservation-phone");
+    const requestInput = document.getElementById("reservation-request");
+
+    const name = nameInput.value.trim();
+    const phone = phoneInput.value.trim();
+    const request = requestInput.value.trim();
 
     if (!name) {
       alert("이름을 입력해 주세요.");
-      document.getElementById("reservation-name").focus();
+      nameInput.focus();
       return;
     }
 
     if (!phone) {
       alert("연락처를 입력해 주세요.");
-      document.getElementById("reservation-phone").focus();
+      phoneInput.focus();
       return;
     }
 
-    const message = [
-      "안녕하세요. 바른수유인테리어 상담 예약을 원합니다.",
-      "",
-      `주거 형태: ${summaryText("housing-summary")}`,
-      `벽지: ${summaryText("wallpaper-summary")}`,
-      `현장 상태: ${summaryText("condition-summary")}`,
-      `추가 시공: ${summaryText("additional-summary")}`,
-      `시공 지역: ${summaryText("location-summary")}`,
-      "",
-      `이름: ${name}`,
-      `연락처: ${phone}`,
-      `요청사항: ${request || "없음"}`,
-      "",
-      "희망 방문일:",
-      "희망 시간:"
-    ].join("\n");
+    const originalText = submitButton.textContent;
+    submitButton.disabled = true;
+    submitButton.textContent = "저장 중...";
 
     try {
-      await copyText(message);
-      alert("예약 내용이 복사되었습니다. 카카오톡에서 붙여넣어 주세요.");
-      window.open(KAKAO_URL, "_blank", "noopener");
+      const payload = buildPayload(name, phone, request);
+      await saveToGoogleSheet(payload);
+
+      if (state.inquiryMethod === "전화상담") {
+        alert("상담 내용이 저장되었습니다. 전화를 연결합니다.");
+        window.location.href = PHONE_URL;
+        return;
+      }
+
+      if (state.inquiryMethod === "카카오상담") {
+        alert("상담 내용이 저장되었습니다. 카카오톡으로 연결합니다.");
+        window.location.href = KAKAO_URL;
+        return;
+      }
+
+      alert("상담 예약이 접수되었습니다.");
+      nameInput.value = "";
+      phoneInput.value = "";
+      requestInput.value = "";
+      reservationForm.hidden = true;
+      reservationToggle.setAttribute("aria-expanded", "false");
     } catch (error) {
-      alert("복사하지 못했습니다. 다시 시도해 주세요.");
       console.error(error);
+      alert("저장하지 못했습니다. 잠시 후 다시 시도해 주세요.");
+    } finally {
+      submitButton.disabled = false;
+      submitButton.textContent = originalText;
     }
   });
 });
-
 </script>
 </body>
 </html>
