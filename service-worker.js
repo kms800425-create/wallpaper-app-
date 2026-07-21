@@ -1,4 +1,4 @@
-const CACHE_NAME = 'barun-suyu-app-v2';
+const CACHE_NAME = 'barun-suyu-app-v3';
 
 const urlsToCache = [
 
