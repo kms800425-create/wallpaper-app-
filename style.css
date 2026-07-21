@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>바른수유인테리어 상담</title>
+  <meta
+    name="description"
+    content="바른수유인테리어 도배·장판·집수리·상가수리·인테리어 방문 상담"
+  >
+
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <main class="page">
+    <header class="site-header">
+      <h1 class="site-title">바른수유인테리어</h1>
+      <p class="site-description">
+        필요한 항목을 선택하시면 상담 내용을 한눈에 확인할 수 있습니다.
+      </p>
+    </header>
+
+    <section class="consultation" aria-label="시공 상담">
+
+      <section class="accordion-section" id="housing-section">
+        <button class="accordion-header" type="button" id="housing-header"
+          aria-expanded="false" aria-controls="housing-content">
+          <span class="accordion-title">🏠 주거 형태</span>
+          <span class="accordion-summary" id="housing-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="housing-content"
+          aria-labelledby="housing-header" hidden>
+          <div class="choice-group" id="housing-type-group">
+            <button type="button" class="choice-button" data-housing="원룸">원룸</button>
+            <button type="button" class="choice-button" data-housing="빌라">빌라</button>
+            <button type="button" class="choice-button" data-housing="아파트">아파트</button>
+            <button type="button" class="choice-button" data-housing="주택">주택</button>
+            <button type="button" class="choice-button" data-housing="상가">상가</button>
+            <button type="button" class="choice-button" data-housing="사무실">사무실</button>
+          </div>
+
+          <div class="sub-choice-group" id="housing-size-group" hidden>
+            <p class="group-label">평수를 선택해 주세요.</p>
+            <div id="housing-size-options"></div>
+          </div>
+
+          <div class="direct-input-group" id="housing-area-input-group" hidden>
+            <label for="housing-area-input">평수 직접 입력</label>
+            <div class="input-with-unit">
+              <input type="number" id="housing-area-input" inputmode="decimal"
+                min="1" placeholder="평수 입력">
+              <span>평</span>
+            </div>
+            <button type="button" id="housing-area-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="wallpaper-section">
+        <button class="accordion-header" type="button" id="wallpaper-header"
+          aria-expanded="false" aria-controls="wallpaper-content">
+          <span class="accordion-title">🧱 벽지 선택</span>
+          <span class="accordion-summary" id="wallpaper-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="wallpaper-content"
+          aria-labelledby="wallpaper-header" hidden>
+          <button type="button" class="detail-choice-button" data-wallpaper="합지">
+            <strong>합지</strong>
+            <span>경제적인 선택으로 일반 주거공간에 많이 사용됩니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="실크">
+            <strong>실크</strong>
+            <span>내구성과 오염 저항성이 우수하며 고급스러운 마감이 가능합니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="기타">
+            <strong>기타</strong>
+            <span>상담 시 원하는 제품을 말씀해 주세요.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="condition-section">
+        <button class="accordion-header" type="button" id="condition-header"
+          aria-expanded="false" aria-controls="condition-content">
+          <span class="accordion-title">🔍 현장 상태</span>
+          <span class="accordion-summary" id="condition-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="condition-content"
+          aria-labelledby="condition-header" hidden>
+          <fieldset class="condition-group">
+            <legend>결로</legend>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>곰팡이</legend>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>짐 이동</legend>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="없음">없음</button>
+          </fieldset>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="additional-section">
+        <button class="accordion-header" type="button" id="additional-header"
+          aria-expanded="false" aria-controls="additional-content">
+          <span class="accordion-title">🛠️ 추가 시공</span>
+          <span class="accordion-summary" id="additional-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="additional-content"
+          aria-labelledby="additional-header" hidden>
+          <div class="multiple-choice-group">
+            <button type="button" class="multiple-choice-button" data-additional="없음">없음</button>
+            <button type="button" class="multiple-choice-button" data-additional="장판">장판</button>
+            <button type="button" class="multiple-choice-button" data-additional="타일">타일</button>
+            <button type="button" class="multiple-choice-button" data-additional="문 교체">문 교체</button>
+            <button type="button" class="multiple-choice-button" data-additional="붙박이장">붙박이장</button>
+            <button type="button" class="multiple-choice-button" data-additional="싱크대">싱크대</button>
+            <button type="button" class="multiple-choice-button" data-additional="직접 입력">직접 입력</button>
+          </div>
+
+          <div id="additional-direct-input-group" hidden>
+            <label for="additional-direct-input">추가 시공 직접 입력</label>
+            <input type="text" id="additional-direct-input"
+              placeholder="원하는 추가 시공을 입력해 주세요.">
+          </div>
+
+          <button type="button" id="additional-complete">선택 완료</button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="location-section">
+        <button class="accordion-header" type="button" id="location-header"
+          aria-expanded="false" aria-controls="location-content">
+          <span class="accordion-title">📍 시공 지역</span>
+          <span class="accordion-summary" id="location-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="location-content"
+          aria-labelledby="location-header" hidden>
+          <div class="choice-group" id="address-type-group">
+            <button type="button" class="choice-button" data-address-type="구주소">구주소</button>
+            <button type="button" class="choice-button" data-address-type="신주소">신주소</button>
+          </div>
+
+          <div id="old-address-group" hidden>
+            <label for="district-select">구 선택</label>
+            <select id="district-select">
+              <option value="">구를 선택해 주세요.</option>
+              <option value="강북구">강북구</option>
+              <option value="노원구">노원구</option>
+              <option value="도봉구">도봉구</option>
+              <option value="성북구">성북구</option>
+            </select>
+
+            <label for="neighborhood-select">동 선택</label>
+            <select id="neighborhood-select" disabled>
+              <option value="">동을 선택해 주세요.</option>
+            </select>
+          </div>
+
+          <div id="new-address-group" hidden>
+            <label for="new-address-input">신주소 입력</label>
+            <input type="text" id="new-address-input"
+              placeholder="도로명 주소를 입력해 주세요.">
+            <button type="button" id="new-address-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="consultation-connect" id="connect-section">
+        <h2>📝 상담 연결</h2>
+
+        <div class="connect-buttons">
+          <a class="connect-button" id="phone-consultation"
+            href="tel:01040084197">📞 전화 상담</a>
+
+          <a class="connect-button" id="kakao-consultation"
+            href="https://open.kakao.com/o/s9MsLsqi"
+            target="_blank" rel="noopener noreferrer">💬 카카오 상담</a>
+
+          <button class="connect-button" type="button" id="reservation-toggle"
+            aria-expanded="false" aria-controls="reservation-form">
+            🗓️ 상담 예약
+          </button>
+        </div>
+
+        <div id="reservation-form" hidden>
+          <label for="reservation-name">이름</label>
+          <input type="text" id="reservation-name" autocomplete="name"
+            placeholder="이름을 입력해 주세요.">
+
+          <label for="reservation-phone">연락처</label>
+          <input type="tel" id="reservation-phone" inputmode="tel"
+            autocomplete="tel" placeholder="연락처를 입력해 주세요.">
+
+          <label for="reservation-request">요청사항</label>
+          <textarea id="reservation-request" rows="5"
+            placeholder="상담 시 필요한 내용을 입력해 주세요."></textarea>
+
+          <p class="reservation-notice">
+            상담 신청에 연락처를 남기시면 내용 확인 후 빠르게 연락드립니다.
+          </p>
+
+          <button type="button" id="reservation-submit">
+            예약 내용 복사 후 카카오톡 열기
+          </button>
+        </div>
+      </section>
+
+      <section class="promise-section">
+        <h2>바른수유의 약속</h2>
+        <p>최저가·초고품질 시공을 목표로 정직하게 상담하겠습니다.</p>
+      </section>
+
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
