@@ -1262,6 +1262,742 @@
 
       <hr class="divider">
 
-      <!-- 1차 코드는 여기까지입니다.
+            <!-- ④ 추가 공사 -->
 
-           바로 아래에 2차 코드를 이어서 붙여넣습니다. -->
+      <section class="section">
+
+        <h2 class="section-title">
+
+          🔨 ④ 추가 공사
+
+        </h2>
+
+        <p class="hint">
+
+          필요한 공사를 모두 선택해 주세요.
+
+        </p>
+
+        <div class="choice-list">
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-floor"
+
+              name="extraWork"
+
+              value="장판"
+
+            >
+
+            <label for="extra-floor">
+
+              <span class="choice-name">장판</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-tile"
+
+              name="extraWork"
+
+              value="타일"
+
+            >
+
+            <label for="extra-tile">
+
+              <span class="choice-name">타일</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-door"
+
+              name="extraWork"
+
+              value="문/문틀"
+
+            >
+
+            <label for="extra-door">
+
+              <span class="choice-name">문/문틀</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-closet"
+
+              name="extraWork"
+
+              value="붙박이장"
+
+            >
+
+            <label for="extra-closet">
+
+              <span class="choice-name">붙박이장</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-kitchen"
+
+              name="extraWork"
+
+              value="싱크대"
+
+            >
+
+            <label for="extra-kitchen">
+
+              <span class="choice-name">싱크대</span>
+
+            </label>
+
+          </div>
+
+          <div class="choice-row">
+
+            <input
+
+              type="checkbox"
+
+              id="extra-other"
+
+              name="extraWork"
+
+              value="기타"
+
+            >
+
+            <label for="extra-other">
+
+              <span class="choice-name">기타</span>
+
+            </label>
+
+          </div>
+
+        </div>
+
+        <div
+
+          id="extraOtherArea"
+
+          class="dynamic-area hidden"
+
+        >
+
+          <label
+
+            class="field-label"
+
+            for="extraOtherInput"
+
+          >
+
+            기타 공사 내용
+
+          </label>
+
+          <input
+
+            class="field"
+
+            id="extraOtherInput"
+
+            type="text"
+
+            placeholder="필요한 공사 내용을 입력해 주세요."
+
+          >
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ⑤ 시공 지역 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          📍 ⑤ 시공 지역
+
+        </h2>
+
+        <div class="two-column">
+
+          <div>
+
+            <label
+
+              class="field-label"
+
+              for="districtSelect"
+
+            >
+
+              구 선택
+
+            </label>
+
+            <select
+
+              class="select-field"
+
+              id="districtSelect"
+
+            >
+
+              <option value="">
+
+                구를 선택해 주세요.
+
+              </option>
+
+              <option value="강북구">
+
+                강북구
+
+              </option>
+
+              <option value="노원구">
+
+                노원구
+
+              </option>
+
+              <option value="도봉구">
+
+                도봉구
+
+              </option>
+
+              <option value="성북구">
+
+                성북구
+
+              </option>
+
+            </select>
+
+          </div>
+
+          <div>
+
+            <label
+
+              class="field-label"
+
+              for="neighborhoodSelect"
+
+            >
+
+              동 선택
+
+            </label>
+
+            <select
+
+              class="select-field"
+
+              id="neighborhoodSelect"
+
+              disabled
+
+            >
+
+              <option value="">
+
+                먼저 구를 선택해 주세요.
+
+              </option>
+
+            </select>
+
+          </div>
+
+        </div>
+
+        <div class="dynamic-area">
+
+          <label
+
+            class="field-label"
+
+            for="addressInput"
+
+          >
+
+            상세 주소
+
+          </label>
+
+          <input
+
+            class="field"
+
+            id="addressInput"
+
+            type="text"
+
+            placeholder="도로명 주소 또는 상세 주소를 입력해 주세요."
+
+          >
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ⑥ 상담 방법 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          📞 ⑥ 상담 방법
+
+        </h2>
+
+        <p class="hint">
+
+          상담 신청에 연락처를 남기시면 내용 확인 후 빠르게 연락드립니다.
+
+        </p>
+
+        <button
+
+          class="action-button phone-button"
+
+          id="phoneConsultButton"
+
+          type="button"
+
+        >
+
+          📞 전화 상담
+
+        </button>
+
+        <button
+
+          class="action-button kakao-button"
+
+          id="kakaoConsultButton"
+
+          type="button"
+
+        >
+
+          💬 카카오톡 상담
+
+        </button>
+
+        <button
+
+          class="action-button reserve-button"
+
+          id="reservationButton"
+
+          type="button"
+
+        >
+
+          📅 상담 예약
+
+        </button>
+
+        <div
+
+          id="reservationArea"
+
+          class="dynamic-area hidden"
+
+        >
+
+          <h3 class="sub-title">
+
+            상담 예약 정보
+
+          </h3>
+
+          <div class="dynamic-area">
+
+            <label
+
+              class="field-label"
+
+              for="customerName"
+
+            >
+
+              성함
+
+            </label>
+
+            <input
+
+              class="field"
+
+              id="customerName"
+
+              type="text"
+
+              placeholder="성함을 입력해 주세요."
+
+            >
+
+          </div>
+
+          <div class="dynamic-area">
+
+            <label
+
+              class="field-label"
+
+              for="customerPhone"
+
+            >
+
+              연락처
+
+            </label>
+
+            <input
+
+              class="field"
+
+              id="customerPhone"
+
+              type="tel"
+
+              inputmode="tel"
+
+              placeholder="연락처를 입력해 주세요."
+
+            >
+
+          </div>
+
+          <div class="dynamic-area">
+
+            <label
+
+              class="field-label"
+
+              for="reservationDate"
+
+            >
+
+              희망 상담 날짜
+
+            </label>
+
+            <input
+
+              class="field"
+
+              id="reservationDate"
+
+              type="date"
+
+            >
+
+          </div>
+
+          <div class="dynamic-area">
+
+            <label
+
+              class="field-label"
+
+              for="reservationTime"
+
+            >
+
+              희망 상담 시간
+
+            </label>
+
+            <input
+
+              class="field"
+
+              id="reservationTime"
+
+              type="time"
+
+            >
+
+          </div>
+
+          <div class="dynamic-area">
+
+            <label
+
+              class="field-label"
+
+              for="requestMessage"
+
+            >
+
+              상담 요청사항
+
+            </label>
+
+            <textarea
+
+              class="field"
+
+              id="requestMessage"
+
+              rows="4"
+
+              placeholder="상담이 필요한 내용을 입력해 주세요."
+
+            ></textarea>
+
+          </div>
+
+          <button
+
+            class="action-button phone-button"
+
+            id="createSummaryButton"
+
+            type="button"
+
+          >
+
+            상담 내용 확인
+
+          </button>
+
+        </div>
+
+        <div
+
+          id="consultSummary"
+
+          class="summary"
+
+        >
+
+          <h3>
+
+            상담 신청 내용
+
+          </h3>
+
+          <pre id="summaryText"></pre>
+
+          <button
+
+            class="action-button kakao-button"
+
+            id="sendKakaoButton"
+
+            type="button"
+
+          >
+
+            카카오톡으로 상담하기
+
+          </button>
+
+          <button
+
+            class="action-button phone-button"
+
+            id="callAfterSummaryButton"
+
+            type="button"
+
+          >
+
+            010-4008-4197 전화하기
+
+          </button>
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ⑦ 상담 진행 순서 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          📋 ⑦ 상담 진행 순서
+
+        </h2>
+
+        <div class="flow">
+
+          <div>
+
+            1. 상담 내용 선택
+
+          </div>
+
+          <div class="flow-arrow">
+
+            ↓
+
+          </div>
+
+          <div>
+
+            2. 전화·카카오톡·상담 예약
+
+          </div>
+
+          <div class="flow-arrow">
+
+            ↓
+
+          </div>
+
+          <div>
+
+            3. 무료 방문 상담
+
+          </div>
+
+          <div class="flow-arrow">
+
+            ↓
+
+          </div>
+
+          <div>
+
+            4. 무료 방문 견적
+
+          </div>
+
+          <div class="flow-arrow">
+
+            ↓
+
+          </div>
+
+          <div>
+
+            5. 시공 일정 확정
+
+          </div>
+
+        </div>
+
+      </section>
+
+      <hr class="divider">
+
+      <!-- ⑧ 바른수유의 약속 -->
+
+      <section class="section">
+
+        <h2 class="section-title">
+
+          🤝 ⑧ 바른수유의 약속
+
+        </h2>
+
+        <div class="promise-list">
+
+          <div>
+
+            ✓ 최저가·초고품질 시공을 목표로 합니다.
+
+          </div>
+
+          <div>
+
+            ✓ 현장 상태에 맞는 시공 방법을 안내합니다.
+
+          </div>
+
+          <div>
+
+            ✓ 충분한 상담 후 견적을 안내합니다.
+
+          </div>
+
+          <div>
+
+            ✓ 시공 후 사후관리까지 책임집니다.
+
+          </div>
+
+        </div>
+
+        <p class="notice">
+
+          바른수유 인테리어 대표번호<br>
+
+          010-4008-4197
+
+        </p>
+
+      </section>
+
+    </form>
+
+  </main>
+
+  <div
+
+    id="toast"
+
+    class="toast"
+
+    role="status"
+
+    aria-live="polite"
+
+  ></div>
+
+  
