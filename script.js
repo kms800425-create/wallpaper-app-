@@ -1,3 +1,863 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>바른수유인테리어 상담</title>
+  <meta
+    name="description"
+    content="바른수유인테리어 도배·장판·집수리·상가수리·인테리어 방문 상담"
+  >
+
+  <style>
+:root {
+  --bg: #f5f5f2;
+  --surface: #ffffff;
+  --surface-soft: #f8f8f6;
+  --text: #191919;
+  --muted: #666666;
+  --line: #deded8;
+  --dark: #151515;
+  --dark-hover: #2a2a2a;
+  --selected: #151515;
+  --selected-text: #ffffff;
+  --focus: #555555;
+  --radius-large: 18px;
+  --radius-medium: 13px;
+  --radius-small: 10px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --transition: 180ms ease;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--bg);
+  color: var(--text);
+  font-family:
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    "Noto Sans KR",
+    "Apple SD Gothic Neo",
+    Arial,
+    sans-serif;
+  line-height: 1.55;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 3px solid rgba(0, 0, 0, 0.18);
+  outline-offset: 2px;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+.page {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 28px 18px 48px;
+}
+
+.site-header {
+  padding: 18px 4px 24px;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(28px, 7vw, 42px);
+  line-height: 1.2;
+  letter-spacing: -0.04em;
+  font-weight: 800;
+}
+
+.site-description {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 15px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+.consultation {
+  display: grid;
+  gap: 14px;
+}
+
+.accordion-section,
+.consultation-connect,
+.promise-section {
+  overflow: hidden;
+  background: var(--surface);
+  border-radius: var(--radius-large);
+  box-shadow: var(--shadow);
+}
+
+.accordion-header {
+  width: 100%;
+  min-height: 72px;
+  padding: 20px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  text-align: left;
+  transition:
+    background-color var(--transition),
+    color var(--transition);
+}
+
+.accordion-header:hover {
+  background: var(--surface-soft);
+}
+
+.accordion-header::after {
+  content: "›";
+  grid-column: 3;
+  justify-self: end;
+  font-size: 28px;
+  line-height: 1;
+  color: #8a8a84;
+  transform: rotate(90deg);
+  transition: transform var(--transition);
+}
+
+.accordion-header[aria-expanded="true"]::after {
+  transform: rotate(-90deg);
+}
+
+.accordion-title {
+  font-size: 18px;
+  font-weight: 750;
+  letter-spacing: -0.025em;
+  white-space: nowrap;
+}
+
+.accordion-summary {
+  min-width: 0;
+  color: var(--muted);
+  font-size: 14px;
+  text-align: right;
+  overflow-wrap: anywhere;
+  word-break: keep-all;
+}
+
+.accordion-summary:not(:empty)::before {
+  content: "";
+}
+
+.accordion-content {
+  padding: 0 20px 22px;
+  animation: accordion-open 180ms ease;
+}
+
+@keyframes accordion-open {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.choice-group,
+.multiple-choice-group {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.choice-button,
+.multiple-choice-button,
+.condition-button,
+.detail-choice-button,
+#housing-area-complete,
+#additional-complete,
+#new-address-complete,
+#reservation-submit {
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--text);
+  border-radius: var(--radius-medium);
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition),
+    transform 100ms ease;
+}
+
+.choice-button,
+.multiple-choice-button {
+  min-height: 52px;
+  padding: 12px 10px;
+  font-weight: 650;
+}
+
+.choice-button:hover,
+.multiple-choice-button:hover,
+.condition-button:hover,
+.detail-choice-button:hover {
+  border-color: #999994;
+  background: var(--surface-soft);
+}
+
+.choice-button:active,
+.multiple-choice-button:active,
+.condition-button:active,
+.detail-choice-button:active,
+#housing-area-complete:active,
+#additional-complete:active,
+#new-address-complete:active,
+#reservation-submit:active {
+  transform: scale(0.985);
+}
+
+.choice-button.is-selected,
+.multiple-choice-button.is-selected,
+.condition-button.is-selected,
+.detail-choice-button.is-selected,
+.choice-button[aria-pressed="true"],
+.multiple-choice-button[aria-pressed="true"],
+.condition-button[aria-pressed="true"],
+.detail-choice-button[aria-pressed="true"] {
+  border-color: var(--selected);
+  background: var(--selected);
+  color: var(--selected-text);
+}
+
+.sub-choice-group,
+.direct-input-group,
+#old-address-group,
+#new-address-group,
+#additional-direct-input-group {
+  margin-top: 16px;
+}
+
+.group-label,
+label {
+  display: block;
+  margin: 0 0 9px;
+  font-size: 14px;
+  font-weight: 700;
+  color: #343434;
+}
+
+#housing-size-options {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+#housing-size-options button {
+  min-height: 50px;
+  padding: 12px 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-medium);
+  background: var(--surface);
+  color: var(--text);
+  font-weight: 650;
+  transition:
+    background-color var(--transition),
+    color var(--transition),
+    border-color var(--transition);
+}
+
+#housing-size-options button:hover {
+  border-color: #999994;
+  background: var(--surface-soft);
+}
+
+#housing-size-options button.is-selected,
+#housing-size-options button[aria-pressed="true"] {
+  border-color: var(--selected);
+  background: var(--selected);
+  color: var(--selected-text);
+}
+
+.detail-choice-button {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 10px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 5px;
+  text-align: left;
+}
+
+.detail-choice-button:last-child {
+  margin-bottom: 0;
+}
+
+.detail-choice-button strong {
+  font-size: 16px;
+}
+
+.detail-choice-button span {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+  word-break: keep-all;
+}
+
+.detail-choice-button.is-selected span,
+.detail-choice-button[aria-pressed="true"] span {
+  color: rgba(255, 255, 255, 0.78);
+}
+
+.condition-group {
+  margin: 0 0 18px;
+  padding: 0;
+  border: 0;
+}
+
+.condition-group:last-child {
+  margin-bottom: 0;
+}
+
+.condition-group legend {
+  width: 100%;
+  margin-bottom: 9px;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 750;
+}
+
+.condition-button {
+  width: calc(50% - 5px);
+  min-height: 48px;
+  padding: 11px;
+  font-weight: 650;
+}
+
+.condition-button + .condition-button {
+  margin-left: 6px;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-medium);
+  background: var(--surface);
+  color: var(--text);
+  transition:
+    border-color var(--transition),
+    box-shadow var(--transition);
+}
+
+input,
+select {
+  min-height: 50px;
+  padding: 0 14px;
+}
+
+textarea {
+  min-height: 130px;
+  padding: 14px;
+  resize: vertical;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #a0a09a;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border-color: var(--focus);
+  box-shadow: 0 0 0 4px rgba(0, 0, 0, 0.07);
+  outline: none;
+}
+
+select {
+  appearance: none;
+  background-image:
+    linear-gradient(45deg, transparent 50%, #666 50%),
+    linear-gradient(135deg, #666 50%, transparent 50%);
+  background-position:
+    calc(100% - 19px) 21px,
+    calc(100% - 14px) 21px;
+  background-size: 5px 5px, 5px 5px;
+  background-repeat: no-repeat;
+  padding-right: 40px;
+}
+
+select:disabled {
+  background-color: #efefec;
+  color: #999;
+  cursor: not-allowed;
+}
+
+.input-with-unit {
+  position: relative;
+}
+
+.input-with-unit input {
+  padding-right: 50px;
+}
+
+.input-with-unit span {
+  position: absolute;
+  top: 50%;
+  right: 16px;
+  transform: translateY(-50%);
+  color: var(--muted);
+  font-weight: 700;
+}
+
+#housing-area-complete,
+#additional-complete,
+#new-address-complete,
+#reservation-submit {
+  width: 100%;
+  min-height: 52px;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border-color: var(--dark);
+  background: var(--dark);
+  color: #ffffff;
+  font-weight: 750;
+}
+
+#housing-area-complete:hover,
+#additional-complete:hover,
+#new-address-complete:hover,
+#reservation-submit:hover {
+  background: var(--dark-hover);
+}
+
+#additional-direct-input-group {
+  padding-top: 2px;
+}
+
+#old-address-group label:not(:first-child),
+#new-address-group label:not(:first-child),
+#reservation-form label:not(:first-child) {
+  margin-top: 14px;
+}
+
+.consultation-connect {
+  padding: 20px;
+}
+
+.consultation-connect h2,
+.promise-section h2 {
+  margin: 0;
+  font-size: 20px;
+  letter-spacing: -0.025em;
+}
+
+.connect-buttons {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+.connect-button {
+  width: 100%;
+  min-height: 54px;
+  padding: 14px 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0;
+  border-radius: var(--radius-medium);
+  background: var(--dark);
+  color: #ffffff;
+  text-align: center;
+  text-decoration: none;
+  font-weight: 750;
+  transition:
+    background-color var(--transition),
+    transform 100ms ease;
+}
+
+.connect-button:hover {
+  background: var(--dark-hover);
+}
+
+.connect-button:active {
+  transform: scale(0.985);
+}
+
+#reservation-form {
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  animation: accordion-open 180ms ease;
+}
+
+.reservation-notice {
+  margin: 12px 0 0;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.65;
+  word-break: keep-all;
+}
+
+.promise-section {
+  padding: 21px 20px;
+}
+
+.promise-section p {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.7;
+  word-break: keep-all;
+}
+
+@media (min-width: 560px) {
+  .page {
+    padding-top: 42px;
+  }
+
+  .site-header {
+    padding-bottom: 30px;
+  }
+
+  .choice-group,
+  .multiple-choice-group {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #housing-size-options {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .connect-buttons {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .accordion-header {
+    padding: 22px 24px;
+  }
+
+  .accordion-content {
+    padding: 0 24px 24px;
+  }
+
+  .consultation-connect,
+  .promise-section {
+    padding: 24px;
+  }
+}
+
+@media (max-width: 420px) {
+  .page {
+    padding-right: 12px;
+    padding-left: 12px;
+  }
+
+  .accordion-header {
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 8px;
+  }
+
+  .accordion-title {
+    grid-column: 1;
+  }
+
+  .accordion-summary {
+    grid-column: 1 / -1;
+    text-align: left;
+    font-size: 13px;
+  }
+
+  .accordion-header::after {
+    grid-column: 2;
+    grid-row: 1;
+  }
+
+  .choice-group,
+  .multiple-choice-group,
+  #housing-size-options {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .detail-choice-button {
+    padding: 15px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+</style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="site-header">
+      <h1 class="site-title">바른수유인테리어</h1>
+      <p class="site-description">
+        필요한 항목을 선택하시면 상담 내용을 한눈에 확인할 수 있습니다.
+      </p>
+    </header>
+
+    <section class="consultation" aria-label="시공 상담">
+
+      <section class="accordion-section" id="housing-section">
+        <button class="accordion-header" type="button" id="housing-header"
+          aria-expanded="false" aria-controls="housing-content">
+          <span class="accordion-title">🏠 주거 형태</span>
+          <span class="accordion-summary" id="housing-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="housing-content"
+          aria-labelledby="housing-header" hidden>
+          <div class="choice-group" id="housing-type-group">
+            <button type="button" class="choice-button" data-housing="원룸">원룸</button>
+            <button type="button" class="choice-button" data-housing="빌라">빌라</button>
+            <button type="button" class="choice-button" data-housing="아파트">아파트</button>
+            <button type="button" class="choice-button" data-housing="주택">주택</button>
+            <button type="button" class="choice-button" data-housing="상가">상가</button>
+            <button type="button" class="choice-button" data-housing="사무실">사무실</button>
+          </div>
+
+          <div class="sub-choice-group" id="housing-size-group" hidden>
+            <p class="group-label">평수를 선택해 주세요.</p>
+            <div id="housing-size-options"></div>
+          </div>
+
+          <div class="direct-input-group" id="housing-area-input-group" hidden>
+            <label for="housing-area-input">평수 직접 입력</label>
+            <div class="input-with-unit">
+              <input type="number" id="housing-area-input" inputmode="decimal"
+                min="1" placeholder="평수 입력">
+              <span>평</span>
+            </div>
+            <button type="button" id="housing-area-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="wallpaper-section">
+        <button class="accordion-header" type="button" id="wallpaper-header"
+          aria-expanded="false" aria-controls="wallpaper-content">
+          <span class="accordion-title">🧱 벽지 선택</span>
+          <span class="accordion-summary" id="wallpaper-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="wallpaper-content"
+          aria-labelledby="wallpaper-header" hidden>
+          <button type="button" class="detail-choice-button" data-wallpaper="합지">
+            <strong>합지</strong>
+            <span>경제적인 선택으로 일반 주거공간에 많이 사용됩니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="실크">
+            <strong>실크</strong>
+            <span>내구성과 오염 저항성이 우수하며 고급스러운 마감이 가능합니다.</span>
+          </button>
+
+          <button type="button" class="detail-choice-button" data-wallpaper="기타">
+            <strong>기타</strong>
+            <span>상담 시 원하는 제품을 말씀해 주세요.</span>
+          </button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="condition-section">
+        <button class="accordion-header" type="button" id="condition-header"
+          aria-expanded="false" aria-controls="condition-content">
+          <span class="accordion-title">🔍 현장 상태</span>
+          <span class="accordion-summary" id="condition-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="condition-content"
+          aria-labelledby="condition-header" hidden>
+          <fieldset class="condition-group">
+            <legend>결로</legend>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="condensation" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>곰팡이</legend>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="mold" data-value="없음">없음</button>
+          </fieldset>
+
+          <fieldset class="condition-group">
+            <legend>짐 이동</legend>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="있음">있음</button>
+            <button type="button" class="condition-button"
+              data-condition="furniture" data-value="없음">없음</button>
+          </fieldset>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="additional-section">
+        <button class="accordion-header" type="button" id="additional-header"
+          aria-expanded="false" aria-controls="additional-content">
+          <span class="accordion-title">🛠️ 추가 시공</span>
+          <span class="accordion-summary" id="additional-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="additional-content"
+          aria-labelledby="additional-header" hidden>
+          <div class="multiple-choice-group">
+            <button type="button" class="multiple-choice-button" data-additional="없음">없음</button>
+            <button type="button" class="multiple-choice-button" data-additional="장판">장판</button>
+            <button type="button" class="multiple-choice-button" data-additional="타일">타일</button>
+            <button type="button" class="multiple-choice-button" data-additional="문 교체">문 교체</button>
+            <button type="button" class="multiple-choice-button" data-additional="붙박이장">붙박이장</button>
+            <button type="button" class="multiple-choice-button" data-additional="싱크대">싱크대</button>
+            <button type="button" class="multiple-choice-button" data-additional="직접 입력">직접 입력</button>
+          </div>
+
+          <div id="additional-direct-input-group" hidden>
+            <label for="additional-direct-input">추가 시공 직접 입력</label>
+            <input type="text" id="additional-direct-input"
+              placeholder="원하는 추가 시공을 입력해 주세요.">
+          </div>
+
+          <button type="button" id="additional-complete">선택 완료</button>
+        </div>
+      </section>
+
+      <section class="accordion-section" id="location-section">
+        <button class="accordion-header" type="button" id="location-header"
+          aria-expanded="false" aria-controls="location-content">
+          <span class="accordion-title">📍 시공 지역</span>
+          <span class="accordion-summary" id="location-summary"></span>
+        </button>
+
+        <div class="accordion-content" id="location-content"
+          aria-labelledby="location-header" hidden>
+          <div class="choice-group" id="address-type-group">
+            <button type="button" class="choice-button" data-address-type="구주소">구주소</button>
+            <button type="button" class="choice-button" data-address-type="신주소">신주소</button>
+          </div>
+
+          <div id="old-address-group" hidden>
+            <label for="district-select">구 선택</label>
+            <select id="district-select">
+              <option value="">구를 선택해 주세요.</option>
+              <option value="강북구">강북구</option>
+              <option value="노원구">노원구</option>
+              <option value="도봉구">도봉구</option>
+              <option value="성북구">성북구</option>
+            </select>
+
+            <label for="neighborhood-select">동 선택</label>
+            <select id="neighborhood-select" disabled>
+              <option value="">동을 선택해 주세요.</option>
+            </select>
+          </div>
+
+          <div id="new-address-group" hidden>
+            <label for="new-address-input">신주소 입력</label>
+            <input type="text" id="new-address-input"
+              placeholder="도로명 주소를 입력해 주세요.">
+            <button type="button" id="new-address-complete">선택 완료</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="consultation-connect" id="connect-section">
+        <h2>📝 상담 연결</h2>
+
+        <div class="connect-buttons">
+          <a class="connect-button" id="phone-consultation"
+            href="tel:01040084197">📞 전화 상담</a>
+
+          <a class="connect-button" id="kakao-consultation"
+            href="https://open.kakao.com/o/s9MsLsqi"
+            target="_blank" rel="noopener noreferrer">💬 카카오 상담</a>
+
+          <button class="connect-button" type="button" id="reservation-toggle"
+            aria-expanded="false" aria-controls="reservation-form">
+            🗓️ 상담 예약
+          </button>
+        </div>
+
+        <div id="reservation-form" hidden>
+          <label for="reservation-name">이름</label>
+          <input type="text" id="reservation-name" autocomplete="name"
+            placeholder="이름을 입력해 주세요.">
+
+          <label for="reservation-phone">연락처</label>
+          <input type="tel" id="reservation-phone" inputmode="tel"
+            autocomplete="tel" placeholder="연락처를 입력해 주세요.">
+
+          <label for="reservation-request">요청사항</label>
+          <textarea id="reservation-request" rows="5"
+            placeholder="상담 시 필요한 내용을 입력해 주세요."></textarea>
+
+          <p class="reservation-notice">
+            상담 신청에 연락처를 남기시면 내용 확인 후 빠르게 연락드립니다.
+          </p>
+
+          <button type="button" id="reservation-submit">
+            예약 내용 복사 후 카카오톡 열기
+          </button>
+        </div>
+      </section>
+
+      <section class="promise-section">
+        <h2>바른수유의 약속</h2>
+        <p>최저가·초고품질 시공을 목표로 정직하게 상담하겠습니다.</p>
+      </section>
+
+    </section>
+  </main>
+
+  <script>
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -433,3 +1293,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+</script>
+</body>
+</html>
