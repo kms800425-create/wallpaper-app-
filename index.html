@@ -861,11 +861,9 @@ select:disabled {
 "use strict";
 
 document.addEventListener("DOMContentLoaded", () => {
-  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWUQP1-SwZ3RumoVaiYNrl6NypY6w1ZXdQtrxP9J1CcXXHOmH0_0-kQbPq9NJ_uF6w/exec";
   const KAKAO_URL = "https://open.kakao.com/o/s9MsLsqi";
 
   const state = {
-    inquiryMethod: "예약상담",
     housingType: "",
     housingSize: "",
     wallpaper: "",
@@ -1251,29 +1249,6 @@ document.addEventListener("DOMContentLoaded", () => {
     textarea.remove();
   }
 
-  async function saveToGoogleSheet(payload) {
-    await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
-      body: JSON.stringify(payload)
-    });
-  }
-
-  document.getElementById("phone-consultation").addEventListener("click", () => {
-    state.inquiryMethod = "전화상담";
-  });
-
-  document.getElementById("kakao-consultation").addEventListener("click", () => {
-    state.inquiryMethod = "카카오상담";
-  });
-
-  reservationToggle.addEventListener("click", () => {
-    state.inquiryMethod = "예약상담";
-  });
-
   document.getElementById("reservation-submit").addEventListener("click", async () => {
     const name = document.getElementById("reservation-name").value.trim();
     const phone = document.getElementById("reservation-phone").value.trim();
@@ -1306,41 +1281,15 @@ document.addEventListener("DOMContentLoaded", () => {
       "",
       "희망 방문일:",
       "희망 시간:"
-    ].join("
-");
-
-    const payload = {
-      "접수시간": new Date().toLocaleString("ko-KR"),
-      "문의방식": state.inquiryMethod,
-      "주거형태": state.housingType || "미선택",
-      "평수": state.housingSize || "미선택",
-      "벽지": state.wallpaper || "미선택",
-      "결로": state.condition.condensation || "미선택",
-      "곰팡이": state.condition.mold || "미선택",
-      "짐이동": state.condition.furniture || "미선택",
-      "추가시공": summaryText("additional-summary"),
-      "시공지역": summaryText("location-summary"),
-      "이름": name,
-      "연락처": phone,
-      "요청사항": request || "없음"
-    };
-
-    const submitButton = document.getElementById("reservation-submit");
-    const originalText = submitButton.textContent;
-    submitButton.disabled = true;
-    submitButton.textContent = "저장 중...";
+    ].join("\n");
 
     try {
-      await saveToGoogleSheet(payload);
       await copyText(message);
-      alert("상담 내용이 저장되었습니다. 예약 내용도 복사되었습니다.");
+      alert("예약 내용이 복사되었습니다. 카카오톡에서 붙여넣어 주세요.");
       window.open(KAKAO_URL, "_blank", "noopener");
     } catch (error) {
-      alert("저장하지 못했습니다. 다시 시도해 주세요.");
+      alert("복사하지 못했습니다. 다시 시도해 주세요.");
       console.error(error);
-    } finally {
-      submitButton.disabled = false;
-      submitButton.textContent = originalText;
     }
   });
 });
