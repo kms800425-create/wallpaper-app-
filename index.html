@@ -1254,10 +1254,6 @@ document.addEventListener("DOMContentLoaded", () => {
   async function saveToGoogleSheet(payload) {
     const response = await fetch(APPS_SCRIPT_URL, {
       method: "POST",
-      mode: "no-cors",
-      headers: {
-        "Content-Type": "text/plain;charset=utf-8"
-      },
       body: JSON.stringify(payload)
     });
 
@@ -1308,18 +1304,11 @@ document.addEventListener("DOMContentLoaded", () => {
         : [state.district, state.neighborhood].filter(Boolean).join(" ");
 
     const payload = {
-      "문의방식": "상담예약",
-      "주거형태": state.housingType,
-      "평수": state.housingSize,
-      "벽지": state.wallpaper,
-      "결로": state.condition.condensation,
-      "곰팡이": state.condition.mold,
-      "짐이동": state.condition.furniture,
-      "추가시공": additionalItems.join(", "),
-      "시공지역": location,
-      "이름": name,
-      "연락처": phone,
-      "요청사항": request
+      type: `${state.housingType} ${state.housingSize}`.trim(),
+      wall: state.wallpaper,
+      area: location,
+      option: additionalItems.join(", "),
+      price: ""
     };
 
     try {
