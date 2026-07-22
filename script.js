@@ -3,7 +3,7 @@
 /*
   구글 앱스 스크립트 웹 앱 주소
 */
-const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby07n5Mf0YZCCQ1UcBc7dXLvIh2ACFq6IMm4r5UyK9UEnYAfxOaw8RcbpZQk9aXW23U/exec";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWUQP1-SwZ3RumoVaiYNrl6NypY6w1ZXdQtrxP9J1CcXXHOmH0_0-kQbPq9NJ_uF6w/exec";
 
 document.addEventListener("DOMContentLoaded", () => {
   const PHONE_URL = "tel:01040084197";
