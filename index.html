@@ -862,6 +862,7 @@ select:disabled {
 
 document.addEventListener("DOMContentLoaded", () => {
   const KAKAO_URL = "https://open.kakao.com/o/s9MsLsqi";
+  const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxWUQP1-SwZ3RumoVaiYNrl6NypY6w1ZXdQtrxP9J1CcXXHOmH0_0-kQbPq9NJ_uF6w/exec";
 
   const state = {
     housingType: "",
@@ -1249,6 +1250,20 @@ document.addEventListener("DOMContentLoaded", () => {
     textarea.remove();
   }
 
+
+  async function saveToGoogleSheet(payload) {
+    const response = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      mode: "no-cors",
+      headers: {
+        "Content-Type": "text/plain;charset=utf-8"
+      },
+      body: JSON.stringify(payload)
+    });
+
+    return response;
+  }
+
   document.getElementById("reservation-submit").addEventListener("click", async () => {
     const name = document.getElementById("reservation-name").value.trim();
     const phone = document.getElementById("reservation-phone").value.trim();
@@ -1283,12 +1298,37 @@ document.addEventListener("DOMContentLoaded", () => {
       "희망 시간:"
     ].join("\n");
 
+    const additionalItems = state.additional.map((item) =>
+      item === "직접 입력" ? state.additionalDirect : item
+    );
+
+    const location =
+      state.addressType === "신주소"
+        ? state.newAddress
+        : [state.district, state.neighborhood].filter(Boolean).join(" ");
+
+    const payload = {
+      "문의방식": "상담예약",
+      "주거형태": state.housingType,
+      "평수": state.housingSize,
+      "벽지": state.wallpaper,
+      "결로": state.condition.condensation,
+      "곰팡이": state.condition.mold,
+      "짐이동": state.condition.furniture,
+      "추가시공": additionalItems.join(", "),
+      "시공지역": location,
+      "이름": name,
+      "연락처": phone,
+      "요청사항": request
+    };
+
     try {
+      await saveToGoogleSheet(payload);
       await copyText(message);
-      alert("예약 내용이 복사되었습니다. 카카오톡에서 붙여넣어 주세요.");
+      alert("상담 내용이 저장되고 복사되었습니다. 카카오톡에서 붙여넣어 주세요.");
       window.open(KAKAO_URL, "_blank", "noopener");
     } catch (error) {
-      alert("복사하지 못했습니다. 다시 시도해 주세요.");
+      alert("저장 중 문제가 발생했습니다. 다시 시도해 주세요.");
       console.error(error);
     }
   });
